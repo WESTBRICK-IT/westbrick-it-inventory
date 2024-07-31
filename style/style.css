@@ -116,6 +116,57 @@
     flex-wrap: wrap;
     justify-content: center;
 }
+.westbrick-success-svg {    
+    display: block;
+    max-width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 120px;
+    height: auto;
+}
+.home-button {
+    display: block;
+    margin: 24px auto;
+    height: 40px;
+    width: 160px;
+    background-color: rgb( 220, 164, 19);
+    font-size: 20px;    
+    font-weight: bold;
+    border-radius: 8px;
+}
+.home-button:hover {
+    background-color: rgb(250, 194, 49);
+}
+.sub-menu-table {
+    
+}
+.table-wrapper {
+    font-family: 'lucida-sans-demibold-roman', sans-serif;
+    margin: auto;
+    /* max-width: 400px; */
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+th {
+    background-color: rgb( 220, 164, 19);    
+    padding: 12px;
+    text-align: left;
+}
+td {
+    padding: 12px;
+    border: 1px solid #dddddd;
+    text-align: left;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: #e0e0e0;
+}
 @media screen and (max-width: 1200px) {
     .submission-form {
         margin-left: 100px;
