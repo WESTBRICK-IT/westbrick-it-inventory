@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Westbrick IT Inventory - Users</title>
     <link rel="stylesheet" href="../style/style.css">
-    <script src="../script/sub-menu-script.js" defer></script>
+    <script src="../script/sub-menu-script.js" defer></script>    
     <link rel="icon" href="../favicon.ico" type="image/x-icon">
 </head>
 <body>
@@ -15,6 +15,19 @@
     <button class="button" onclick="window.location.href='./add-new-user/'" type="button">Add New User</button>
     <div class="table-wrapper">
         <table class="sub-menu-table">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Cell Phone Number</th>                    
+                    <th>Office Phone Number</th>
+                    <th>Extension Number</th>
+                    <th>E-Mail</th>
+                    <th>Position Title</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
             <?php
                 $allowedIPs = array('206.174.198.58', '206.174.198.59', '50.99.132.206'); // Define the list of allowed IP addresses
 
@@ -41,7 +54,7 @@
                  $result = mysqli_query($conn, $query);
                  if (mysqli_num_rows($result) > 0) {                                            
                     while($row = mysqli_fetch_assoc($result)){
-                       //replace grave image with apostrophe
+                       
                        $username = $row["username"];
                        $firstName = $row["first_name"];
                        $lastName = $row["last_name"];
@@ -53,18 +66,8 @@
                        $date = $row["date"];
                        $time = $row["time"];                       
                        $email = $row["email"];
+                       $id = $row["id"];
                 
-                        echo    "   <thead>";
-                        echo    "       <tr>";
-                        echo    "           <th>Username</th>";
-                        echo    "           <th>First Name</th>";
-                        echo    "           <th>Last Name</th>";
-                        echo    "           <th>Cell Phone Number</th>";
-                        echo    "           <th>Office Phone Number</th>";
-                        echo    "           <th>Extension Number</th>";
-                        echo    "           <th>E-Mail</th>";
-                        echo    "       </tr>";
-                        echo    "   </thead>";
                         echo    "   <tbody>";
                         echo    "       <tr>";
                         echo    "           <td>$username</td>";
@@ -75,6 +78,7 @@
                         echo    "           <td>$extensionNumber</td>";
                         echo    "           <td>$email</td>";
                         echo    "           <td>$positionTitle</td>";
+                        echo    "           <td><img class='garbage-can garbage-can$id user-garbage-can user-garbage-can$id' src='../images/garbage-can.svg' alt='users Garbage Can $id'></td>";
                         echo    "       </tr>";
                         echo    "   </tbody>";
                     }

@@ -1,0 +1,67 @@
+<!-- Made by Christopher Barber July 2024 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Westbrick IT Inventory - Add New User</title>
+    <link rel="stylesheet" href="../../style/style.css">
+    <script src="../../script/sub-menu-script.js" defer></script>
+    <link rel="icon" href="../../favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <a href="../"><img class="main-title" src="../../images/westbrick-it-inventory.svg" alt="Westbrick IT Inventory"></a>
+    <h1 class="sub-page-title">Add New Equipment</h1>
+    <form class="submission-form" method="post" action="add-new-user.php" enctype="multipart/form-data"> 
+        <div class="input-group">
+            <div class="top-stuff">
+                <div>
+                    <label for="username">Equipment Type:</label>
+                    <input type="text" id="username" name="username">
+                </div>
+                
+                <div>
+                    <label for="first-name">Model Name:</label>
+                    <input type="text" id="first-name" name="first-name">
+                </div>
+
+                <div>
+                    <label for="last-name">Model Number:</label>
+                    <input type="text" id="last-name" name="last-name">
+                </div>
+            </div>
+            <div class="middle-stuff">
+                <div>
+                    <label for="cell-phone-number">Serial Number:</label>
+                    <input class="cell-phone-number" type="text" id="cell-phone-number" name="cell-phone-number">
+                </div>
+
+                <div>
+                    <label for="office-phone-number">Purchase Date:</label>
+                    <input class="office-phone-number" type="text" id="office-phone-number" name="office-phone-number">
+                </div>
+
+                <div>
+                    <label for="extention-number">Purchase Price:</label>
+                    <input class="extention-number" type="text" id="extension-number" name="extension-number"> 
+                </div>
+            </div>
+            
+            <div class="bottom-stuff">
+                <div>
+                    <label for="email">Warranty Start:</label>
+                    <input class="email" type="text" id="email" name="email">
+                </div>
+
+                <div>
+                    <label for="position-title">Warranty End:</label>
+                    <input class="position-title" type="text" id="position-title" name="position-title">
+                </div>                
+            </div>
+        </div>       
+                    
+        <input class="submit-button" type="submit" value="Post Item">
+    </form>    
+    <button class="button go-back-button" type="button">Go back</button>
+</body>
+</html>
