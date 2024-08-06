@@ -35,15 +35,15 @@
             die("Connection failed: " . $conn->connect_error);
         }    
         
-        $username = $_POST['username'];
-        $firstName = $_POST['first-name'];
-        $lastName = $_POST['last-name'];
-        $cellPhoneNumber = $_POST['cell-phone-number'];
-        $officePhoneNumber = $_POST['office-phone-number'];
-        $extensionNumber = $_POST['extension-number'];
-        $email = $_POST['email'];
-        $positionTitle = $_POST['position-title'];
-        
+        $type = $_POST['type'];
+        $name = $_POST['name'];
+        $modelName = $_POST['model-name'];
+        $modelNumber = $_POST['model-number'];
+        $serialNumber = $_POST['serial-number'];
+        $purchaseDate = $_POST['purchase-date'];
+        $purchasePrice = $_POST['purchase-price'];
+        $warrantyStart = $_POST['warranty-start'];
+        $warrantyEnd = $_POST['warranty-end'];       
         $date = date('Y-m-d');        
         date_default_timezone_set('America/Denver'); 
         $time = date('H:i:s', time());
@@ -51,21 +51,16 @@
             $newString = str_replace("'", '`', $string); 
             return $newString; 
         }    
-        $username = convertApostrophe($username);
-        $firstName = convertApostrophe($firstName);
-        $lastName = convertApostrophe($lastName);
-        $cellPhoneNumber = convertApostrophe($cellPhoneNumber); 
-        $officePhoneNumber = convertApostrophe($officePhoneNumber);
-        $email = convertApostrophe($email);
-        $positionTitle = convertApostrophe($positionTitle);        
+        $name = convertApostrophe($name);
+        $type = convertApostrophe($type);
+        $modelName = convertApostrophe($modelName);
         
-        $sql = "INSERT INTO users (first_name, last_name, cell_phone_num, office_phone_num, email, position_title, extension_num, username, date, time) VALUES ('$firstName', '$lastName', '$cellPhoneNumber', '$officePhoneNumber', '$email', '$positionTitle', '$extensionNumber', '$username', '$date', '$time')";
-        // $sql = "INSERT INTO articles (title, author, body, date) VALUES ('$title', '$author', '$body', '$date')";
+        $sql = "INSERT INTO users (type, name, model_name, model_number, serial_number, purchase_date, purchase_price, warranty_start, warranty_end, date, time) VALUES ('$type', '$name', '$modelName', '$modelNumber', '$serialNumber', '$purchaseDate', '$purchasePrice', '$warrantyStart', '$warrantyEnd', '$date', '$time')";        // $sql = "INSERT INTO articles (title, author, body, date) VALUES ('$title', '$author', '$body', '$date')";
         
         if ($conn->query($sql) === TRUE) {
             // echo "<h1>Article $title submitted successfully! Redirecting to articles page in 5 seconds.</h1>";
             echo "<div class='westbrick-success-svg-container'>";
-            echo    "<img class='westbrick-success-svg' src='../../images/user-submitted-successfully.svg' alt='WESTBRICK SUCCESS SVG'>";
+            echo    "<img class='westbrick-success-svg' src='../../images/equipment-submitted-successfully.svg' alt='WESTBRICK SUCCESS SVG'>";
             echo    "<button class='home-button' type='button' onclick='window.location.href=`../`;'>Home</button>";
             echo "</div>";
             // echo "<br><h1>File name: $image" . "File tmp name: $image_tmp" . "</h1>";

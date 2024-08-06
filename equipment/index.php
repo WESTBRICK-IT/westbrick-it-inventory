@@ -29,20 +29,61 @@
                     <th>Delete</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td>Computer</td>
-                    <td>HP Z2 Small Form Factor G5 Workstation</td>
-                    <td>WS-118</td>
-                    <td>Doe</td>
-                    <td>555-555-5555</td>
-                    <td>555-555-5555</td>
-                    <td>555</td>
-                    <td>jdoe@johndoe.com</td>
-                    <td>Janitor</td>                    
-                    <td><img class="garbage-can garbage-can1 user-garbage-can user-garbage-can1" src="../images/garbage-can.svg" alt="Garbage Can 1"></td>
-                </tr>                            
-            </tbody>
+            <?php
+
+                $allowedIPs = array('206.174.198.58', '206.174.198.59', '50.99.132.206'); // Define the list of allowed IP addresses
+
+                $remoteIP = $_SERVER['REMOTE_ADDR']; // Get the remote IP address of the client
+
+                if (!in_array($remoteIP, $allowedIPs)) {
+                    // Unauthorized access - display an error message or redirect
+                    echo "<h1>Access denied. Your IP address is not allowed to view these items.</h1>";
+                    exit();
+                }
+                function convertApostrophe($string) { 
+                    $newString = str_replace("`", "'", $string); 
+                    return $newString; 
+                }
+                // Connect to the database
+                $conn = mysqli_connect("localhost", "cbarber", "!!!Dr0w554p!!!", "IT_Inventory_DB");
+
+                // Check connection
+                if (!$conn) {
+                    die("Connection failed: " . mysqli_connect_error());
+                }
+
+                $query = "SELECT * FROM `equipment` ORDER BY `type` DESC, `name` DESC";
+                $result = mysqli_query($conn, $query);
+                if (mysqli_num_rows($result) > 0) {                                            
+                    while($row = mysqli_fetch_assoc($result)){
+                    
+                        $name = $row["name"];
+                        $modelNumber = $row["model_number"];
+                        $purchaseDate = $row["purchase_date"];
+                        $purchasePrice = $row["purchase_price"];
+                        $serialNumber = $row["serial_number"];
+                        $type = $row["type"];
+                        $warrantyEnd = $row["warranty_end"];
+                        $warrantyStart = $row["warranty_start"];
+                        $modelName = $row["model_name"];
+
+                        echo    "   <tbody>";
+                        echo    "       <tr>";
+                        echo    "           <td>$type</td>";
+                        echo    "           <td>$name</td>";
+                        echo    "           <td>$modelName</td>";
+                        echo    "           <td>$modelNumber</td>";
+                        echo    "           <td>$serialNumber</td>";
+                        echo    "           <td>$purchaseDate</td>";
+                        echo    "           <td>$purchasePrice</td>";                        
+                        echo    "           <td>$warrantyStart</td>";
+                        echo    "           <td>$warrantyEnd</td>";
+                        echo    "           <td>Delete</td>";
+                        echo    "       </tr>";
+                        echo    "   </tbody>";
+                    }
+                }
+            ?>
         </table>
     </div>
     <button class="button go-back-button" type="button">Go back</button>
