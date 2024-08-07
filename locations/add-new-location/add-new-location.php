@@ -1,17 +1,15 @@
-<!-- //Programmed by Chris Barber June 6 2024 -->
+<!-- Made by Christopher Barber July 2024 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Westbrick IT Inventory - Delete Thing</title>
-    <link rel="stylesheet" href="../style/style.css">
-    <script src="../script/sub-menu-script.js" defer></script>    
-    <link rel="icon" href="../favicon.ico" type="image/x-icon">
+    <title>Westbrick IT Inventory - Add New User</title>
+    <link rel="stylesheet" href="../../style/style.css">
+    <script src="../../script/sub-menu-script.js" defer></script>
+    <link rel="icon" href="../../favicon.ico" type="image/x-icon">
 </head>
 <body>
-    <img class="main-title" src="../images/westbrick-it-inventory.svg" alt="Westbrick Internal Market Title">
-      
     <?php
         $allowedIPs = array('206.174.198.58', '206.174.198.59', '50.99.132.206'); // Define the list of allowed IP addresses
 
@@ -19,7 +17,7 @@
         
         if (!in_array($remoteIP, $allowedIPs)) {
             // Unauthorized access - display an error message or redirect
-            echo "Access denied. Your IP address is not allowed to delete this item.";
+            echo "Access denied. Your IP address is not allowed to submit this item.";
             exit();
         }
         
@@ -35,18 +33,32 @@
         
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
-        }            
-        
-        $id = $_GET['id'];
-        $table = $_GET['table'];
+        }    
 
-        $sql = "DELETE FROM $table WHERE id = $id";
+        $locationName = $_POST['location-name'];
+        $cityOrTown = $_POST['city-or-town'];
+        $roomNumber = $_POST['room-number'];
+        $lsdCoordinates = $_POST['lsd-coordinates'];
+        $latitude = $_POST['latitude'];
+        $longitude = $_POST['longitude'];
+        $date = date('Y-m-d');        
+        date_default_timezone_set('America/Denver'); 
+        $time = date('H:i:s', time());
+        function convertApostrophe($string) { 
+            $newString = str_replace("'", '`', $string); 
+            return $newString; 
+        }    
+        $locationName = convertApostrophe($locationName);
+        $cityOrTown = convertApostrophe($cityOrTown);
+        $roomNumber = convertApostrophe($roomNumber);
+        $lsdCoordinates = convertApostrophe($lsdCoordinates);        
+        
+        $sql = "INSERT INTO locations (location_name, city_town, room_number, lsd_coordinate, latitude, longitude, date, time) VALUES ('$locationName', '$cityOrTown', '$roomNumber', '$lsdCoordinates', '$latitude', '$longitude', '$date', '$time')";
         
         if ($conn->query($sql) === TRUE) {
             // echo "<h1>Article $title submitted successfully! Redirecting to articles page in 5 seconds.</h1>";
-            echo "<h1 class='successful-deletion-indicator'>Item # $id Deleted</h1>";
             echo "<div class='westbrick-success-svg-container'>";
-            echo    "<img class='westbrick-success-svg' src='../images/item-deleted-successfully.svg' alt='WESTBRICK SUCCESS SVG'>";
+            echo    "<img class='westbrick-success-svg' src='../../images/location-submitted-successfully.svg' alt='WESTBRICK SUCCESS SVG'>";
             echo    "<button class='home-button' type='button' onclick='window.location.href=`../`;'>Home</button>";
             echo "</div>";
             // echo "<br><h1>File name: $image" . "File tmp name: $image_tmp" . "</h1>";
@@ -57,12 +69,10 @@
         } else {
             echo "<div class='westbrick-success-svg-container'>";
             echo    "Error: " . $sql . "<br>" . $conn->error;
-            echo    "<button class='home-button' type='button' onclick='window.location.href=`./$table`;'>Compose</button>";
+            echo    "<button class='home-button' type='button' onclick='window.location.href=`index.html`;'>Compose</button>";
             echo "</div>";
         }
-
         $conn->close();
         
-        ?>
+    ?>
 </body>
-</html>

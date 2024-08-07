@@ -28,6 +28,7 @@
                     <th>Delete</th>
                 </tr>
             </thead>
+            <tbody>
             <?php
                 $allowedIPs = array('206.174.198.58', '206.174.198.59', '50.99.132.206'); // Define the list of allowed IP addresses
 
@@ -68,7 +69,7 @@
                        $email = $row["email"];
                        $id = $row["id"];
                 
-                        echo    "   <tbody>";
+                        // echo    "   <tbody>";
                         echo    "       <tr>";
                         echo    "           <td>$username</td>";
                         echo    "           <td>$firstName</td>";
@@ -80,10 +81,11 @@
                         echo    "           <td>$positionTitle</td>";
                         echo    "           <td><img class='garbage-can garbage-can$id user-garbage-can user-garbage-can$id' src='../images/garbage-can.svg' alt='users Garbage Can $id'></td>";
                         echo    "       </tr>";
-                        echo    "   </tbody>";
+                        // echo    "   </tbody>";
                     }
                 }
             ?>
+            </tbody>
         </table>
     </div>
     <button class="button go-back-button" type="button">Go back</button>

@@ -1,0 +1,53 @@
+<!-- Made by Christopher Barber July 2024 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Westbrick IT Inventory - Add New Location</title>
+    <link rel="stylesheet" href="../../style/style.css">
+    <script src="../../script/sub-menu-script.js" defer></script>
+    <link rel="icon" href="../../favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <a href="../"><img class="main-title" src="../../images/westbrick-it-inventory.svg" alt="Westbrick IT Inventory"></a>
+    <h1 class="sub-page-title">Add New Location</h1>
+    <form class="submission-form" method="post" action="add-new-equipment.php" enctype="multipart/form-data"> 
+        <div class="input-group">
+            <div class="top-stuff">                
+                <div>
+                    <label for="location-name">Location Name:</label>
+                    <input type="text" id="location-name" name="location-name"></input>
+                </div>
+
+                <div>
+                    <label for="city-or-town">City or Town:</label>
+                    <input type="text" id="city-or-town" name="city-or-town"></input>
+                </div>
+                
+                <div>
+                    <label for="room-number">Room Number:</label>
+                    <input type="text" id="room-number" name="room-number"></input>
+                </div>                
+            </div>
+            <div class="middle-stuff">
+                <div>
+                    <label for="lsd-coordinates">LSD Co-ordinates:</label>
+                    <input type="text" id="lsd-coordinates" name="lsd-coordinates"></input>
+                </div>
+                <div>
+                    <label for="latitude">Latitude:</label>
+                    <input class="latitude" type="number" id="latitude" name="latitude"></input>
+                </div>
+
+                <div>
+                    <label for="longitude">Longitude:</label>
+                    <input class="longitude" type="number" id="longitude" name="longitude"></input>
+                </div>
+            </div>            
+        </div>      
+        <input class="submit-button" type="submit" value="Post Item"></input>
+    </form>    
+    <button class="button go-back-button" type="button">Go back</button>
+</body>
+</html>

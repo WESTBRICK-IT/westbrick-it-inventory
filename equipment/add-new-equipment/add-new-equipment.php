@@ -55,7 +55,7 @@
         $type = convertApostrophe($type);
         $modelName = convertApostrophe($modelName);
         
-        $sql = "INSERT INTO users (type, name, model_name, model_number, serial_number, purchase_date, purchase_price, warranty_start, warranty_end, date, time) VALUES ('$type', '$name', '$modelName', '$modelNumber', '$serialNumber', '$purchaseDate', '$purchasePrice', '$warrantyStart', '$warrantyEnd', '$date', '$time')";        // $sql = "INSERT INTO articles (title, author, body, date) VALUES ('$title', '$author', '$body', '$date')";
+        $sql = "INSERT INTO equipment (type, name, model_name, model_number, serial_number, purchase_date, purchase_price, warranty_start, warranty_end, date, time) VALUES ('$type', '$name', '$modelName', '$modelNumber', '$serialNumber', '$purchaseDate', '$purchasePrice', '$warrantyStart', '$warrantyEnd', '$date', '$time')";        // $sql = "INSERT INTO articles (title, author, body, date) VALUES ('$title', '$author', '$body', '$date')";
         
         if ($conn->query($sql) === TRUE) {
             // echo "<h1>Article $title submitted successfully! Redirecting to articles page in 5 seconds.</h1>";

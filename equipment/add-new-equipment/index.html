@@ -14,23 +14,37 @@
     <h1 class="sub-page-title">Add New Equipment</h1>
     <form class="submission-form" method="post" action="add-new-equipment.php" enctype="multipart/form-data"> 
         <div class="input-group">
-            <div class="top-stuff">
+            <div class="top-stuff">                
                 <div>
                     <label for="type">Type:</label>
-                    <input type="text" id="type" name="type">
+                    <select class="dropdown" id="type" name="type">
+                        <option value="">Choose an option</option>
+                        <option value="computer">Computer</option>
+                        <option value="printer">Printer</option>
+                        <option value="monitor">Monitor</option>
+                        <option value="webcam">Webcam</option>
+                        <option value="microphone">Microphone</option>
+                        <option value="router">Router</option>
+                        <option value="switch">Switch</option>
+                        <option value="other">Other</option>
+                    </select>                              
+                </div>
+
+                <div>
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name">
                 </div>
                 
                 <div>
                     <label for="model-name">Model Name:</label>
                     <input type="text" id="model-name" name="model-name">
-                </div>
-
+                </div>                
+            </div>
+            <div class="middle-stuff">
                 <div>
                     <label for="model-number">Model Number:</label>
                     <input type="text" id="model-number" name="model-number">
                 </div>
-            </div>
-            <div class="middle-stuff">
                 <div>
                     <label for="serial-number">Serial Number:</label>
                     <input class="serial-number" type="text" id="serial-number" name="serial-number">
@@ -38,24 +52,22 @@
 
                 <div>
                     <label for="purchase-date">Purchase Date:</label>
-                    <input class="purchase-date" type="text" id="purchase-date" name="purchase-date">
-                </div>
-
-                <div>
-                    <label for="purchase-price">Purchase Price:</label>
-                    <input class="purchase-price" type="text" id="purchase-price" name="purchase-price"> 
+                    <input class="purchase-date date" type="date" id="purchase-date" name="purchase-date">
                 </div>
             </div>
             
-            <div class="bottom-stuff">
+            <div class="bottom-stuff">                
+                <div>
+                    <label for="purchase-price">Purchase Price:</label>
+                    <input class="purchase-price" type="number" id="purchase-price" name="purchase-price"> 
+                </div>
                 <div>
                     <label for="warranty-start">Warranty Start:</label>
-                    <input class="warranty-start" type="text" id="warranty-start" name="warranty-start">
+                    <input class="warranty-start date" type="date" id="warranty-start" name="warranty-start">
                 </div>
-
                 <div>
                     <label for="warranty-end">Warranty End:</label>
-                    <input class="warranty-end" type="text" id="warranty-end" name="warranty-end">
+                    <input class="warranty-end date" type="date" id="warranty-end" name="warranty-end">
                 </div>                
             </div>
         </div>       

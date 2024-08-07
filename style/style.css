@@ -172,6 +172,25 @@ tr:hover {
     width: 20px;
     height: 20px;
 }
+.dropdown {
+    display: block;
+    margin: 8px auto;    
+    background-color: rgba(255, 255, 255, 0.6);
+    padding: 5px;
+    border-radius: 5px;      
+    border-style: solid;
+    border-color: rgb(220, 164, 19);
+    border-width: 3px;    
+    font-size: 16px;
+    width: 220px;
+    max-width: 90%;
+    height: 35px;
+    margin-left: 5px;    
+    margin-right: 0px;
+}
+.date {
+    width: 195px;    
+}
 @media screen and (max-width: 1200px) {
     .submission-form {
         margin-left: 100px;
