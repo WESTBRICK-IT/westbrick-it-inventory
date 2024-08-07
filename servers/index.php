@@ -4,25 +4,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Westbrick IT Inventory - Location</title>
+    <title>Westbrick IT Inventory - Servers</title>
     <link rel="stylesheet" href="../style/style.css">
     <script src="../script/sub-menu-script.js" defer></script>
     <link rel="icon" href="../favicon.ico" type="image/x-icon">
 </head>
 <body>
     <a href="../"><img class="main-title" src="../images/westbrick-it-inventory.svg" alt="Westbrick IT Inventory"></a>
-    <h1 class="sub-page-title">Location</h1>
-    <button class="button" onclick="window.location.href='./add-new-location/'" type="button">Add New Location</button>
+    <h1 class="sub-page-title">Servers</h1>
+    <button class="button" onclick="window.location.href='./add-new-server/'" type="button">Add New Server</button>
     <div class="table-wrapper">
         <table class="sub-menu-table">
             <thead>
                 <tr>
-                    <th>Location Name</th>
-                    <th>City/Town</th>
-                    <th>Room Number</th>
-                    <th>LSD Coordinate</th>
-                    <th>Latitude</th>
-                    <th>Longitude</th>                    
+                    <th>Server Name</th>
+                    <th>Server Location</th>
+                    <th>Server IP Address</th>
+                    <th>Remarks</th>
                     <th>Delete</th>
                 </tr>
             </thead>
@@ -50,26 +48,16 @@
                     die("Connection failed: " . mysqli_connect_error());
                 }
 
-                $query = "SELECT * FROM `locations` ORDER BY `location_name` DESC, `city_town` DESC";
+                $query = "SELECT * FROM `servers` ORDER BY `server_name` DESC";
                 $result = mysqli_query($conn, $query);
                 if (mysqli_num_rows($result) > 0) {                                            
                     while($row = mysqli_fetch_assoc($result)) {
 
-                        $locationName = $row['location_name'];
-                        $cityOrTown = $row['city_town'];
-                        $roomNumber = $row['room_number'];
-                        $lsdCoordinates = $row['lsd_coordinate'];
-                        $latitude = $row['latitude'];
-                        $longitude = $row['longitude'];
+                        $serverName = $row['server_name'];                        
                         $id = $row['id'];                        
                         
                         echo    "       <tr>";
-                        echo    "           <td>$locationName</td>";
-                        echo    "           <td>$cityOrTown</td>";
-                        echo    "           <td>$roomNumber</td>";
-                        echo    "           <td>$lsdCoordinates</td>";
-                        echo    "           <td>$latitude</td>";
-                        echo    "           <td>$longitude</td>";
+                        echo    "           <td>$serverName</td>";                        
                         echo    "           <td><img class='garbage-can garbage-can$id equipment-garbage-can equipment-garbage-can$id' src='../images/garbage-can.svg' alt='equipment Garbage Can $id'></td>";
                         echo    "       </tr>"; 
                         
