@@ -36,13 +36,13 @@
         }    
 
         $password = $_POST['password'];
-        $passwordRemark = $_POST['passwork-remark'];        
+        $passwordRemark = $_POST['password-remark'];        
         
         $date = date('Y-m-d');        
         date_default_timezone_set('America/Denver'); 
         $time = date('H:i:s', time());                
         
-        $sql = "INSERT INTO passwords (password, password_remark, date, time) VALUES ('$password', '$password_remark', '$date', '$time')";
+        $sql = "INSERT INTO passwords (password, password_remark, date, time) VALUES ('$password', '$passwordRemark', '$date', '$time')";
         
         if ($conn->query($sql) === TRUE) {
             // echo "<h1>Article $title submitted successfully! Redirecting to articles page in 5 seconds.</h1>";
