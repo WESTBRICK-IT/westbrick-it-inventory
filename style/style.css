@@ -2,6 +2,7 @@
     display: block;
     margin: 0 auto;
     max-width: 50%;
+    text-align: center;    
 }
 .button {
     display: block;
@@ -19,6 +20,7 @@
 .button:hover {
     background-color: rgb( 250, 194, 49);
 }
+
 .sub-page-title {
     text-align: center;
     font-family: 'lucida-sans-demibold-roman', sans-serif;
@@ -197,10 +199,16 @@ tr:hover {
     align-items: center;
     align-content: center;
     flex-direction: column;
-    margin-top: 100px;
+    margin-top: 10px;
 }
 .home-menu-button {
     margin: 15px 15px;
+}
+.sub-title {
+    display: block;
+    margin-top: 20px auto;
+    text-align: center;
+
 }
 @media screen and (max-width: 1200px) {
     .submission-form {
