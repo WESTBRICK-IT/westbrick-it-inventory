@@ -4,21 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Westbrick IT Inventory - IP and Ports</title>
+    <title>Westbrick IT Inventory - Passwords</title>
     <link rel="stylesheet" href="../style/style.css">
     <script src="../script/sub-menu-script.js" defer></script>
     <link rel="icon" href="../favicon.ico" type="image/x-icon">
 </head>
 <body>
     <a href="../"><img class="main-title" src="../images/westbrick-it-inventory.svg" alt="Westbrick IT Inventory"></a>
-    <h1 class="sub-page-title">IP Addresses and Port Numbers</h1>
-    <button class="button ip-and-port-button" onclick="window.location.href='./add-new-ip-and-port/'" type="button">Add New IP and/or Port</button>
+    <h1 class="sub-page-title">Passwords</h1>
+    <button class="button ip-and-port-button" onclick="window.location.href='./add-new-ip-and-port/'" type="button">Add New Password</button>
     <div class="table-wrapper">
         <table class="sub-menu-table">
             <thead>
                 <tr>
-                    <th>IP Address</th>
-                    <th>Port</th>
+                    <th>Password</th>                    
                     <th>Remark</th>
                     <th>Delete</th>
                 </tr>
@@ -47,21 +46,19 @@
                     die("Connection failed: " . mysqli_connect_error());
                 }
 
-                $query = "SELECT * FROM `ip_and_ports` ORDER BY `ip` DESC, `port` DESC";
+                $query = "SELECT * FROM `passwords` ORDER BY `password` DESC";
                 $result = mysqli_query($conn, $query);
                 if (mysqli_num_rows($result) > 0) {                                            
                     while($row = mysqli_fetch_assoc($result)) {
 
-                        $ip = $row['ip'];
-                        $port = $row['port'];
-                        $ipRemark = $row['ip_remark'];
+                        $password = $row['password'];
+                        $passwordRemark = $row['password-remark'];
                         $id = $row['id'];                        
                         
                         echo    "       <tr>";
-                        echo    "           <td>$ip</td>";
-                        echo    "           <td>$port</td>";
-                        echo    "           <td>$ipRemark</td>";                        
-                        echo    "           <td><img class='garbage-can garbage-can$id ip-and-port-garbage-can ip-and-port-garbage-can$id' src='../images/garbage-can.svg' alt='ip_and_ports Garbage Can $id'></td>";
+                        echo    "           <td>$password</td>";
+                        echo    "           <td>$passwordRemark</td>";                        
+                        echo    "           <td><img class='garbage-can garbage-can$id password-garbage-can password-garbage-can$id' src='../images/garbage-can.svg' alt='password Garbage Can $id'></td>";
                         echo    "       </tr>"; 
                         
                     }
