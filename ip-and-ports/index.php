@@ -12,13 +12,14 @@
 <body>
     <a href="../"><img class="main-title" src="../images/westbrick-it-inventory.svg" alt="Westbrick IT Inventory"></a>
     <h1 class="sub-page-title">IP Addresses and Port Numbers</h1>
-    <button class="button ip-and-port-button" type="button">Add New IP and/or Port</button>
+    <button class="button ip-and-port-button" onclick="window.location.href='./add-new-ip-and-port/'" type="button">Add New IP and/or Port</button>
     <div class="table-wrapper">
         <table class="sub-menu-table">
             <thead>
                 <tr>
                     <th>IP Address</th>
-                    <th>Port</th>                    
+                    <th>Port</th>
+                    <th>Remark</th>
                     <th>Delete</th>
                 </tr>
             </thead>

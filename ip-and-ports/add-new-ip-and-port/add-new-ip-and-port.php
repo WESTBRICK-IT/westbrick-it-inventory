@@ -37,13 +37,13 @@
 
         $ip = $_POST['ip'];
         $port = $_POST['port'];
-        $ipRemark = $_POST['ip_remark'];
+        $ipRemark = $_POST['ip-remark'];
         
         $date = date('Y-m-d');        
         date_default_timezone_set('America/Denver'); 
         $time = date('H:i:s', time());                
         
-        $sql = "INSERT INTO ip (ip, port, ip_remark, date, time) VALUES ('$ip', '$port', '$ip_remark', '$date', '$time')";
+        $sql = "INSERT INTO ip_and_ports (ip, port, ip_remark, date, time) VALUES ('$ip', '$port', '$ipRemark', '$date', '$time')";
         
         if ($conn->query($sql) === TRUE) {
             // echo "<h1>Article $title submitted successfully! Redirecting to articles page in 5 seconds.</h1>";
