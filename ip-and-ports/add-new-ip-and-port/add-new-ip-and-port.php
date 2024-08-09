@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Westbrick IT Inventory - Add New User</title>
+    <title>Westbrick IT Inventory - Add New IP and Port</title>
     <link rel="stylesheet" href="../../style/style.css">
     <script src="../../script/sub-menu-script.js" defer></script>
     <link rel="icon" href="../../favicon.ico" type="image/x-icon">
@@ -35,25 +35,20 @@
             die("Connection failed: " . $conn->connect_error);
         }    
 
-        $serverName = $_POST['server-name'];
-        $serverRemark = $_POST['server-remark'];
+        $ip = $_POST['ip'];
+        $port = $_POST['port'];
+        $ipRemark = $_POST['ip_remark'];
+        
         $date = date('Y-m-d');        
         date_default_timezone_set('America/Denver'); 
-        $time = date('H:i:s', time());
-        function convertApostrophe($string) { 
-            $newString = str_replace("'", '`', $string); 
-            return $newString; 
-        }            
+        $time = date('H:i:s', time());                
         
-        $serverName = convertApostrophe($serverName);
-        $serverRemarks = convertApostrophe($serverRemarks);
-        
-        $sql = "INSERT INTO servers (server_name, server_remark, date, time) VALUES ('$serverName', '$serverRemark', '$date', '$time')";
+        $sql = "INSERT INTO ip (ip, port, ip_remark, date, time) VALUES ('$ip', '$port', '$ip_remark', '$date', '$time')";
         
         if ($conn->query($sql) === TRUE) {
             // echo "<h1>Article $title submitted successfully! Redirecting to articles page in 5 seconds.</h1>";
             echo "<div class='westbrick-success-svg-container'>";
-            echo    "<img class='westbrick-success-svg' src='../../images/server-submitted-successfully.svg' alt='WESTBRICK SUCCESS SVG'>";
+            echo    "<img class='westbrick-success-svg' src='../../images/ip-and-port-submitted-successfully.svg' alt='WESTBRICK SUCCESS SVG'>";
             echo    "<button class='home-button' type='button' onclick='window.location.href=`../`;'>Home</button>";
             echo "</div>";
             // echo "<br><h1>File name: $image" . "File tmp name: $image_tmp" . "</h1>";

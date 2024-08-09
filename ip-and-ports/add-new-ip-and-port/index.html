@@ -4,26 +4,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Westbrick IT Inventory - Add New Server</title>
+    <title>Westbrick IT Inventory - Add New IP and Port</title>
     <link rel="stylesheet" href="../../style/style.css">
     <script src="../../script/sub-menu-script.js" defer></script>
     <link rel="icon" href="../../favicon.ico" type="image/x-icon">
 </head>
 <body>
     <a href="../"><img class="main-title" src="../../images/westbrick-it-inventory.svg" alt="Westbrick IT Inventory"></a>
-    <h1 class="sub-page-title">Add New Server</h1>
-    <form class="submission-form" method="post" action="add-new-server.php" enctype="multipart/form-data"> 
+    <h1 class="sub-page-title">Add New IP and Port</h1>
+    <form class="submission-form" method="post" action="add-new-ip-and-port.php" enctype="multipart/form-data"> 
         <div class="input-group">
             <div class="top-stuff">                
                 <div>
-                    <label for="server-name">Server Name:</label>
-                    <input type="text" id="server-name" name="server-name"></input>
+                    <label for="ip">IP:</label>
+                    <input type="text" id="ip" name="ip"></input>
                 </div>
                 <div>
-                    <label for="server-remark">Remark</label>
-                    <input type="text" id="server-remark" name="server-remark"></input>
+                    <label for="port">Port:</label>
+                    <input type="text" id="port" name="port"></input>
                 </div>                
-            </div>         
+                <div>
+                    <label for="ip-remark">Remark:</label>
+                    <input type="text" id="ip-remark" name="ip-remark"></input>
+                </div>                
+            </div>                      
         </div>      
         <input class="submit-button" type="submit" value="Post Item"></input>
     </form>    

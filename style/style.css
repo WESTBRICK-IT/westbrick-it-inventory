@@ -199,8 +199,8 @@ tr:hover {
     flex-direction: column;
     margin-top: 100px;
 }
-.button {
-    margin: 15px 15px; 
+.home-menu-button {
+    margin: 15px 15px;
 }
 @media screen and (max-width: 1200px) {
     .submission-form {

@@ -1,24 +1,24 @@
-<!-- Made by Christopher Barber August 2024 -->
+<!-- Made by Christopher Barber July 2024 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Westbrick IT Inventory - Servers</title>
+    <title>Westbrick IT Inventory - IP and Ports</title>
     <link rel="stylesheet" href="../style/style.css">
     <script src="../script/sub-menu-script.js" defer></script>
     <link rel="icon" href="../favicon.ico" type="image/x-icon">
 </head>
 <body>
     <a href="../"><img class="main-title" src="../images/westbrick-it-inventory.svg" alt="Westbrick IT Inventory"></a>
-    <h1 class="sub-page-title">Servers</h1>
-    <button class="button" onclick="window.location.href='./add-new-server/'" type="button">Add New Server</button>
+    <h1 class="sub-page-title">IP Addresses and Port Numbers</h1>
+    <button class="button ip-and-port-button" type="button">Add New IP and/or Port</button>
     <div class="table-wrapper">
         <table class="sub-menu-table">
             <thead>
                 <tr>
-                    <th>Server Name</th>                    
-                    <th>Remarks</th>
+                    <th>IP Address</th>
+                    <th>Port</th>                    
                     <th>Delete</th>
                 </tr>
             </thead>
@@ -46,19 +46,21 @@
                     die("Connection failed: " . mysqli_connect_error());
                 }
 
-                $query = "SELECT * FROM `servers` ORDER BY `server_name` DESC";
+                $query = "SELECT * FROM `ip_and_ports` ORDER BY `ip` DESC, `port` DESC";
                 $result = mysqli_query($conn, $query);
                 if (mysqli_num_rows($result) > 0) {                                            
                     while($row = mysqli_fetch_assoc($result)) {
 
-                        $serverName = $row['server_name'];  
-                        $serverRemarks = $row['server_remark'];
+                        $ip = $row['ip'];
+                        $port = $row['port'];
+                        $ipRemark = $row['ip_remark'];
                         $id = $row['id'];                        
                         
                         echo    "       <tr>";
-                        echo    "           <td>$serverName</td>";
-                        echo    "           <td>$serverRemarks</td>";
-                        echo    "           <td><img class='garbage-can garbage-can$id server-garbage-can server-garbage-can$id' src='../images/garbage-can.svg' alt='servers Garbage Can $id'></td>";
+                        echo    "           <td>$ip</td>";
+                        echo    "           <td>$port</td>";
+                        echo    "           <td>$ipRemark</td>";                        
+                        echo    "           <td><img class='garbage-can garbage-can$id ip-and-port-garbage-can ip-and-port-garbage-can$id' src='../images/garbage-can.svg' alt='ip-and-port Garbage Can $id'></td>";
                         echo    "       </tr>"; 
                         
                     }
