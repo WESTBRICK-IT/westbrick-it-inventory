@@ -45,6 +45,13 @@
                     $newString = str_replace("`", "'", $string); 
                     return $newString; 
                 }
+
+                function ifDateNullThenNA($date) {
+                    if($date == "0000-00-00") {
+                        $date = "N/A";
+                    }
+                    return $date;
+                }
                 // Connect to the database
                 $conn = mysqli_connect("localhost", "cbarber", "!!!Dr0w554p!!!", "IT_Inventory_DB");
 
@@ -68,6 +75,13 @@
                         $warrantyStart = $row["warranty_start"];
                         $modelName = $row["model_name"];
                         $id = $row['id'];
+
+                        $purchaseDate = ifDateNullThenNA($purchaseDate);
+                        $warrantyStart = ifDateNullThenNA($warrantyStart);
+                        $warrantyEnd = ifDateNullThenNA($warrantyEnd);
+                        if($purchasePrice == 0) {
+                            $purchasePrice = "N/A";
+                        }
                         
                         echo    "       <tr>";
                         echo    "           <td>$type</td>";

@@ -13,7 +13,7 @@
     <a href="../"><img class="main-title" src="../images/westbrick-it-inventory.svg" alt="Westbrick IT Inventory"></a>
     <h1 class="sub-page-title">Passwords</h1>
     <button class="button ip-and-port-button" onclick="window.location.href='./add-new-password/'" type="button">Add New Password</button>
-    <p>*Note that passwords are encrypted before they are stored in the database for security reasons.</p>
+    
     <div class="table-wrapper">
         <table class="sub-menu-table">
             <thead>
@@ -52,7 +52,10 @@
                 if (mysqli_num_rows($result) > 0) {                                            
                     while($row = mysqli_fetch_assoc($result)) {
 
-                        $password = $row['password'];
+                        $encodedPassword = $row['password'];
+
+                        $password = base64_decode($encodedPassword);
+
                         $passwordRemark = $row['password_remark'];
                         $id = $row['id'];                        
                         

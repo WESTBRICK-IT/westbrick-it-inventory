@@ -67,7 +67,7 @@
                        $date = $row["date"];
                        $time = $row["time"];                       
                        $email = $row["email"];
-                       $id = $row["id"];
+                       $id = $row["id"];                      
                 
                         // echo    "   <tbody>";
                         echo    "       <tr>";
