@@ -210,6 +210,9 @@ tr:hover {
     text-align: center;
 
 }
+.password-note {
+    text-align: center;
+}
 @media screen and (max-width: 1200px) {
     .submission-form {
         margin-left: 100px;

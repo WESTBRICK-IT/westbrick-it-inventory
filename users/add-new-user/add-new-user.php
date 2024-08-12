@@ -43,6 +43,7 @@
         $extensionNumber = $_POST['extension-number'];
         $email = $_POST['email'];
         $positionTitle = $_POST['position-title'];
+        $remark = $_POST['remark'];
         
         $date = date('Y-m-d');        
         date_default_timezone_set('America/Denver'); 
@@ -57,9 +58,10 @@
         $cellPhoneNumber = convertApostrophe($cellPhoneNumber); 
         $officePhoneNumber = convertApostrophe($officePhoneNumber);
         $email = convertApostrophe($email);
-        $positionTitle = convertApostrophe($positionTitle);        
+        $positionTitle = convertApostrophe($positionTitle);  
+        $remark = convertApostrophe($remark);
         
-        $sql = "INSERT INTO users (first_name, last_name, cell_phone_num, office_phone_num, email, position_title, extension_num, username, date, time) VALUES ('$firstName', '$lastName', '$cellPhoneNumber', '$officePhoneNumber', '$email', '$positionTitle', '$extensionNumber', '$username', '$date', '$time')";
+        $sql = "INSERT INTO users (first_name, last_name, cell_phone_num, office_phone_num, email, position_title, extension_num, username, date, time, user_remark) VALUES ('$firstName', '$lastName', '$cellPhoneNumber', '$officePhoneNumber', '$email', '$positionTitle', '$extensionNumber', '$username', '$date', '$time', $remark)";
         // $sql = "INSERT INTO articles (title, author, body, date) VALUES ('$title', '$author', '$body', '$date')";
         
         if ($conn->query($sql) === TRUE) {

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../../style/style.css">
     <script src="../../script/sub-menu-script.js" defer></script>
     <link rel="icon" href="../../favicon.ico" type="image/x-icon">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js" defer></script>
 </head>
 <body>
     <?php
@@ -36,13 +37,14 @@
         }    
 
         $password = $_POST['password'];
-        $passwordRemark = $_POST['password-remark'];        
-        
+        $passwordRemark = $_POST['password-remark']; 
         $date = date('Y-m-d');        
         date_default_timezone_set('America/Denver'); 
         $time = date('H:i:s', time());                
-        
-        $sql = "INSERT INTO passwords (password, password_remark, date, time) VALUES ('$password', '$passwordRemark', '$date', '$time')";
+                
+        $encodedPassword = base64_encode($password);     
+
+        $sql = "INSERT INTO passwords (password, password_remark, date, time) VALUES ('$encodedPassword', '$passwordRemark', '$date', '$time')";
         
         if ($conn->query($sql) === TRUE) {
             // echo "<h1>Article $title submitted successfully! Redirecting to articles page in 5 seconds.</h1>";
