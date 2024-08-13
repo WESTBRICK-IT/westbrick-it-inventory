@@ -1,0 +1,63 @@
+<!-- Made by Christopher Barber July 2024 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Westbrick IT Inventory - Add New Link</title>
+    <link rel="stylesheet" href="../../style/style.css">
+    <script src="../../script/sub-menu-script.js" defer></script>
+    <link rel="icon" href="../../favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <a href="../"><img class="main-title" src="../../images/westbrick-it-inventory.svg" alt="Westbrick IT Inventory"></a>
+    <h1 class="sub-page-title">Add New Link</h1>
+    <form class="submission-form" method="post" action="add-new-link.php" enctype="multipart/form-data"> 
+        <div class="input-group">
+            <div class="top-stuff">                
+                <div>
+                    <label for="type">First Type:</label>
+                    <select class="dropdown" id="type" name="type" required>
+                        <option value="">Choose an option...</option>
+                        <option value="user">User</option>
+                        <option value="equipment">Equipment</option>
+                        <option value="ip">IP Number</option>
+                        <option value="Server">Server</option>
+                        <option value="location">Location</option>
+                        <option value="password">Password</option>
+                        <option value="switch">Update</option>
+                        <option value="other">Other</option>
+                    </select>                              
+                </div>
+
+                <div>
+                    <label for="first-id">First ID:</label>
+                    <input class="first-id" type="number" id="first-id" name="first-id" required></input>
+                </div>                
+            </div>
+            <div class="middle-stuff">
+                <div>
+                    <label for="type">Second Type:</label>
+                    <select class="dropdown" id="type" name="type" required>
+                        <option value="">Choose an option...</option>
+                        <option value="user">User</option>
+                        <option value="equipment">Equipment</option>
+                        <option value="ip">IP Number</option>
+                        <option value="Server">Server</option>
+                        <option value="location">Location</option>
+                        <option value="password">Password</option>
+                        <option value="switch">Update</option>
+                        <option value="other">Other</option>
+                    </select>                              
+                </div>
+                <div>
+                    <label for="second-id">Second ID:</label>
+                    <input class="second-id" type="number" id="second-id" name="second-id" required></input>
+                </div> 
+            </div>            
+        </div>      
+        <input class="submit-button" type="submit" value="Post Item">
+    </form>    
+    <button class="button go-back-button" type="button">Go back</button>
+</body>
+</html>

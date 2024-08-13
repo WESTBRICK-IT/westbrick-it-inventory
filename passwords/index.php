@@ -39,6 +39,20 @@
                     $newString = str_replace("`", "'", $string); 
                     return $newString; 
                 }
+                function decryptShiftCipher($string) {
+                    $SHIFT_DISTANCE = 2;     
+                    $newShiftedString = "";
+                    $stringLength = strlen($string);
+                    for($i = 0; $i < $stringLength; $i++) {
+                        $singleChar = $string[$i];
+                        $singleCharASCII = ord($singleChar);
+                        $singlecharASCII_Shifted = $singleCharASCII - $SHIFT_DISTANCE;
+                        $singlecharASCII_Shifted = chr($singlecharASCII_Shifted);
+                        $newShiftedString .= $singlecharASCII_Shifted;
+                    }
+                    return $newShiftedString;
+                }
+                
                 // Connect to the database
                 $conn = mysqli_connect("localhost", "cbarber", "!!!Dr0w554p!!!", "IT_Inventory_DB");
 
@@ -54,7 +68,9 @@
 
                         $encodedPassword = $row['password'];
 
-                        $password = base64_decode($encodedPassword);
+                        $encodedPassword = base64_decode($encodedPassword);
+
+                        $password = decryptShiftCipher($encodedPassword);
 
                         $passwordRemark = $row['password_remark'];
                         $id = $row['id'];                        

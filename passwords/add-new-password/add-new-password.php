@@ -40,7 +40,23 @@
         $passwordRemark = $_POST['password-remark']; 
         $date = date('Y-m-d');        
         date_default_timezone_set('America/Denver'); 
-        $time = date('H:i:s', time());                
+        $time = date('H:i:s', time());  
+        
+        function shiftCipher($string) {
+            $SHIFT_DISTANCE = 2;     
+            $newShiftedString = "";
+            $stringLength = strlen($string);
+            for($i = 0; $i < $stringLength; $i++) {
+                $singleChar = $string[$i];
+                $singleCharASCII = ord($singleChar);
+                $singlecharASCII_Shifted = $singleCharASCII + $SHIFT_DISTANCE;
+                $singlecharASCII_Shifted = chr($singlecharASCII_Shifted);
+                $newShiftedString .= $singlecharASCII_Shifted;
+            }
+            return $newShiftedString;
+        }
+
+        $password = shiftCipher($password);        
                 
         $encodedPassword = base64_encode($password);     
 
