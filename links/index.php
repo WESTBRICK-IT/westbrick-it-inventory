@@ -17,12 +17,10 @@
         <table class="sub-menu-table">
             <thead>
                 <tr>
-                    <th>Location Name</th>
-                    <th>City/Town</th>
-                    <th>Room Number</th>
-                    <th>LSD Coordinate</th>
-                    <th>Latitude</th>
-                    <th>Longitude</th>                    
+                    <th>Type 1</th>
+                    <th>ID 1</th>
+                    <th>Type 2</th>
+                    <th>ID 2</th>                    
                     <th>Delete</th>
                 </tr>
             </thead>

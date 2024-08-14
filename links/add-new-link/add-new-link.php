@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Westbrick IT Inventory - Add New User</title>
+    <title>Westbrick IT Inventory - Add New Link</title>
     <link rel="stylesheet" href="../../style/style.css">
     <script src="../../script/sub-menu-script.js" defer></script>
     <link rel="icon" href="../../favicon.ico" type="image/x-icon">
@@ -35,32 +35,21 @@
             die("Connection failed: " . $conn->connect_error);
         }    
         
-        $type = $_POST['type'];
-        $name = $_POST['name'];
-        $modelName = $_POST['model-name'];
-        $modelNumber = $_POST['model-number'];
-        $serialNumber = $_POST['serial-number'];
-        $purchaseDate = $_POST['purchase-date'];
-        $purchasePrice = $_POST['purchase-price'];
-        $warrantyStart = $_POST['warranty-start'];
-        $warrantyEnd = $_POST['warranty-end'];       
+        $type1 = $_POST['type1'];
+        $firstID = $_POST['first-id'];
+        $type2 = $_POST['type2'];
+        $secondID = $_POST['second-id'];
+        $linkRemark = $_POST['remark'];
         $date = date('Y-m-d');        
         date_default_timezone_set('America/Denver'); 
-        $time = date('H:i:s', time());
-        function convertApostrophe($string) { 
-            $newString = str_replace("'", '`', $string); 
-            return $newString; 
-        }    
-        $name = convertApostrophe($name);
-        $type = convertApostrophe($type);
-        $modelName = convertApostrophe($modelName);
+        $time = date('H:i:s', time());    
         
-        $sql = "INSERT INTO equipment (type, name, model_name, model_number, serial_number, purchase_date, purchase_price, warranty_start, warranty_end, date, time) VALUES ('$type', '$name', '$modelName', '$modelNumber', '$serialNumber', '$purchaseDate', '$purchasePrice', '$warrantyStart', '$warrantyEnd', '$date', '$time')";        // $sql = "INSERT INTO articles (title, author, body, date) VALUES ('$title', '$author', '$body', '$date')";
+        $sql = "INSERT INTO links (first_type, first_id, second_type, second_id,  date, time, link_remark) VALUES ('$type1', '$firstID', '$type2', '$secondID', '$date', '$time', '$linkRemark')"; 
         
         if ($conn->query($sql) === TRUE) {
             // echo "<h1>Article $title submitted successfully! Redirecting to articles page in 5 seconds.</h1>";
             echo "<div class='westbrick-success-svg-container'>";
-            echo    "<img class='westbrick-success-svg' src='../../images/equipment-submitted-successfully.svg' alt='WESTBRICK SUCCESS SVG'>";
+            echo    "<img class='westbrick-success-svg' src='../../images/link-submitted-successfully.svg' alt='WESTBRICK SUCCESS SVG'>";
             echo    "<button class='home-button' type='button' onclick='window.location.href=`../`;'>Home</button>";
             echo "</div>";
             // echo "<br><h1>File name: $image" . "File tmp name: $image_tmp" . "</h1>";
@@ -71,7 +60,7 @@
         } else {
             echo "<div class='westbrick-success-svg-container'>";
             echo    "Error: " . $sql . "<br>" . $conn->error;
-            echo    "<button class='home-button' type='button' onclick='window.location.href=`index.html`;'>Compose</button>";
+            echo    "<button class='home-button' type='button' onclick='window.location.href=`../`;'>Index</button>";
             echo "</div>";
         }
         $conn->close();
