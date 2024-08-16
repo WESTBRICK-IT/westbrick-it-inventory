@@ -30,7 +30,6 @@
                         <option value="other">Other</option>
                     </select>                              
                 </div>
-        
         <?php
             $allowedIPs = array('206.174.198.58', '206.174.198.59', '50.99.132.206'); // Define the list of allowed IP addresses
 
@@ -50,17 +49,20 @@
                 die("Connection failed: " . mysqli_connect_error());
             }
 
-            $query = "SELECT * FROM `links` ORDER BY `first_id` DESC, `second_id` DESC";
-            $result = mysqli_query($conn, $query);
+            // CREATING THE USER LIST
 
+            $query = "SELECT * FROM `users` ORDER BY `first_name` DESC, `last_name` DESC";
+            $result = mysqli_query($conn, $query);
+            // I'm going to load all of the data from the sql server and then display it only when it's selected
             // echo $result;
 
             if (mysqli_num_rows($result) > 0) {  
                 $i = 0;
                 //loop through the number of rows               
                 while($row = mysqli_fetch_assoc($result)) {
-                    $type1[$i] = $row['first_type'];
-                    $id2[$i] = $row['first_id'];
+                    $firstName[$i] = $row['first_name'];
+                    $lastName[$i] = $row['last_name'];
+                    $id[$i] = $row['id'];
                     $i++;
                     // $id1 .= $row['first_id'];
                     // $type2 .= $row['second_type'];
@@ -69,11 +71,44 @@
                     // $id .= $row['id'];
                 }
             }
-                echo "  <div>";
-                echo "      <label for='select1'>First Selection:</label>";
-                echo "      <select class='dropdown select1' id='select1' name='select1' required>";
-            for($i = 0; $i < count($type1); $i++) {                             
-                echo "          <option value'$type1[$i] $id2[$i]'>Type: $type1[$i] ID: $id2[$i]</option>";                
+                echo "  <div class='links-user-first-selection-dropdown links-selection-dropdown'>";
+                echo "      <label for='select1'>User First Selection:</label>";
+                echo "      <select class='dropdown select1 user-select1-dropdown' id='select1' name='select1' required>";
+            for($i = 0; $i < mysqli_num_rows($result); $i++) {                             
+                echo "          <option class='user-$id' id='$id' value'$firstName[$i] $lastName[$i] $id[$i]'>$firstName[$i] $lastName[$i]</option>";
+            }
+                echo "      </select>";
+                echo "  </div>";
+
+
+            // CREATING THE EQUIPMENT LIST
+
+            $query = "SELECT * FROM `equipment` ORDER BY `model_name` DESC, `serial_number` DESC";
+            $result = mysqli_query($conn, $query);
+            // I'm going to load all of the data from the sql server and then display it only when it's selected
+            // echo $result;
+
+            if (mysqli_num_rows($result) > 0) {  
+                $i = 0;
+                //loop through the number of rows               
+                while($row = mysqli_fetch_assoc($result)) {
+                    $name[$i] = $row['name'];
+                    $modelName[$i] = $row['model_name'];
+                    $serialNumber[$i] = $row['serial_number'];
+                    $id[$i] = $row['id'];
+                    $i++;
+                    // $id1 .= $row['first_id'];
+                    // $type2 .= $row['second_type'];
+                    // $id2 .= $row['second_id']; 
+                    // $linkRemark .= $row['link_remark'];
+                    // $id .= $row['id'];
+                }
+            }
+                echo "  <div class='links-equipment-first-selection-dropdown links-first-selection-dropdown links-selection-dropdown'>";
+                echo "      <label for='select1'>Equipment First Selection:</label>";
+                echo "      <select class='dropdown select1 equipment-select1-dropdown' id='select1' name='select1' required>";
+            for($i = 0; $i < mysqli_num_rows($result); $i++) {                             
+                echo "          <option class='user-$id' id='$id' value'$name[$i] $modelName[$i] $serialNumber[$i] $id[$i]'>$name[$i] $modelName[$i] $serialNumber[$i]</option>";
             }
                 echo "      </select>";
                 echo "  </div>";

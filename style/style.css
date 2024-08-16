@@ -213,6 +213,13 @@ tr:hover {
 .password-note {
     text-align: center;
 }
+.user-select1-dropdown {
+    width: 220px;    
+}
+.links-selection-dropdown {
+    display: none;
+}
+
 @media screen and (max-width: 1200px) {
     .submission-form {
         margin-left: 100px;

@@ -1,14 +1,10 @@
 const type1 = document.querySelector(".type1");
-const select1 = document.querySelector(".select1");
-
+const userFirstSelectionDropdown = document.querySelector(".links-user-first-selection-dropdown");
 
 const userSelected = function() {
     console.log("user selected");
     //create a new option and append it to the select list
-    const newOption = document.createElement('option');
-    newOption.value = "John Doe";
-    newOption.innerText = "John Doe";
-    select1.appendChild(newOption);
+    userFirstSelectionDropdown.style.display = "block";
 }
 
 const typeSelected = function() {
@@ -16,11 +12,7 @@ const typeSelected = function() {
     
     let type1Value =  type1.value;
 
-    console.log(type1Value);
-
-    //clear selection after every select
-    select1.value = "";
-    select1.innerText = "";
+    console.log(type1Value);    
 
     if(type1Value == "user") {
         userSelected();
