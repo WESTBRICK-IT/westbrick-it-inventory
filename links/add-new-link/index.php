@@ -14,6 +14,7 @@
     <a href="../"><img class="main-title" src="../../images/westbrick-it-inventory.svg" alt="Westbrick IT Inventory"></a>
     <h1 class="sub-page-title">Add New Link</h1>
     <form class="submission-form" method="post" action="add-new-link.php" enctype="multipart/form-data"> 
+        <p class="link-opening-request">Please select the two items to be linked:</p>
         <div class="input-group">
             <div class="top-stuff">                
                 <div>
@@ -73,7 +74,7 @@
             }
                 echo "  <div class='links-user-first-selection-dropdown links-selection-dropdown'>";
                 echo "      <label for='select1'>User First Selection:</label>";
-                echo "      <select class='dropdown select1 user-select1-dropdown' id='select1' name='select1' required>";
+                echo "      <select class='dropdown select1 user-select1-dropdown' name='select1' required>";
             for($i = 0; $i < mysqli_num_rows($result); $i++) {                             
                 echo "          <option class='user-$id' id='$id' value'$firstName[$i] $lastName[$i] $id[$i]'>$firstName[$i] $lastName[$i]</option>";
             }
@@ -106,7 +107,7 @@
             }
                 echo "  <div class='links-equipment-first-selection-dropdown links-first-selection-dropdown links-selection-dropdown'>";
                 echo "      <label for='select1'>Equipment First Selection:</label>";
-                echo "      <select class='dropdown select1 equipment-select1-dropdown' id='select1' name='select1' required>";
+                echo "      <select class='dropdown select1 equipment-select1-dropdown' name='select1' required>";
             for($i = 0; $i < mysqli_num_rows($result); $i++) {                             
                 echo "          <option class='user-$id' id='$id' value'$name[$i] $modelName[$i] $serialNumber[$i] $id[$i]'>$name[$i] $modelName[$i] $serialNumber[$i]</option>";
             }

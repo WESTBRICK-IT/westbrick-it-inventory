@@ -219,6 +219,9 @@ tr:hover {
 .links-selection-dropdown {
     display: none;
 }
+.link-opening-request {
+    text-align: center;
+}
 
 @media screen and (max-width: 1200px) {
     .submission-form {
