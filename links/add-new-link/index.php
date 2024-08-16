@@ -30,12 +30,61 @@
                         <option value="other">Other</option>
                     </select>                              
                 </div>
+        
+        <?php
+            $allowedIPs = array('206.174.198.58', '206.174.198.59', '50.99.132.206'); // Define the list of allowed IP addresses
 
-                <div>
+            $remoteIP = $_SERVER['REMOTE_ADDR']; // Get the remote IP address of the client
+
+            if (!in_array($remoteIP, $allowedIPs)) {
+                // Unauthorized access - display an error message or redirect
+                echo "<h1>Access denied. Your IP address is not allowed to view these items.</h1>";
+                exit();
+            }
+            
+            // Connect to the database
+            $conn = mysqli_connect("localhost", "cbarber", "!!!Dr0w554p!!!", "IT_Inventory_DB");
+
+            // Check connection
+            if (!$conn) {
+                die("Connection failed: " . mysqli_connect_error());
+            }
+
+            $query = "SELECT * FROM `links` ORDER BY `first_id` DESC, `second_id` DESC";
+            $result = mysqli_query($conn, $query);
+
+            // echo $result;
+
+            if (mysqli_num_rows($result) > 0) {  
+                $i = 0;
+                //loop through the number of rows               
+                while($row = mysqli_fetch_assoc($result)) {
+                    $type1[$i] = $row['first_type'];
+                    $id2[$i] = $row['first_id'];
+                    $i++;
+                    // $id1 .= $row['first_id'];
+                    // $type2 .= $row['second_type'];
+                    // $id2 .= $row['second_id']; 
+                    // $linkRemark .= $row['link_remark'];
+                    // $id .= $row['id'];
+                }
+            }
+                echo "  <div>";
+                echo "      <label for='select1'>First Selection:</label>";
+                echo "      <select class='dropdown select1' id='select1' name='select1' required>";
+            for($i = 0; $i < count($type1); $i++) {                             
+                echo "          <option value'$type1[$i] $id2[$i]'>Type: $type1[$i] ID: $id2[$i]</option>";                
+            }
+                echo "      </select>";
+                echo "  </div>";
+        ?>
+
+        
+
+                <!-- <div>
                     <label for="select1">First Selection:</label>
-                    <select class="dropdown select1" id="select1" name="select1" required>                        
-                    </select>                              
-                </div>
+                    <select class="dropdown select1" id="select1" name="select1" required></select>
+                </div> -->
                             
             </div>
             <div class="middle-stuff">

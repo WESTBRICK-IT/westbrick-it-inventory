@@ -20,7 +20,8 @@
                     <th>Type 1</th>
                     <th>ID 1</th>
                     <th>Type 2</th>
-                    <th>ID 2</th>                    
+                    <th>ID 2</th>     
+                    <th>Remark</th>     
                     <th>Delete</th>
                 </tr>
             </thead>
@@ -48,27 +49,25 @@
                     die("Connection failed: " . mysqli_connect_error());
                 }
 
-                $query = "SELECT * FROM `locations` ORDER BY `location_name` DESC, `city_town` DESC";
+                $query = "SELECT * FROM `links` ORDER BY `first_id` DESC, `second_id` DESC";
                 $result = mysqli_query($conn, $query);
                 if (mysqli_num_rows($result) > 0) {                                            
                     while($row = mysqli_fetch_assoc($result)) {
 
-                        $locationName = $row['location_name'];
-                        $cityOrTown = $row['city_town'];
-                        $roomNumber = $row['room_number'];
-                        $lsdCoordinates = $row['lsd_coordinate'];
-                        $latitude = $row['latitude'];
-                        $longitude = $row['longitude'];
-                        $id = $row['id'];                        
+                        $type1 = $row['first_type'];
+                        $id1 = $row['first_id'];
+                        $type2 = $row['second_type'];
+                        $id2 = $row['second_id']; 
+                        $linkRemark = $row['link_remark'];
+                        $id = $row['id'];
                         
                         echo    "       <tr>";
-                        echo    "           <td>$locationName</td>";
-                        echo    "           <td>$cityOrTown</td>";
-                        echo    "           <td>$roomNumber</td>";
-                        echo    "           <td>$lsdCoordinates</td>";
-                        echo    "           <td>$latitude</td>";
-                        echo    "           <td>$longitude</td>";
-                        echo    "           <td><img class='garbage-can garbage-can$id equipment-garbage-can equipment-garbage-can$id' src='../images/garbage-can.svg' alt='equipment Garbage Can $id'></td>";
+                        echo    "           <td>$type1</td>";
+                        echo    "           <td>$id1</td>";
+                        echo    "           <td>$type2</td>";
+                        echo    "           <td>$id2</td>";
+                        echo    "           <td>$linkRemark</td>";
+                        echo    "           <td><img class='garbage-can garbage-can$id links-garbage-can links-garbage-can$id' src='../images/garbage-can.svg' alt='links Garbage Can $id'></td>";
                         echo    "       </tr>"; 
                         
                     }

@@ -7,6 +7,7 @@ const serversButton = document.querySelector(".servers-button");
 // const printersButton = document.querySelector(".printers-button");
 const passwordsButton = document.querySelector(".passwords-button");
 const iP_AndPortsButton = document.querySelector(".ip-and-ports-button");
+const linksButton = document.querySelector(".links-button");
 // const spareInventoryButton = document.querySelector(".spare-inventory-button");
 const userButtonClick = function() {
     window.location.href = "./users/";
@@ -35,6 +36,9 @@ const passwordsButtonClick = function() {
 const iP_AndPortsButtonClick = function() {
     window.location.href = "./ip-and-ports/";
 }
+const linksButtonClick = function() {
+    window.location.href = "./links/";
+}
 // const spareInventoryButtonClick = function() {
 //     window.location.href = "./spare-inventory/";
 // }
@@ -47,4 +51,5 @@ serversButton.addEventListener("click", serversButtonClick);
 // printersButton.addEventListener("click", printersButtonClick);
 passwordsButton.addEventListener("click", passwordsButtonClick);
 iP_AndPortsButton.addEventListener("click", iP_AndPortsButtonClick);
+linksButton.addEventListener("click", linksButtonClick);
 // spareInventoryButton.addEventListener("click", spareInventoryButtonClick);
