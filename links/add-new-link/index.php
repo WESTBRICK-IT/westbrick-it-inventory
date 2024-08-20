@@ -23,7 +23,7 @@
                         <option value="">Choose an option...</option>
                         <option value="user">User</option>
                         <option value="equipment">Equipment</option>
-                        <option value="ip">IP Number</option>
+                        <option value="ip-and-port">IP Number</option>
                         <option value="server">Server</option>
                         <option value="location">Location</option>
                         <option value="password">Password</option>
@@ -64,22 +64,17 @@
                     $firstName[$i] = $row['first_name'];
                     $lastName[$i] = $row['last_name'];
                     $id[$i] = $row['id'];
-                    $i++;
-                    // $id1 .= $row['first_id'];
-                    // $type2 .= $row['second_type'];
-                    // $id2 .= $row['second_id']; 
-                    // $linkRemark .= $row['link_remark'];
-                    // $id .= $row['id'];
+                    $i++;                    
                 }
             }
-                echo "  <div class='links-user-first-selection-dropdown links-selection-dropdown'>";
-                echo "      <label for='select1'>User First Selection:</label>";
-                echo "      <select class='dropdown select1 user-select1-dropdown' name='select1' required>";
+            echo "  <div class='links-user-first-selection-dropdown links-selection-dropdown'>";
+            echo "      <label for='select1-user'>User First Selection:</label>";
+            echo "      <select class='dropdown select1 user-select1-dropdown' id='select1-user' name='select1' required>";
             for($i = 0; $i < mysqli_num_rows($result); $i++) {                             
-                echo "          <option class='user-$id' id='$id' value'$firstName[$i] $lastName[$i] $id[$i]'>$firstName[$i] $lastName[$i]</option>";
+                echo "          <option class='user-$id' value'$firstName[$i] $lastName[$i] $id[$i]'>$firstName[$i] $lastName[$i]</option>";
             }
-                echo "      </select>";
-                echo "  </div>";
+            echo "      </select>";
+            echo "  </div>";
 
 
             // CREATING THE EQUIPMENT LIST
@@ -97,22 +92,147 @@
                     $modelName[$i] = $row['model_name'];
                     $serialNumber[$i] = $row['serial_number'];
                     $id[$i] = $row['id'];
-                    $i++;
-                    // $id1 .= $row['first_id'];
-                    // $type2 .= $row['second_type'];
-                    // $id2 .= $row['second_id']; 
-                    // $linkRemark .= $row['link_remark'];
-                    // $id .= $row['id'];
+                    $i++;                    
                 }
             }
-                echo "  <div class='links-equipment-first-selection-dropdown links-first-selection-dropdown links-selection-dropdown'>";
-                echo "      <label for='select1'>Equipment First Selection:</label>";
-                echo "      <select class='dropdown select1 equipment-select1-dropdown' name='select1' required>";
+            echo "  <div class='links-equipment-first-selection-dropdown links-first-selection-dropdown links-selection-dropdown'>";
+            echo "      <label for='select1-equipment'>Equipment First Selection:</label>";
+            echo "      <select class='dropdown select1 equipment-select1-dropdown' id='select1-equipment' name='select1' required>";
             for($i = 0; $i < mysqli_num_rows($result); $i++) {                             
-                echo "          <option class='user-$id' id='$id' value'$name[$i] $modelName[$i] $serialNumber[$i] $id[$i]'>$name[$i] $modelName[$i] $serialNumber[$i]</option>";
+                echo "          <option class='user-$id' value'$name[$i] $modelName[$i] $serialNumber[$i] $id[$i]'>$name[$i] $modelName[$i] $serialNumber[$i]</option>";
             }
-                echo "      </select>";
-                echo "  </div>";
+            echo "      </select>";
+            echo "  </div>";
+
+            // CREATING THE IP LIST
+
+            $query = "SELECT * FROM `ip_and_ports` ORDER BY `ip` DESC, `port` DESC";
+            $result = mysqli_query($conn, $query);
+            // I'm going to load all of the data from the sql server and then display it only when it's selected
+            // echo $result;
+
+            if (mysqli_num_rows($result) > 0) {  
+                $i = 0;
+                //loop through the number of rows               
+                while($row = mysqli_fetch_assoc($result)) {
+                    $ip[$i] = $row['ip'];
+                    $port[$i] = $row['port'];                    
+                    $id[$i] = $row['id'];
+                    $i++;
+                   
+                }
+            }
+            echo "  <div class='links-ip-first-selection-dropdown links-first-selection-dropdown links-selection-dropdown'>";
+            echo "      <label for='select1-ip'>IP and Port First Selection:</label>";
+            echo "      <select class='dropdown select1 ip-select1-dropdown' id='select1-ip' name='select1' required>";
+            for($i = 0; $i < mysqli_num_rows($result); $i++) {                             
+                echo "          <option class='user-$id' value'$ip[$i] $port[$i] $id[$i]'>$ip[$i]:$port[$i]</option>";
+            }
+            echo "      </select>";
+            echo "  </div>";
+
+
+            // Creating Server List            
+
+            $query = "SELECT * FROM `servers` ORDER BY `server_name` DESC";
+            $result = mysqli_query($conn, $query);
+            // I'm going to load all of the data from the sql server and then display it only when it's selected
+            // echo $result;
+
+            if (mysqli_num_rows($result) > 0) {  
+                $i = 0;
+                //loop through the number of rows               
+                while($row = mysqli_fetch_assoc($result)) {
+                    $serverName[$i] = $row['server_name'];                                        
+                    $id[$i] = $row['id'];
+                    $i++;
+                }                    
+            }
+            echo "  <div class='links-server-first-selection-dropdown links-first-selection-dropdown links-selection-dropdown'>";
+            echo "      <label for='select1-server'>Server First Selection:</label>";
+            echo "      <select class='dropdown select1 server-select1-dropdown' id='select1-server' name='select1' required>";
+            for($i = 0; $i < mysqli_num_rows($result); $i++) {                             
+                echo "          <option class='user-$id' value'$serverName[$i] $id[$i]'>$serverName[$i]</option>";
+            }
+            echo "      </select>";
+            echo "  </div>";
+
+
+            //Creating Location List
+
+            $query = "SELECT * FROM `locations` ORDER BY `location_name` DESC, 'city_town' DESC";
+            $result = mysqli_query($conn, $query);
+            // I'm going to load all of the data from the sql server and then display it only when it's selected
+            // echo $result;
+
+            if (mysqli_num_rows($result) > 0) {  
+                $i = 0;
+                //loop through the number of rows               
+                while($row = mysqli_fetch_assoc($result)) {
+                    $locationName[$i] = $row['location_name'];   
+                    $cityTown = $row['city_town'];
+                    $id[$i] = $row['id'];
+                    $i++;
+                }                    
+            }
+            echo "  <div class='links-locations-first-selection-dropdown links-first-selection-dropdown links-selection-dropdown'>";
+            echo "      <label for='select1-location'>Location First Selection:</label>";
+            echo "      <select class='dropdown select1 location-select1-dropdown' id='select1-location' name='select1' required>";
+            for($i = 0; $i < mysqli_num_rows($result); $i++) {                             
+                echo "          <option class='user-$id' value'$locationName[$i] $cityTown[$i] $id[$i]'>$locationName[$i] $cityTown[$i]</option>";
+            }
+            echo "      </select>";
+            echo "  </div>";
+
+
+            //Creating password list
+
+            function decryptShiftCipher($string) {
+                $SHIFT_DISTANCE = 2;     
+                $newShiftedString = "";
+                $stringLength = strlen($string);
+                for($i = 0; $i < $stringLength; $i++) {
+                    $singleChar = $string[$i];
+                    $singleCharASCII = ord($singleChar);
+                    $singlecharASCII_Shifted = $singleCharASCII - $SHIFT_DISTANCE;
+                    $singlecharASCII_Shifted = chr($singlecharASCII_Shifted);
+                    $newShiftedString .= $singlecharASCII_Shifted;
+                }
+                return $newShiftedString;
+            }
+
+            function decryptPassword($encodedPassword) {
+                $encodedPassword = base64_decode($encodedPassword);
+                $decryptedPassword = decryptShiftCipher($encodedPassword);
+                return $decryptedPassword;
+            }
+
+            $query = "SELECT * FROM `passwords` ORDER BY `password` DESC";
+            $result = mysqli_query($conn, $query);
+            // I'm going to load all of the data from the sql server and then display it only when it's selected
+            // echo $result;
+
+            if (mysqli_num_rows($result) > 0) {  
+                $i = 0;
+                //loop through the number of rows               
+                while($row = mysqli_fetch_assoc($result)) {
+                    $encodedPassword = $row['password'];
+                    $decryptedPassword = decryptPassword($encodedPassword);
+                    $passwords[$i] = $decryptedPassword;
+                    $id[$i] = $row['id'];
+                    $i++;
+                }                    
+            }
+            echo "  <div class='links-passwords-first-selection-dropdown links-first-selection-dropdown links-selection-dropdown'>";
+            echo "      <label for='select1-passwords'>Password First Selection:</label>";
+            echo "      <select class='dropdown select1 passwords-select1-dropdown' id='select1-passwords' name='select1' required>";
+            for($i = 0; $i < mysqli_num_rows($result); $i++) {                             
+                echo "          <option class='user-$id' value'$passwords[$i] $cityTown[$i] $id[$i]'>$passwords[$i] $cityTown[$i]</option>";
+            }
+            echo "      </select>";
+            echo "  </div>";
+
+        
         ?>
 
         
@@ -151,7 +271,7 @@
                 </div>
             </div>          
         </div>      
-        <input class="submit-button" type="submit" value="Post Item">
+        <input class="submit-button" type="submit" value="Link Items">
     </form>    
     <button class="button go-back-button" type="button">Go back</button>
 </body>

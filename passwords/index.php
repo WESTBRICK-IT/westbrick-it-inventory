@@ -52,6 +52,12 @@
                     }
                     return $newShiftedString;
                 }
+
+                function decryptPassword($encodedPassword) {
+                    $encodedPassword = base64_decode($encodedPassword);
+                    $decryptedPassword = decryptShiftCipher($encodedPassword);
+                    return $decryptedPassword;
+                }
                 
                 // Connect to the database
                 $conn = mysqli_connect("localhost", "cbarber", "!!!Dr0w554p!!!", "IT_Inventory_DB");
@@ -68,9 +74,9 @@
 
                         $encodedPassword = $row['password'];
 
-                        $encodedPassword = base64_decode($encodedPassword);
+                        $decrytpedPassword = decryptPassword($encodedPassword);                  
 
-                        $password = decryptShiftCipher($encodedPassword);
+                        $password = $decrytpedPassword;                        
 
                         $passwordRemark = $row['password_remark'];
                         $id = $row['id'];                        
