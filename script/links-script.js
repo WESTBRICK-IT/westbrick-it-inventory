@@ -10,6 +10,8 @@ const userSecondSelectionDropdown = document.querySelector(".links-user-second-s
 const equipmentSecondSelectionDropdown = document.querySelector(".links-equipment-second-selection-dropdown");
 const iP_SecondSelectionDropdown = document.querySelector(".links-ip-second-selection-dropdown");
 const serverSecondSelectionDropdown = document.querySelector(".links-server-second-selection-dropdown");
+const locationSecondSelectionDropdown = document.querySelector(".links-locations-second-selection-dropdown");
+const passwordSecondSelectionDropdown = document.querySelector(".links-passwords-second-selection-dropdown");
 
 const hideAllFirstSelectedDropdowns = function() {
     userFirstSelectionDropdown.style.display = "none";
@@ -73,6 +75,8 @@ const hideAllSecondSelectedDropdowns = function() {
     equipmentSecondSelectionDropdown.style.display = "none";
     iP_SecondSelectionDropdown.style.display = "none";
     serverSecondSelectionDropdown.style.display = "none";
+    locationSecondSelectionDropdown.style.display = "none";
+    passwordSecondSelectionDropdown.style.display = "none";
 }
 const secondTypeUserSelected = function() {
     console.log("Second Type User Selected");
@@ -90,22 +94,34 @@ const secondTypeServerSelected = function() {
     console.log("Second type server selected");
     serverSecondSelectionDropdown.style.display = "block";
 }
+const secondTypeLocationSelected = function() {
+    console.log("Second locations selected");
+    locationSecondSelectionDropdown.style.display = "block";
+}
+const secondTypePasswordSelected = function() {
+    console.log("Second Type Password Selected");
+    passwordSecondSelectionDropdown.style.display = "block";
+}
 const secondTypeDropdownSelectorSelected = function() {
     console.log("Second type dropdown selector selected");
     hideAllSecondSelectedDropdowns();
 
-    let firstTypeSelected =  secondTypeDropdownSelector.value;
+    let secondTypeSelected =  secondTypeDropdownSelector.value;
 
-    console.log(firstTypeSelected);
+    console.log(secondTypeSelected);
 
-    if(firstTypeSelected == "user2") {
+    if(secondTypeSelected == "user2") {
         secondTypeUserSelected();
-    }else if(firstTypeSelected == "equipment2") {
+    }else if(secondTypeSelected == "equipment2") {
         secondTypeEquipmentSelected();
-    }else if(firstTypeSelected == "ip2") {
+    }else if(secondTypeSelected == "ip2") {
         secondTypeIP_AndPortSelected();
-    }else if(firstTypeSelected == "server2") {
+    }else if(secondTypeSelected == "server2") {
         secondTypeServerSelected();
+    }else if(secondTypeSelected == "location2") {
+        secondTypeLocationSelected();
+    }else if(secondTypeSelected == "password2") {
+        secondTypePasswordSelected();
     }
 }
 

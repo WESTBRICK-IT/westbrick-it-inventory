@@ -392,6 +392,35 @@
             }
             echo "      </select>";
             echo "  </div>";
+
+
+            // Creating passwords second list
+
+
+            $query = "SELECT * FROM `passwords` ORDER BY `password` DESC";
+            $result = mysqli_query($conn, $query);
+            // I'm going to load all of the data from the sql server and then display it only when it's selected
+            // echo $result;
+
+            if (mysqli_num_rows($result) > 0) {  
+                $i = 0;
+                //loop through the number of rows               
+                while($row = mysqli_fetch_assoc($result)) {
+                    $encodedPassword = $row['password'];
+                    $decryptedPassword = decryptPassword($encodedPassword);
+                    $passwords[$i] = $decryptedPassword;
+                    $id[$i] = $row['id'];
+                    $i++;
+                }                    
+            }
+            echo "  <div class='links-passwords-second-selection-dropdown links-second-selection-dropdown links-selection-dropdown'>";
+            echo "      <label for='select2-passwords'>Password First Selection:</label>";
+            echo "      <select class='dropdown select2 passwords-select2-dropdown' id='select2-passwords' name='select2' required>";
+            for($i = 0; $i < mysqli_num_rows($result); $i++) {                             
+                echo "          <option class='second-password-$id password-$id' value'$passwords[$i] $id[$i]'>$passwords[$i]</option>";
+            }
+            echo "      </select>";
+            echo "  </div>";
         ?>
 
                 
