@@ -34,17 +34,40 @@
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }    
+
+        function firstLinkSelectionIsUser() {
+            echo "First Link Selection is User";
+            $userFirstSelection = $_POST['select1-user'];
+            echo "$userFirstSelection selected";
+        }        
+        function firstLinkSelectionIsEquipment() {
+            echo "First Link Selection is Equipment";
+            $equipmentFirstSelection = $_POST['select1-equipment'];
+            echo "$equipmentFirstSelection selected";
+        }
+        function firstLinkSelectionIsIP() {
+
+        }
+
+        $firstTypeDropdownSelection = $_POST['first-type-dropdown-selector'];        
         
-        $type1 = $_POST['type1'];
-        $firstID = $_POST['first-id'];
-        $type2 = $_POST['type2'];
-        $secondID = $_POST['second-id'];
+        echo "$firstTypeDropdownSelector";
+
+        if($firstTypeDropdownSelection == "user") {
+            firstLinkSelectionIsUser();
+        }else if($firstTypeDropdownSelection == "equipment") {
+            firstLinkSelectionIsEquipment();
+        }
+
+
+
+
         $linkRemark = $_POST['remark'];
         $date = date('Y-m-d');        
         date_default_timezone_set('America/Denver'); 
         $time = date('H:i:s', time());    
         
-        $sql = "INSERT INTO links (first_type, first_id, second_type, second_id,  date, time, link_remark) VALUES ('$type1', '$firstID', '$type2', '$secondID', '$date', '$time', '$linkRemark')"; 
+        // $sql = "INSERT INTO links (first_type, first_id, second_type, second_id,  date, time, link_remark) VALUES ('$type1', '$firstID', '$type2', '$secondID', '$date', '$time', '$linkRemark')"; 
         
         if ($conn->query($sql) === TRUE) {
             // echo "<h1>Article $title submitted successfully! Redirecting to articles page in 5 seconds.</h1>";

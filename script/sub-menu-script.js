@@ -1,11 +1,12 @@
 //Programmed by Chris Barber August 1 2024
 const goBackButton = document.querySelector(".go-back-button");
 const garbageBin = document.querySelectorAll(".garbage-can");
+// const firstDropdown = document.querySelector(".first-dropdown");
+// const secondDropdown = document.querySelector(".second-dropdown");
 const goBackButtonClick = function() {
     window.location.href = "../";
 }
 goBackButton.addEventListener("click", goBackButtonClick);
-
 function getFirstWord(str) {
     // Use trim() to remove leading/trailing whitespace, then split by spaces.
     const words = str.trim().split(/\s+/);
@@ -13,7 +14,6 @@ function getFirstWord(str) {
     // Return the first word, or an empty string if there are no words.
     return words.length > 0 ? words[0] : '';
 }
-
 const garbageBinClick = function() {
     let userResponse = confirm("Are you sure you want to delete this item?");
     console.log("garbage button click");
@@ -35,3 +35,7 @@ for(i = 0; i < garbageBin.length; i++) {
     garbageBin[i].addEventListener("click", garbageBinClick);
 }
 
+// const firstDropdownSelected = function() {
+//     console.log("hello");
+// }
+// firstDropdown.addEventListener('change', firstDropdownSelected);

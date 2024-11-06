@@ -1,5 +1,5 @@
-const firstTypeDropdownSelector = document.querySelector(".firstTypeDropdownSelector");
-const secondTypeDropdownSelector = document.querySelector(".secondTypeDropdownSelector");
+const firstTypeDropdownSelector = document.querySelector(".first-type-dropdown-selector");
+const secondTypeDropdownSelector = document.querySelector(".second-type-dropdown-selector");
 const userFirstSelectionDropdown = document.querySelector(".links-user-first-selection-dropdown");
 const equipmentFirstSelectionDropdown = document.querySelector(".links-equipment-first-selection-dropdown");
 const ipFirstSelectionDropdown = document.querySelector(".links-ip-first-selection-dropdown");
@@ -16,7 +16,7 @@ const passwordSecondSelectionDropdown = document.querySelector(".links-passwords
 const hideAllFirstSelectedDropdowns = function() {
     userFirstSelectionDropdown.style.display = "none";
     equipmentFirstSelectionDropdown.style.display = "none";
-    ipFirstSelectionDropdown.style.display = "none";
+    // ipFirstSelectionDropdown.style.display = "none";
     serverFirstSelectionDropdown.style.display = "none";
     locationFirstSelectionDropdown.style.display = "none";
     passwordFirstSelectionDropdown.style.display = "none";
@@ -46,11 +46,19 @@ const firstTypePasswordSelected = function() {
     console.log("password selected");
     passwordFirstSelectionDropdown.style.display = "block";
 }
-
+const firstTypeIP_Selected = function() {
+    console.log('IP Selected');
+}
+const firstTypeUpdateSelected = function() {
+    console.log('Update Selected');
+}
+const firstTypeOtherSelected = function() {
+    console.log("First Type Other Selected");
+}
 const firstTypeDropdownSelectorSelected = function() {
     console.log("First type dropdown selector selected");
     //reset all first selection dropdowns to reset for the displaying of the next dropdown
-    hideAllFirstSelectedDropdowns();
+    // hideAllFirstSelectedDropdowns();
     let firstTypeSelected =  firstTypeDropdownSelector.value;
 
     console.log(firstTypeSelected);    
@@ -67,8 +75,13 @@ const firstTypeDropdownSelectorSelected = function() {
         firstTypeLocationSelected();
     }else if(firstTypeSelected == "password") {
         firstTypePasswordSelected();
-    }
-    
+    }else if(firstTypeSelected == "ip") {
+        firstTypeIP_Selected();
+    }else if(firstTypeSelected == "update") {
+        firstTypeUpdateSelected();
+    }else if(firstTypeSelected == "other") {
+        firstTypeOtherSelected();
+    }    
 }
 const hideAllSecondSelectedDropdowns = function() {
     userSecondSelectionDropdown.style.display = "none";
@@ -102,9 +115,17 @@ const secondTypePasswordSelected = function() {
     console.log("Second Type Password Selected");
     passwordSecondSelectionDropdown.style.display = "block";
 }
+const secondTypeUpdateSelected = function() {
+    console.log("Second Type Update Selected");
+}
+const secondTypeOtherSelected = function() {
+    console.log("Second Type Other Selected");
+}
+
+
 const secondTypeDropdownSelectorSelected = function() {
     console.log("Second type dropdown selector selected");
-    hideAllSecondSelectedDropdowns();
+    // hideAllSecondSelectedDropdowns();
 
     let secondTypeSelected =  secondTypeDropdownSelector.value;
 
@@ -122,6 +143,10 @@ const secondTypeDropdownSelectorSelected = function() {
         secondTypeLocationSelected();
     }else if(secondTypeSelected == "password2") {
         secondTypePasswordSelected();
+    }else if(secondTypeSelected == "update2") {
+        secondTypeUpdateSelected();
+    }else if(secondTypeSelected == "other2") {
+        secondTypeOtherSelected();
     }
 }
 
