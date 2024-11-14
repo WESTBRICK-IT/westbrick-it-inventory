@@ -15,96 +15,133 @@
     <h1 class="sub-page-title">Add New Link</h1>
     <form class="submission-form" method="post" action="add-new-link.php" enctype="multipart/form-data"> 
         <p class="link-opening-request">Please select the two items to be linked:</p>
-        <div class="input-group">
-            <div class="top-stuff">                
-                <div>
-                    <label for="first-type-dropdown-selector">First Type:</label>
-                    <select class="dropdown type1 first-type-dropdown-selector" id="first-type-dropdown-selector" name="first-type-dropdown-selector" required>
-                        <option value="">Choose an option...</option>
-                        <option value="user">User</option>
-                        <option value="equipment">Equipment</option>
-                        <option value="ip-and-port">IP Number</option>
-                        <option value="server">Server</option>
-                        <option value="location">Location</option>
-                        <option value="password">Password</option>
-                        <!-- <option value="update">Update</option>
-                        <option value="other">Other</option> -->
-                    </select>                              
-                </div>        
+                        
+                       
         <?php
-            $allowedIPs = array('206.174.198.58', '206.174.198.59', '50.99.132.206'); // Define the list of allowed IP addresses
 
-            $remoteIP = $_SERVER['REMOTE_ADDR']; // Get the remote IP address of the client
+            function connectToDatabase(){
+                $allowedIPs = array('206.174.198.58', '206.174.198.59', '50.99.132.206'); // Define the list of allowed IP addresses
 
-            if (!in_array($remoteIP, $allowedIPs)) {
-                // Unauthorized access - display an error message or redirect
-                echo "<h1>Access denied. Your IP address is not allowed to view these items.</h1>";
-                exit();
+                $remoteIP = $_SERVER['REMOTE_ADDR']; // Get the remote IP address of the client
+
+                if (!in_array($remoteIP, $allowedIPs)) {
+                    // Unauthorized access - display an error message or redirect
+                    echo "<h1>Access denied. Your IP address is not allowed to view these items.</h1>";
+                    exit();
+                }
+                
+                // Connect to the database
+                $conn = mysqli_connect("localhost", "cbarber", "!!!Dr0w554p!!!", "IT_Inventory_DB");
+
+                // Check connection
+                if (!$conn) {
+                    die("Connection failed: " . mysqli_connect_error());
+                }
+                return $conn;
             }
+
+            function makeUserDatabaseQuery($conn) {
+                $query = "SELECT * FROM `users` ORDER BY `first_name` DESC, `last_name` DESC";
+                $result = mysqli_query($conn, $query);
+                return $result;
+            }
+            function createFirstTypeSelectionDropdown(){
+                echo    "<div class='input-group'>";
+                echo    "   <div class='top-stuff'>";
+                echo    "       <div>";
+                echo    "           <label for='first-type-dropdown-selector'>First Type:</label>";
+                echo    "           <select class='dropdown type1 first-type-dropdown-selector' id='first-type-dropdown-selector' name='first-type-dropdown-selector' required>";
+                echo    "               <option value=''>Choose an option...</option>";
+                echo    "               <option value='user'>User</option>";
+                echo    "               <option value='equipment'>Equipment</option>";
+                echo    "               <option value='ip-and-port'>IP Number</option>";
+                echo    "               <option value='server'>Server</option>";
+                echo    "               <option value='location'>Location</option>";
+                echo    "               <option value='password'>Password</option>";
+                echo    "           </select>";
+                echo    "       </div>";
+            }
+
+            function createUserFirstSelectionDropdown($conn) {
+
+                $result = makeUserDatabaseQuery($conn);
+                if (mysqli_num_rows($result) > 0) {  
+                    $i = 0;
+                    //loop through the number of rows               
+                    while($row = mysqli_fetch_assoc($result)) {
+                        $firstName[$i] = $row['first_name'];
+                        $lastName[$i] = $row['last_name'];
+                        $id[$i] = $row['id'];
+                        $i++;                    
+                    }
+                }
+                echo    "       <div class='links-user-first-selection-dropdown links-selection-dropdown'>";
+                echo    "           <label for='select1-user'>User First Selection:</label>";
+                echo    "           <select class='dropdown select1 user-select1-dropdown second-type-dropdown-selector' id='select1-user' name='select1-user' required>";
+                for($i = 0; $i < mysqli_num_rows($result); $i++) {
+                    echo "              <option class='user-$id' value'$firstName[$i] $lastName[$i] $id[$i]'>$firstName[$i] $lastName[$i]</option>";
+                }
+                echo    "           </select>";
+                echo    "       </div>";
+
+            }
+
+            function createSecondTypeSelectionDropdown(){
+                echo    "   </div>";
+                echo    "   <div class='middle-stuff'>";
+                echo    "       <div class='second-type-dropdown-div'>";
+                echo    "           <label for='second-type-dropdown-selector'>Second Type:</label>";
+                echo    "           <select class='dropdown type1 second-type-dropdown-selector' id='second-type-dropdown-selector' name='second-type-dropdown-selector' required>";
+                echo    "               <option value=''>Choose an option...</option>";
+                echo    "               <option value='user'>User</option>";
+                echo    "               <option value='equipment'>Equipment</option>";
+                echo    "               <option value='ip-and-port'>IP Number</option>";
+                echo    "               <option value='server'>Server</option>";
+                echo    "               <option value='location'>Location</option>";
+                echo    "               <option value='password'>Password</option>";            
+                echo    "           </select>";
+                echo    "       </div>";
+            }
+
+            function createUserSecondSelectionDropdown($conn) {                                
+                
+                $result = makeUserDatabaseQuery($conn);
+                if (mysqli_num_rows($result) > 0) {  
+                    $i = 0;
+                    //loop through the number of rows               
+                    while($row = mysqli_fetch_assoc($result)) {
+                        $firstName[$i] = $row['first_name'];
+                        $lastName[$i] = $row['last_name'];
+                        $id[$i] = $row['id'];
+                        $i++;                    
+                    }
+                }
+                echo    "       <div class='links-user-second-selection-dropdown links-selection-dropdown'>";
+                echo    "           <label for='select1-user'>User Second Selection:</label>";
+                echo    "           <select class='dropdown select1 user-select1-dropdown second-type-dropdown-selector' id='select1-user' name='select1-user' required>";
+                for($i = 0; $i < mysqli_num_rows($result); $i++) {
+                    echo"               <option class='user-$id' value'$firstName[$i] $lastName[$i] $id[$i]'>$firstName[$i] $lastName[$i]</option>";
+                }
+                echo    "           </select>";
+                echo    "       </div>";
+                echo    "   </div>";                
+            }
+            //MAIN
+
+            function mainFunction() {
+                $conn = connectToDatabase();            
+                createFirstTypeSelectionDropdown();
+                // I'm going to load all of the data from the sql server and then display it only when it's selected           
+                createUserFirstSelectionDropdown($conn);
+                createSecondTypeSelectionDropdown();            
+                createUserSecondSelectionDropdown($conn);
+                $conn->close();
+            }           
             
-            // Connect to the database
-            $conn = mysqli_connect("localhost", "cbarber", "!!!Dr0w554p!!!", "IT_Inventory_DB");
-
-            // Check connection
-            if (!$conn) {
-                die("Connection failed: " . mysqli_connect_error());
-            }
-            // CREATING THE USER LIST
-
-            $query = "SELECT * FROM `users` ORDER BY `first_name` DESC, `last_name` DESC";
-            $result = mysqli_query($conn, $query);
-            // I'm going to load all of the data from the sql server and then display it only when it's selected
-            // echo $result;
-
-            if (mysqli_num_rows($result) > 0) {  
-                $i = 0;
-                //loop through the number of rows               
-                while($row = mysqli_fetch_assoc($result)) {
-                    $firstName[$i] = $row['first_name'];
-                    $lastName[$i] = $row['last_name'];
-                    $id[$i] = $row['id'];
-                    $i++;                    
-                }
-            }
-            echo "  <div class='links-user-first-selection-dropdown links-selection-dropdown'>";
-            echo "      <label for='select1-user'>User First Selection:</label>";
-            echo "      <select class='dropdown select1 user-select1-dropdown second-type-dropdown-selector' id='select1-user' name='select1-user' required>";
-            for($i = 0; $i < mysqli_num_rows($result); $i++) {
-                echo "          <option class='user-$id' value'$firstName[$i] $lastName[$i] $id[$i]'>$firstName[$i] $lastName[$i]</option>";
-            }
-            echo "      </select>";
-            echo "  </div>";
-
-            // CREATING THE EQUIPMENT LIST
-
-            $query = "SELECT * FROM `equipment` ORDER BY `model_name` DESC, `serial_number` DESC";
-            $result = mysqli_query($conn, $query);
-            // I'm going to load all of the data from the sql server and then display it only when it's selected
-            // echo $result;
-
-            if (mysqli_num_rows($result) > 0) {  
-                $i = 0;
-                //loop through the number of rows               
-                while($row = mysqli_fetch_assoc($result)) {
-                    $name[$i] = $row['name'];
-                    $modelName[$i] = $row['model_name'];
-                    $serialNumber[$i] = $row['serial_number'];
-                    $id[$i] = $row['id'];
-                    $i++;                    
-                }
-            }
-            echo "  <div class='links-equipment-first-selection-dropdown links-first-selection-dropdown links-selection-dropdown'>";
-            echo "      <label for='select1-equipment'>Equipment First Selection:</label>";
-            echo "      <select class='dropdown select1 equipment-select1-dropdown' id='select1-equipment' name='select1-equipment' required>";
-            for($i = 0; $i < mysqli_num_rows($result); $i++) {                             
-                echo "          <option class='first-equipment-$id equipment-$id' value'$name[$i] $modelName[$i] $serialNumber[$i] $id[$i]'>$name[$i] $modelName[$i] $serialNumber[$i]</option>";
-            }
-            echo "      </select>";
-            echo "  </div>";            
-
-            $conn->close();
+            mainFunction();
+            
         ?>                
-            </div>
+            
             <div class="bottom-stuff">
                 <div>
                     <label for="remark">Remark:</label>
