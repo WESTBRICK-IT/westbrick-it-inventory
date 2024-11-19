@@ -1,13 +1,14 @@
 const firstTypeDropdownSelector = document.querySelector(".first-type-dropdown-selector");
 const secondTypeDropdownSelector = document.querySelector(".second-type-dropdown-selector");
 const userFirstSelectionDropdown = document.querySelector(".links-user-first-selection-dropdown");
+const userSecondSelectionDropdown = document.querySelector(".links-user-second-selection-dropdown");
 const equipmentFirstSelectionDropdown = document.querySelector(".links-equipment-first-selection-dropdown");
+const equipmentSecondSelectionDropdown = document.querySelector(".links-equipment-second-selection-dropdown");
+
 const ipFirstSelectionDropdown = document.querySelector(".links-ip-first-selection-dropdown");
 const serverFirstSelectionDropdown = document.querySelector(".links-server-first-selection-dropdown");
 const locationFirstSelectionDropdown = document.querySelector(".links-locations-first-selection-dropdown");
 const passwordFirstSelectionDropdown = document.querySelector(".links-passwords-first-selection-dropdown");
-const userSecondSelectionDropdown = document.querySelector(".links-user-second-selection-dropdown");
-const equipmentSecondSelectionDropdown = document.querySelector(".links-equipment-second-selection-dropdown");
 const iP_SecondSelectionDropdown = document.querySelector(".links-ip-second-selection-dropdown");
 const serverSecondSelectionDropdown = document.querySelector(".links-server-second-selection-dropdown");
 const locationSecondSelectionDropdown = document.querySelector(".links-locations-second-selection-dropdown");
@@ -17,9 +18,9 @@ const hideAllFirstSelectedDropdowns = function() {
     userFirstSelectionDropdown.style.display = "none";
     equipmentFirstSelectionDropdown.style.display = "none";
     // ipFirstSelectionDropdown.style.display = "none";
-    serverFirstSelectionDropdown.style.display = "none";
-    locationFirstSelectionDropdown.style.display = "none";
-    passwordFirstSelectionDropdown.style.display = "none";
+    // serverFirstSelectionDropdown.style.display = "none";
+    // locationFirstSelectionDropdown.style.display = "none";
+    // passwordFirstSelectionDropdown.style.display = "none";
 }
 const firstTypeUserSelected = function() {
     console.log("user selected");
@@ -58,7 +59,7 @@ const firstTypeOtherSelected = function() {
 const firstTypeDropdownSelectorSelected = function() {
     console.log("First type dropdown selector selected");
     //reset all first selection dropdowns to reset for the displaying of the next dropdown
-    // hideAllFirstSelectedDropdowns();
+    hideAllFirstSelectedDropdowns();
     let firstTypeSelected =  firstTypeDropdownSelector.value;
 
     console.log(firstTypeSelected);    
@@ -85,11 +86,11 @@ const firstTypeDropdownSelectorSelected = function() {
 }
 const hideAllSecondSelectedDropdowns = function() {
     userSecondSelectionDropdown.style.display = "none";
-    equipmentSecondSelectionDropdown.style.display = "none";
-    iP_SecondSelectionDropdown.style.display = "none";
-    serverSecondSelectionDropdown.style.display = "none";
-    locationSecondSelectionDropdown.style.display = "none";
-    passwordSecondSelectionDropdown.style.display = "none";
+    // equipmentSecondSelectionDropdown.style.display = "none";
+    // iP_SecondSelectionDropdown.style.display = "none";
+    // serverSecondSelectionDropdown.style.display = "none";
+    // locationSecondSelectionDropdown.style.display = "none";
+    // passwordSecondSelectionDropdown.style.display = "none";
 }
 const secondTypeUserSelected = function() {
     console.log("Second Type User Selected");
@@ -124,28 +125,28 @@ const secondTypeOtherSelected = function() {
 
 
 const secondTypeDropdownSelectorSelected = function() {
-    console.log("Second type dropdown selector selected");
-    // hideAllSecondSelectedDropdowns();
+    console.log("Second type dropdown selector selected");    
+    hideAllSecondSelectedDropdowns();
 
     let secondTypeSelected =  secondTypeDropdownSelector.value;
 
     console.log(secondTypeSelected);
 
-    if(secondTypeSelected == "user2") {
+    if(secondTypeSelected == "user") {
         secondTypeUserSelected();
-    }else if(secondTypeSelected == "equipment2") {
+    }else if(secondTypeSelected == "equipment") {
         secondTypeEquipmentSelected();
-    }else if(secondTypeSelected == "ip2") {
+    }else if(secondTypeSelected == "ip") {
         secondTypeIP_AndPortSelected();
-    }else if(secondTypeSelected == "server2") {
+    }else if(secondTypeSelected == "server") {
         secondTypeServerSelected();
-    }else if(secondTypeSelected == "location2") {
+    }else if(secondTypeSelected == "location") {
         secondTypeLocationSelected();
-    }else if(secondTypeSelected == "password2") {
+    }else if(secondTypeSelected == "password") {
         secondTypePasswordSelected();
-    }else if(secondTypeSelected == "update2") {
+    }else if(secondTypeSelected == "update") {
         secondTypeUpdateSelected();
-    }else if(secondTypeSelected == "other2") {
+    }else if(secondTypeSelected == "other") {
         secondTypeOtherSelected();
     }
 }

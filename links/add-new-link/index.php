@@ -45,6 +45,11 @@
                 $result = mysqli_query($conn, $query);
                 return $result;
             }
+            function makeEquipmentDatabaseQuery($conn){
+                $query = "SELECT * FROM `equipment` ORDER BY `date` DESC, `model_name` DESC";
+                $result = mysqli_query($conn, $query);
+                return $result;
+            }
             function createFirstTypeSelectionDropdown(){
                 echo    "<div class='input-group'>";
                 echo    "   <div class='top-stuff'>";
@@ -77,7 +82,7 @@
                 }
                 echo    "       <div class='links-user-first-selection-dropdown links-selection-dropdown'>";
                 echo    "           <label for='select1-user'>User First Selection:</label>";
-                echo    "           <select class='dropdown select1 user-select1-dropdown second-type-dropdown-selector' id='select1-user' name='select1-user' required>";
+                echo    "           <select class='dropdown select1 user-select1-dropdown' id='select1-user' name='select1-user' required>";
                 for($i = 0; $i < mysqli_num_rows($result); $i++) {
                     echo "              <option class='user-$id' value'$firstName[$i] $lastName[$i] $id[$i]'>$firstName[$i] $lastName[$i]</option>";
                 }
@@ -117,8 +122,8 @@
                     }
                 }
                 echo    "       <div class='links-user-second-selection-dropdown links-selection-dropdown'>";
-                echo    "           <label for='select1-user'>User Second Selection:</label>";
-                echo    "           <select class='dropdown select1 user-select1-dropdown second-type-dropdown-selector' id='select1-user' name='select1-user' required>";
+                echo    "           <label for='select2-user'>User Second Selection:</label>";
+                echo    "           <select class='dropdown select2 user-select2-dropdown' id='select2-user' name='select2-user' required>";
                 for($i = 0; $i < mysqli_num_rows($result); $i++) {
                     echo"               <option class='user-$id' value'$firstName[$i] $lastName[$i] $id[$i]'>$firstName[$i] $lastName[$i]</option>";
                 }
@@ -126,15 +131,68 @@
                 echo    "       </div>";
                 echo    "   </div>";                
             }
-            //MAIN
 
+            function createEquipmentFirstSelectionDropdown($conn){
+                $result = makeEquipmentDatabaseQuery($conn);
+                if (mysqli_num_rows($result) > 0) {  
+                    $i = 0;
+                    //loop through the number of rows               
+                    while($row = mysqli_fetch_assoc($result)) {
+                        $modelName[$i] = $row['model_name'];
+                        $name[$i] = $row['name'];
+                        $id[$i] = $row['id'];
+                        $i++;                    
+                    }
+                }
+                echo    "       <div class='links-equipment-first-selection-dropdown links-selection-dropdown'>";
+                echo    "           <label for='select1-equipment'>Equipment First Selection:</label>";
+                echo    "           <select class='dropdown select1 equipment-select1-dropdown' id='select1-equipment' name='select1-equipment' required>";
+                for($i = 0; $i < mysqli_num_rows($result); $i++) {
+                    echo "              <option class='user-$id' value'$modelName[$i] $name[$i] $id[$i]'>$modelName[$i] $name[$i]</option>";
+                }
+                echo    "           </select>";
+                echo    "       </div>";
+            }
+
+            function createEquipmentSecondSelectionDropdown($conn) {
+                $result = makeEquipmentDatabaseQuery($conn);
+                if (mysqli_num_rows($result) > 0) {  
+                    $i = 0;
+                    //loop through the number of rows               
+                    while($row = mysqli_fetch_assoc($result)) {
+                        $modelName[$i] = $row['model_name'];
+                        $name[$i] = $row['name'];
+                        $id[$i] = $row['id'];
+                        $i++;                    
+                    }
+                }
+                echo    "       <div class='links-equipment-second-selection-dropdown links-selection-dropdown'>";
+                echo    "           <label for='select2-equipment'>Equipment First Selection:</label>";
+                echo    "           <select class='dropdown select2 equipment-select2-dropdown' id='select2-equipment' name='select2-equipment' required>";
+                for($i = 0; $i < mysqli_num_rows($result); $i++) {
+                    echo "              <option class='user-$id' value'$modelName[$i] $name[$i] $id[$i]'>$modelName[$i] $name[$i]</option>";
+                }
+                echo    "           </select>";
+                echo    "       </div>";
+            }
+
+            function createFirstSelectionDropdowns($conn){
+                createUserFirstSelectionDropdown($conn);
+                createEquipmentFirstSelectionDropdown($conn);
+            }
+
+            function createSecondSelectionDropdowns($conn) {
+                createUserSecondSelectionDropdown($conn);
+            }
+            
+            //MAIN
             function mainFunction() {
                 $conn = connectToDatabase();            
                 createFirstTypeSelectionDropdown();
-                // I'm going to load all of the data from the sql server and then display it only when it's selected           
-                createUserFirstSelectionDropdown($conn);
-                createSecondTypeSelectionDropdown();            
-                createUserSecondSelectionDropdown($conn);
+                createFirstSelectionDropdowns($conn);
+                createSecondTypeSelectionDropdown();
+                // I'm going to load all of the data from the sql server and then display it only when it's selected with javascript
+                createSecondSelectionDropdowns($conn);
                 $conn->close();
             }           
             

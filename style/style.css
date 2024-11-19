@@ -221,8 +221,7 @@ tr:hover {
     text-align: center;
 }
 .second-type-dropdown-div{
-    display: block;
-    margin: 20px auto;
+    display: block;    
 }
 
 @media screen and (max-width: 1200px) {
