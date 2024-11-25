@@ -35,29 +35,29 @@
             die("Connection failed: " . $conn->connect_error);
         }    
 
-        function firstLinkSelectionIsUser() {
-            echo "First Link Selection is User";
-            $userFirstSelection = $_POST['select1-user'];
-            echo "$userFirstSelection selected";
-        }        
-        function firstLinkSelectionIsEquipment() {
-            echo "First Link Selection is Equipment";
-            $equipmentFirstSelection = $_POST['select1-equipment'];
-            echo "$equipmentFirstSelection selected";
-        }
-        function firstLinkSelectionIsIP() {
+        // function firstLinkSelectionIsUser() {
+        //     echo "First Link Selection is User";
+        //     $userFirstSelection = $_POST['select1-user'];
+        //     echo "$userFirstSelection selected";
+        // }        
+        // function firstLinkSelectionIsEquipment() {
+        //     echo "First Link Selection is Equipment";
+        //     $equipmentFirstSelection = $_POST['select1-equipment'];
+        //     echo "$equipmentFirstSelection selected";
+        // }
+        // function firstLinkSelectionIsIP() {
 
-        }
+        // }
 
         $firstTypeDropdownSelection = $_POST['first-type-dropdown-selector'];        
-        
-        echo "$firstTypeDropdownSelector";
+        echo    "<h1>Hello World</h1>";
+        echo "First Type Dropdown Selection: $firstTypeDropdownSelector";
 
-        if($firstTypeDropdownSelection == "user") {
-            firstLinkSelectionIsUser();
-        }else if($firstTypeDropdownSelection == "equipment") {
-            firstLinkSelectionIsEquipment();
-        }
+        // if($firstTypeDropdownSelection == "user") {
+        //     firstLinkSelectionIsUser();
+        // }else if($firstTypeDropdownSelection == "equipment") {
+        //     firstLinkSelectionIsEquipment();
+        // }
 
 
 
@@ -83,7 +83,7 @@
         } else {
             echo "<div class='westbrick-success-svg-container'>";
             echo    "Error: " . $sql . "<br>" . $conn->error;
-            echo    "<button class='home-button' type='button' onclick='window.location.href=`../`;'>Index</button>";
+            echo    "<button class='home-button' type='button' onclick='window.location.href=`../`;'>Home</button>";
             echo "</div>";
         }
         $conn->close();
