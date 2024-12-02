@@ -79,7 +79,7 @@
                 echo    "   <div class='top-stuff'>";
                 echo    "       <div>";
                 echo    "           <label for='first-type-dropdown-selector'>First Type:</label>";
-                echo    "           <select class='dropdown type1 first-type-dropdown-selector' id='first-type-dropdown-selector' name='first-type-dropdown-selector' required>";
+                echo    "           <select class='dropdown type1 first-type-dropdown-selector' id='first-type-dropdown-selector' name='first-type-dropdown-selector'>";
                 echo    "               <option value=''>Choose an option...</option>";
                 echo    "               <option value='user'>User</option>";
                 echo    "               <option value='equipment'>Equipment</option>";
@@ -106,9 +106,10 @@
                 }
                 echo    "       <div class='links-user-first-selection-dropdown links-selection-dropdown'>";
                 echo    "           <label for='select1-user'>User First Selection:</label>";
-                echo    "           <select class='dropdown select1 user-select1-dropdown' id='select1-user' name='select1-user' required>";
+                echo    "           <select class='dropdown select1 user-select1-dropdown' id='select1-user' name='select1-user'>";
+                echo    "               <option value=''>Choose an option...</option>";
                 for($i = 0; $i < mysqli_num_rows($result); $i++) {
-                    echo "              <option class='user-$id' value'$firstName[$i] $lastName[$i] $id[$i]'>$firstName[$i] $lastName[$i]</option>";
+                    echo "              <option class='user-$id[$i]' value'user-$id[$i]'>$firstName[$i] $lastName[$i] DBID: $id[$i]</option>";
                 }
                 echo    "           </select>";
                 echo    "       </div>";
@@ -147,9 +148,10 @@
                 }
                 echo    "       <div class='links-user-second-selection-dropdown links-selection-dropdown'>";
                 echo    "           <label for='select2-user'>User Second Selection:</label>";
-                echo    "           <select class='dropdown select2 user-select2-dropdown' id='select2-user' name='select2-user' required>";
+                echo    "           <select class='dropdown select2 user-select2-dropdown' id='select2-user' name='select2-user'>";
+                echo    "               <option value=''>Choose an option...</option>";
                 for($i = 0; $i < mysqli_num_rows($result); $i++) {
-                    echo"               <option class='user-$id' value'$firstName[$i] $lastName[$i] $id[$i]'>$firstName[$i] $lastName[$i]</option>";
+                    echo"               <option class='user-$id[$i]' value'user-$id[$i]'>$firstName[$i] $lastName[$i] DBID: $id[$i]</option>";
                 }
                 echo    "           </select>";
                 echo    "       </div>";                          
@@ -169,9 +171,10 @@
                 }
                 echo    "       <div class='links-equipment-first-selection-dropdown links-selection-dropdown'>";
                 echo    "           <label for='select1-equipment'>Equipment First Selection:</label>";
-                echo    "           <select class='dropdown select1 equipment-select1-dropdown' id='select1-equipment' name='select1-equipment' required>";
+                echo    "           <select class='dropdown select1 equipment-select1-dropdown' id='select1-equipment' name='select1-equipment'>";
+                echo    "               <option value=''>Choose an option...</option>";
                 for($i = 0; $i < mysqli_num_rows($result); $i++) {
-                    echo "              <option class='user-$id' value'$modelName[$i] $name[$i] $id[$i]'>$modelName[$i] $name[$i]</option>";
+                    echo "              <option class='equipment-$id[$i]' value'equipment-$id[$i]'>$modelName[$i] $name[$i] DBID: $id[$i]</option>";
                 }
                 echo    "           </select>";
                 echo    "       </div>";
@@ -192,8 +195,9 @@
                 echo    "       <div class='links-equipment-second-selection-dropdown links-selection-dropdown'>";
                 echo    "           <label for='select2-equipment'>Equipment First Selection:</label>";
                 echo    "           <select class='dropdown select2 equipment-select2-dropdown' id='select2-equipment' name='select2-equipment'>";
+                echo    "               <option value=''>Choose an option...</option>";
                 for($i = 0; $i < mysqli_num_rows($result); $i++) {
-                    echo "              <option class='user-$id' value'$modelName[$i] $name[$i] $id[$i]'>$modelName[$i] $name[$i]</option>";
+                    echo "              <option class='equipment-$id[$i]' value'equipment-$id[$i]'>$modelName[$i] $name[$i] DBID: $id[$i]</option>";
                 }
                 echo    "           </select>";
                 echo    "       </div>";                
@@ -213,9 +217,10 @@
                 }
                 echo    "       <div class='links-ip-first-selection-dropdown links-selection-dropdown'>";
                 echo    "           <label for='select1-ip'>Equipment First Selection:</label>";
-                echo    "           <select class='dropdown select1 ip-select1-dropdown' id='select1-ip' name='select1-ip' required>";
+                echo    "           <select class='dropdown select1 ip-select1-dropdown' id='select1-ip' name='select1-ip'>";
+                echo    "               <option value=''>Choose an option...</option>";
                 for($i = 0; $i < mysqli_num_rows($result); $i++) {
-                    echo "              <option class='user-$id' value'$ip[$i] $port[$i] $id[$i]'>$ip[$i] $port[$i]</option>";
+                    echo "              <option class='ip-$id[$i]' value'ip-$id[$i]'>$ip[$i]:$port[$i] DBID: $id[$i]</option>";
                 }
                 echo    "           </select>";
                 echo    "       </div>";
@@ -235,9 +240,10 @@
                 }
                 echo    "       <div class='links-ip-second-selection-dropdown links-selection-dropdown'>";
                 echo    "           <label for='select2-ip'>Equipment Second Selection:</label>";
-                echo    "           <select class='dropdown select2 ip-select2-dropdown' id='select2-ip' name='select2-ip' required>";
+                echo    "           <select class='dropdown select2 ip-select2-dropdown' id='select2-ip' name='select2-ip'>";
+                echo    "               <option value=''>Choose an option...</option>";
                 for($i = 0; $i < mysqli_num_rows($result); $i++) {
-                    echo "              <option class='user-$id' value'$ip[$i] $port[$i] $id[$i]'>$ip[$i] $port[$i]</option>";
+                    echo "              <option class='ip-$id[$i]' value'equipment-$id[$i]'>$ip[$i] $port[$i] DBID: $id[$i]</option>";
                 }
                 echo    "           </select>";
                 echo    "       </div>";
@@ -256,9 +262,10 @@
                 }
                 echo    "       <div class='links-server-first-selection-dropdown links-selection-dropdown'>";
                 echo    "           <label for='select1-server'>Server First Selection:</label>";                
-                echo    "           <select class='dropdown select1 server-select1-dropdown' id='select1-server' name='select1-server' required>";
+                echo    "           <select class='dropdown select1 server-select1-dropdown' id='select1-server' name='select1-server'>";
+                echo    "               <option value=''>Choose an option...</option>";
                 for($i = 0; $i < mysqli_num_rows($result); $i++) {
-                    echo "              <option class='user-$id' value'$serverName[$i] $serverName[$i]$id[$i]'>$serverName[$i]</option>";
+                    echo "              <option class='server-$id' value'server-$id[$i]'>$serverName[$i] DBID: $id[$i]</option>";
                 }
                 echo    "           </select>";
                 echo    "       </div>";
@@ -277,9 +284,10 @@
                 }
                 echo    "       <div class='links-server-second-selection-dropdown links-selection-dropdown'>";
                 echo    "           <label for='select2-server'>Server Second Selection:</label>";                
-                echo    "           <select class='dropdown select2 server-select2-dropdown' id='select2-server' name='select2-server' required>";
+                echo    "           <select class='dropdown select2 server-select2-dropdown' id='select2-server' name='select2-server'>";
+                echo    "               <option value=''>Choose an option...</option>";
                 for($i = 0; $i < mysqli_num_rows($result); $i++) {
-                    echo "              <option class='user-$id' value'$serverName[$i] $serverName[$i]$id[$i]'>$serverName[$i]</option>";
+                    echo "              <option class='server-$id' value'server-$id[$i]'>$serverName[$i] DBID: $id[$i]</option>";
                 }
                 echo    "           </select>";
                 echo    "       </div>";
@@ -298,9 +306,10 @@
                 }
                 echo    "       <div class='links-location-first-selection-dropdown links-selection-dropdown'>";
                 echo    "           <label for='select1-server'>Location First Selection:</label>";                
-                echo    "           <select class='dropdown select1 location-select1-dropdown' id='select1-location' name='select1-server' required>";
+                echo    "           <select class='dropdown select1 locations-select1-dropdown' id='select1-location' name='select1-server'>";
+                echo    "               <option value=''>Choose an option...</option>";
                 for($i = 0; $i < mysqli_num_rows($result); $i++) {
-                    echo "              <option class='user-$id' value'$locationName[$i] $locationName[$i]$id[$i]'>$locationName[$i]</option>";
+                    echo "              <option class='location-$id' value'location-$id[$i]'>$locationName[$i] DBID: $id[$i]</option>";
                 }
                 echo    "           </select>";
                 echo    "       </div>";
@@ -319,9 +328,10 @@
                 }
                 echo    "       <div class='links-location-second-selection-dropdown links-selection-dropdown'>";
                 echo    "           <label for='select2-server'>Location Second Selection:</label>";                
-                echo    "           <select class='dropdown select2 location-select2-dropdown' id='select2-location' name='select2-server' required>";
+                echo    "           <select class='dropdown select2 location-select2-dropdown' id='select2-location' name='select2-server'>";
+                echo    "               <option value=''>Choose an option...</option>";
                 for($i = 0; $i < mysqli_num_rows($result); $i++) {
-                    echo "              <option class='user-$id' value'$locationName[$i] $locationName[$i]$id[$i]'>$locationName[$i]</option>";
+                    echo "              <option class='location-$id' value'location-$id[$i]'>$locationName[$i] DBID: $id[$i]</option>";
                 }
                 echo    "           </select>";
                 echo    "       </div>";
@@ -340,9 +350,10 @@
                 }
                 echo    "       <div class='links-passwords-first-selection-dropdown links-selection-dropdown'>";
                 echo    "           <label for='select1-passwords'>Passwords First Selection:</label>";                
-                echo    "           <select class='dropdown select1 passwords-select1-dropdown' id='select1-passwords' name='select1-passwords' required>";
+                echo    "           <select class='dropdown select1 passwords-select1-dropdown' id='select1-passwords' name='select1-passwords'>";
+                echo    "               <option value=''>Choose an option...</option>";
                 for($i = 0; $i < mysqli_num_rows($result); $i++) {
-                    echo "              <option class='user-$id' value'$password[$i] $password[$i]$id[$i]'>$password[$i]</option>";
+                    echo "              <option class='password-$id' value'passwords-$id[$i]'>$password[$i] DBID: $id[$i]</option>";
                 }
                 echo    "           </select>";
                 echo    "       </div>";
@@ -361,9 +372,10 @@
                 }
                 echo    "       <div class='links-passwords-second-selection-dropdown links-selection-dropdown'>";
                 echo    "           <label for='select2-passwords'>Passwords Second Selection:</label>";                
-                echo    "           <select class='dropdown select2 passwords-select2-dropdown' id='select2-passwords' name='select2-passwords' required>";
+                echo    "           <select class='dropdown select2 passwords-select2-dropdown' id='select2-passwords' name='select2-passwords'>";
+                echo    "               <option value=''>Choose an option...</option>";
                 for($i = 0; $i < mysqli_num_rows($result); $i++) {
-                    echo "              <option class='user-$id' value'$password[$i] $password[$i]$id[$i]'>$password[$i]</option>";
+                    echo "              <option class='password-$id' value'passwords-$id[$i]'>$password[$i] DBID: $id[$i]</option>";
                 }
                 echo    "           </select>";
                 echo    "       </div>";
@@ -386,6 +398,11 @@
                 createLocationSecondSelectionDropdown($conn);
                 createPasswordsSecondSelectionDropdown($conn);
             }
+
+            function createSecretJS_Payload(){
+                echo    "<input type='hidden' class='user-first-select-payload' name='user-first-select-payload' value='' />";
+                echo    "<input type='hidden' class='user-second-select-payload' name='user-second-select-payload' value='' />";
+            }
             
             //MAIN
             function mainFunction() {
@@ -400,6 +417,7 @@
                 createSecondSelectionDropdowns($conn);
                 echo "</div>";
                 // End Middle Stuff
+                createSecretJS_Payload();
                 $conn->close();
             }           
             
@@ -414,8 +432,7 @@
                 </div>
             </div>          
         </div>      
-        <!-- <input class="submit-button" type="submit" value="Link Items"> -->
-        <input class="submit-button" value="Link Items">
+        <input class="submit-button" type="submit" value="Link Items">        
     </form>    
     <button class="button go-back-button" type="button">Go back</button>
 </body>

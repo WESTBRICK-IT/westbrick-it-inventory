@@ -28,10 +28,16 @@ const locationSelect2Dropdown = document.querySelector(".location-select2-dropdo
 const passwordSelect2Dropdown = document.querySelector(".passwords-select2-dropdown");
 
 const submitButton = document.querySelector(".submit-button");
+const userFirstSelectHTML_Payload = document.querySelector(".user-first-select-payload");
+const userSecondSelectHTML_Payload = document.querySelector(".user-second-select-payload");
 
 // Global Variable
 let userFirstSelection;
 let userSecondSelection;
+let userFirstSelectionType;
+let userSecondSelectionType;
+let userFirstSelectionID;
+let userSecondSelectionID;
 
 const hideAllFirstSelectedDropdowns = function() {
     userFirstSelectionDropdown.style.display = "none";
@@ -170,40 +176,67 @@ const secondTypeDropdownSelectorSelected = function() {
     }
 }
 
+const getDBID = function(string) {    
+    const regex = /DBID:\s*(\d+)/;
+    const match = string.match(regex);
+    if (match && match[1]) {
+        return match[1]; 
+    }   
+    return null; 
+}
+
 const userFirstSelectionDropdownSelected = function() {
     console.log("User First Selection Dropdown Selected");
-    userFirstSelection = userSelect1Dropdown.value;    
-    console.log(userFirstSelection);
+    userFirstSelection = userSelect1Dropdown.value;        
+    let dBID = getDBID(userFirstSelection);    
+    userFirstSelectionType = "user";
+    userFirstSelectionID = dBID;
+    console.log("User First Selection: " + userFirstSelection + " Type: " + userFirstSelectionType + " ID: " + userFirstSelectionID);    
 }
 
 const equipmentFirstSelectionDropdownSelected = function() {
     console.log("Equipment First Selection Dropdown Selected");
     userFirstSelection = equipmentSelect1Dropdown.value;    
-    console.log(userFirstSelection);
+    let dBID = getDBID(userFirstSelection);    
+    userFirstSelectionType = "equipment";
+    userFirstSelectionID = dBID;
+    console.log("User First Selection: " + userFirstSelection + " Type: " + userFirstSelectionType + " ID: " + userFirstSelectionID);    
 }
 
 const iP_FirstSelectionDropdownSelected = function() {
     console.log("IP First Selection Dropdown Selected");
     userFirstSelection = iP_Select1Dropdown.value;
-    console.log(userFirstSelection);
+    let dBID = getDBID(userFirstSelection);    
+    userFirstSelectionType = "ip";
+    userFirstSelectionID = dBID;
+    console.log("User First Selection: " + userFirstSelection + " Type: " + userFirstSelectionType + " ID: " + userFirstSelectionID);  
 }
 
 const serverFirstSelectionDropdownSelected = function() {
     console.log("Server First Selection Dropdown Selected");
     userFirstSelection = serverSelect1Dropdown.value;
-    console.log(userFirstSelection);
+    let dBID = getDBID(userFirstSelection);    
+    userFirstSelectionType = "server";
+    userFirstSelectionID = dBID;
+    console.log("User First Selection: " + userFirstSelection + " Type: " + userFirstSelectionType + " ID: " + userFirstSelectionID);  
 }
 
 const locationFirstSelectionDropdownSelected = function() {
     console.log("Location First Selection Dropdown Selected");
     userFirstSelection = locationsSelect1Dropdown.value;
-    console.log(userFirstSelection);
+    let dBID = getDBID(userFirstSelection);    
+    userFirstSelectionType = "location";
+    userFirstSelectionID = dBID;
+    console.log("User First Selection: " + userFirstSelection + " Type: " + userFirstSelectionType + " ID: " + userFirstSelectionID);  
 }
 
 const passwordFirstSelectionDropdownSelected = function() {
     console.log("Location First Selection Dropdown Selected");
     userFirstSelection = passwordSelect1Dropdown.value;
-    console.log(userFirstSelection);
+    let dBID = getDBID(userFirstSelection);    
+    userFirstSelectionType = "password";
+    userFirstSelectionID = dBID;
+    console.log("User First Selection: " + userFirstSelection + " Type: " + userFirstSelectionType + " ID: " + userFirstSelectionID);  
 }
 
 
@@ -213,41 +246,64 @@ const passwordFirstSelectionDropdownSelected = function() {
 const userSecondSelectionDropdownSelected = function() {
     console.log("User Second Selection Dropdown Selected");
     userSecondSelection = userSelect2Dropdown.value;
-    console.log(userSecondSelection);
+    let dBID = getDBID(userSecondSelection);    
+    userSecondSelectionType = "user";
+    userSecondSelectionID = dBID;
+    console.log("User Second Selection: " + userSecondSelection + " Type: " + userSecondSelectionType + " ID: " + userSecondSelectionID);
 }
 
 const equipmentSecondSelectionDropdownSelected = function() {
     console.log("Equipment Second Selection Dropdown Selected");
     userSecondSelection = equipmentSelect2Dropdown.value;
-    console.log(userSecondSelection);
+    let dBID = getDBID(userSecondSelection);    
+    userSecondSelectionType = "equipment";
+    userSecondSelectionID = dBID;
+    console.log("User Second Selection: " + userSecondSelection + " Type: " + userSecondSelectionType + " ID: " + userSecondSelectionID);
 }
 
 const iP_SecondSelectionDropdownSelected = function() {
     console.log("IP Second Selection Dropdown Selected");
     userSecondSelection = iP_Select2Dropdown.value;
-    console.log(userSecondSelection);
+    let dBID = getDBID(userSecondSelection);    
+    userSecondSelectionType = "ip";
+    userSecondSelectionID = dBID;
+    console.log("User Second Selection: " + userSecondSelection + " Type: " + userSecondSelectionType + " ID: " + userSecondSelectionID);
 }
 
 const serverSecondSelectionDropdownSelected = function() {
     console.log("Server Second Selection Dropdown Selected");
     userSecondSelection = serverSelect2Dropdown.value;
-    console.log(userSecondSelection);
+    let dBID = getDBID(userSecondSelection);    
+    userSecondSelectionType = "server";
+    userSecondSelectionID = dBID;
+    console.log("User Second Selection: " + userSecondSelection + " Type: " + userSecondSelectionType + " ID: " + userSecondSelectionID);
 }
 
 const locationSecondSelectionDropdownSelected = function() {
     console.log("Location Second Selection Dropdown Selected");
     userSecondSelection = locationSelect2Dropdown.value;
-    console.log(userSecondSelection);
+    let dBID = getDBID(userSecondSelection);    
+    userSecondSelectionType = "location";
+    userSecondSelectionID = dBID;
+    console.log("User Second Selection: " + userSecondSelection + " Type: " + userSecondSelectionType + " ID: " + userSecondSelectionID);
 }
 
 const passwordSelect2DropdownSelected = function() {
     console.log("Passwords Second Selection Dropdown Selected");
     userSecondSelection = passwordSelect2Dropdown.value;
-    console.log(userSecondSelection);
+    let dBID = getDBID(userSecondSelection);    
+    userSecondSelectionType = "password";
+    userSecondSelectionID = dBID;
+    console.log("User Second Selection: " + userSecondSelection + " Type: " + userSecondSelectionType + " ID: " + userSecondSelectionID);
 }
 
 const submitButtonClicked = function() {
     console.log("Submit Button Clicked");
+    console.log("User First Selection: " + userFirstSelection);
+    console.log("User Second Selection: " + userSecondSelection);
+    console.log("Copying to html...");
+    userFirstSelectHTML_Payload.value = userFirstSelectionType + " " + userFirstSelectionID;
+    userSecondSelectHTML_Payload.value = userSecondSelectionType + " " + userSecondSelectionID;
 }
 
 firstTypeDropdownSelector.addEventListener("change", firstTypeDropdownSelectorSelected);
@@ -267,4 +323,4 @@ serverSecondSelectionDropdown.addEventListener("change", serverSecondSelectionDr
 locationSecondSelectionDropdown.addEventListener("change", locationSecondSelectionDropdownSelected);
 passwordsSecondSelectionDropdown.addEventListener("change", passwordSelect2DropdownSelected);
 
-submitButton.addEventListener("change", submitButtonClicked);
+submitButton.addEventListener("click", submitButtonClicked);
