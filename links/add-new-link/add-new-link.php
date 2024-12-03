@@ -11,7 +11,6 @@
 </head>
 <body>
     <?php
-
         function connectToDatabase() {
             $allowedIPs = array('206.174.198.58', '206.174.198.59', '50.99.132.206'); // Define the list of allowed IP addresses
 
@@ -38,9 +37,7 @@
             }    
 
             return $conn;
-        }
-        
-        $conn = connectToDatabase();        
+        }      
         function getUserFirstSelect() {
             $userFirstSelect = $_POST['user-first-select-payload'];
             return $userFirstSelect;
@@ -49,7 +46,6 @@
             $userSecondSelect = $_POST['user-second-select-payload'];
             return $userSecondSelect;
         }
-
         function getTheType($string) {
             $array = explode(" ", $string);
             $type = $array[0];
@@ -60,7 +56,6 @@
             $iD = $array[1];
             return $iD;
         }
-
         function getDateAndTime() {
             $date = date('Y-m-d');        
             date_default_timezone_set('America/Denver'); 
@@ -68,7 +63,6 @@
             $dateAndTimeArray = ['date' => $date, 'time' => $time];
             return $dateAndTimeArray;
         }
-
         function getSelectedData() {
             $userFirstSelect = getUserFirstSelect();
             $userSecondSelect = getUserSecondSelect();
@@ -84,49 +78,45 @@
             echo "<h1>Link Remark: $linkRemark</h1>";
             $dateAndTimeArray = getDateAndTime();
 
-            $userSelectedArray = ['userFirstSelect' => $userFirstSelect, 'userSecondSelect' => $userSecondSelect, 'userFirstSelectType' => $userFirstSelectType, 'userSecondSelectType' => $userSecondSelectType, 'userFirstSelectID' => $userFirstSelectID, 'userSecondSelectID' => $userSecondSelectID, 'linkRemark' => $linkRemark, 'date' => $dateAndTimeArray['date'], 'time' => $dateAndTimeArray['time']];
-            //$userSelectedArray = ['userFirstSelect' => $userFirstSelect, 'userSecondSelect' => $userSecondSelect];
+            $userSelectedArray = ['userFirstSelect' => $userFirstSelect, 'userSecondSelect' => $userSecondSelect, 'userFirstSelectType' => $userFirstSelectType, 'userSecondSelectType' => $userSecondSelectType, 'userFirstSelectID' => $userFirstSelectID, 'userSecondSelectID' => $userSecondSelectID, 'linkRemark' => $linkRemark, 'date' => $dateAndTimeArray['date'], 'time' => $dateAndTimeArray['time']];            
             return $userSelectedArray;
-        }        
-
-        
-        
-        // $userFirstSelect = $userSelectedArray['userFirstSelect'];
-        // $userSecondSelect = $userSelectedArray['userSecondSelect'];
-        
-        // echo    "<h1>User First Select: $userFirstSelect</h1>";
-        // echo    "<h1>User Second Select: $userSecondSelect</h1>"; 
-        function sqlQuery() {
+        }
+        function createSQL_QueryString() {
             $userSelectedArray = getSelectedData();
-            $sql = "INSERT INTO links (first_type, second_type, first_id, second_id, date, time, link_remark) VALUES ('$userFirstSelect', '$userSecondSelect', '$date', '$time')";
-
-
+            $userFirstSelectType = $userSelectedArray['userFirstSelectType'];
+            $userSecondSelectType = $userSelectedArray['userSecondSelectType'];
+            $userFirstSelectID = $userSelectedArray['userFirstSelectID'];
+            $userSecondSelectID = $userSelectedArray['userSecondSelectID'];
+            $date = $userSelectedArray['date'];
+            $time = $userSelectedArray['time'];
+            $linkRemark = $userSelectedArray['linkRemark'];
+            $sql = "INSERT INTO links (first_type, second_type, first_id, second_id, date, time, link_remark) VALUES ('$userFirstSelectType', '$userSecondSelectType', '$userFirstSelectID', '$userSecondSelectID', '$date', '$time', '$linkRemark')";
+            return $sql;
         }
-            
-        sqlQuery();
-        
-        
-        if ($conn->query($sql) === TRUE) {
-            // echo "<h1>Article $title submitted successfully! Redirecting to articles page in 5 seconds.</h1>";
-            echo "<div class='westbrick-success-svg-container'>";
-            echo    "<img class='westbrick-success-svg' src='../../images/link-submitted-successfully.svg' alt='WESTBRICK SUCCESS SVG'>";
-            echo    "<button class='home-button' type='button' onclick='window.location.href=`../`;'>Home</button>";
-            echo "</div>";
-            // echo "<br><h1>File name: $image" . "File tmp name: $image_tmp" . "</h1>";
-            // Set the time delay in seconds
-            // $timeDelay = 5; // 5 seconds
-            // Wait for the specified amount of time before redirecting
-            // header("refresh:".$timeDelay.";url=../articles/index.php");
-        } else {
-            echo "<div class='westbrick-success-svg-container'>";
-            echo    "Error: " . $sql . "<br>" . $conn->error;
-            echo    "<button class='home-button' type='button' onclick='window.location.href=`../`;'>Home</button>";
-            echo "</div>";
-        }
-        $conn->close();
-        
+        function executeSQL_Query($sql, $conn) {
+            if ($conn->query($sql) === TRUE) {
+                // echo "<h1>Article $title submitted successfully! Redirecting to articles page in 5 seconds.</h1>";
+                echo "<div class='westbrick-success-svg-container'>";
+                echo    "<img class='westbrick-success-svg' src='../../images/link-submitted-successfully.svg' alt='WESTBRICK SUCCESS SVG'>";
+                echo    "<button class='home-button' type='button' onclick='window.location.href=`../`;'>Home</button>";
+                echo "</div>";
+                // echo "<br><h1>File name: $image" . "File tmp name: $image_tmp" . "</h1>";
+                // Set the time delay in seconds
+                // $timeDelay = 5; // 5 seconds
+                // Wait for the specified amount of time before redirecting
+                // header("refresh:".$timeDelay.";url=../articles/index.php");
+            } else {
+                echo "<div class='westbrick-success-svg-container'>";
+                echo    "Error: " . $sql . "<br>" . $conn->error;
+                echo    "<button class='home-button' type='button' onclick='window.location.href=`../`;'>Home</button>";
+                echo "</div>";
+            }
+        }  
         function mainFunction() {
-
+            $conn = connectToDatabase();
+            $sql = createSQL_QueryString();
+            executeSQL_Query($sql, $conn);
+            $conn->close();
         }
         mainFunction();
     ?>
