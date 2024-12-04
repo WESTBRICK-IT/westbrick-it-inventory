@@ -66,18 +66,12 @@
         function getSelectedData() {
             $userFirstSelect = getUserFirstSelect();
             $userSecondSelect = getUserSecondSelect();
-            $userFirstSelectType = getTheType($userFirstSelect);
-            echo "<h1>UFST: $userFirstSelectType</h1>";
-            $userSecondSelectType = getTheType($userSecondSelect);
-            echo "<h1>USST: $userSecondSelectType</h1>";
-            $userFirstSelectID = getID($userFirstSelect);
-            echo "<h1>UFSID: $userFirstSelectID</h1>";
-            $userSecondSelectID = getID($userSecondSelect);
-            echo "<h1>USSID: $userSecondSelectID</h1>";
-            $linkRemark = $_POST['remark'];
-            echo "<h1>Link Remark: $linkRemark</h1>";
+            $userFirstSelectType = getTheType($userFirstSelect);            
+            $userSecondSelectType = getTheType($userSecondSelect);            
+            $userFirstSelectID = getID($userFirstSelect);            
+            $userSecondSelectID = getID($userSecondSelect);            
+            $linkRemark = $_POST['remark'];            
             $dateAndTimeArray = getDateAndTime();
-
             $userSelectedArray = ['userFirstSelect' => $userFirstSelect, 'userSecondSelect' => $userSecondSelect, 'userFirstSelectType' => $userFirstSelectType, 'userSecondSelectType' => $userSecondSelectType, 'userFirstSelectID' => $userFirstSelectID, 'userSecondSelectID' => $userSecondSelectID, 'linkRemark' => $linkRemark, 'date' => $dateAndTimeArray['date'], 'time' => $dateAndTimeArray['time']];            
             return $userSelectedArray;
         }

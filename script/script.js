@@ -9,6 +9,7 @@ const passwordsButton = document.querySelector(".passwords-button");
 const iP_AndPortsButton = document.querySelector(".ip-and-ports-button");
 const linksButton = document.querySelector(".links-button");
 // const spareInventoryButton = document.querySelector(".spare-inventory-button");
+const userLocationButton = document.querySelector(".user-location-button");
 const userButtonClick = function() {
     window.location.href = "./users/";
 }
@@ -42,6 +43,9 @@ const linksButtonClick = function() {
 // const spareInventoryButtonClick = function() {
 //     window.location.href = "./spare-inventory/";
 // }
+const userLocationButtonClick = function() {
+    window.location.href = "./user-location/";
+}
 userButton.addEventListener("click", userButtonClick);
 equipmentButton.addEventListener("click", equipmentButtonClick);
 locationsButton.addEventListener("click", locationsButtonClick);
@@ -53,3 +57,4 @@ passwordsButton.addEventListener("click", passwordsButtonClick);
 iP_AndPortsButton.addEventListener("click", iP_AndPortsButtonClick);
 linksButton.addEventListener("click", linksButtonClick);
 // spareInventoryButton.addEventListener("click", spareInventoryButtonClick);
+userLocationButton.addEventListener("click", userLocationButtonClick);
