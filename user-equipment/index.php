@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Westbrick IT Inventory - User - Location</title>
+    <title>Westbrick IT Inventory - User - Equipment</title>
     <link rel="stylesheet" href="../style/style.css">
     <script src="../script/sub-menu-script.js" defer></script>    
     <link rel="icon" href="../favicon.ico" type="image/x-icon">
 </head>
 <body>
     <a href="../"><img class="main-title" src="../images/westbrick-it-inventory.svg" alt="Westbrick IT Inventory"></a>
-    <h1 class="sub-page-title">User - Location</h1>    
+    <h1 class="sub-page-title">User - Equipment</h1>
     <div class="table-wrapper">
         <table class="sub-menu-table">
             <thead>
@@ -19,9 +19,9 @@
                     <th>Username</th>
                     <th>First Name</th>
                     <th>Last Name</th>                                        
-                    <th>Location Name</th>
-                    <th>City/Town</th>
-                    <th>Room Number</th>
+                    <th>Model Name</th>
+                    <th>Model Number</th>
+                    <th>Warranty End</th>
                 </tr>
             </thead>
             <tbody>
@@ -37,13 +37,16 @@
                         // Unauthorized access - display an error message or redirect
                         echo "<h1>Access denied. Your IP address is not allowed to view these items.</h1>";
                         exit();
-                    }                    
+                    }
+                    
                     // Connect to the database
-                    $conn = mysqli_connect("localhost", "cbarber", "!!!Dr0w554p!!!", "IT_Inventory_DB");            
+                    $conn = mysqli_connect("localhost", "cbarber", "!!!Dr0w554p!!!", "IT_Inventory_DB");
+            
                     // Check connection
                     if (!$conn) {
                         die("Connection failed: " . mysqli_connect_error());
                     }
+
                     return $conn;
                 }
 
@@ -57,10 +60,12 @@
                         $lastName = $row['last_name'];
                     } else {
                         echo "No user found with ID: " . htmlspecialchars($id);
-                    }                    
+                    }
+                    
                     // echo    "<h1>Username: $userName</h1>";
                     // echo    "<h1>First Name: $firstName</h1>";
                     // echo    "<h1>Last Name: $lastName</h1>";
+
                     $userDataArray = ['userName' => $userName, 'firstName' => $firstName, 'lastName' => $lastName];
                     return $userDataArray;
                 }
@@ -74,9 +79,11 @@
                     } else {
                         echo "No user found with ID: " . htmlspecialchars($id);
                     }
+
                     // echo    "<h1>Location Name: $locationName</h1>";
                     // echo    "<h1>Room Number: $roomNumber</h1>";
                     // echo    "<h1>City or Town: $cityTown</h1>";
+
                     $locationArray = ['locationName' => $locationName, 'roomNumber' => $roomNumber, 'cityTown' => $cityTown];
                     return $locationArray;
                 }
@@ -97,20 +104,20 @@
                 }
 
                 function displayTableRow($userAndLocationArray) {
-                    $userName = $userAndLocationArray['userName'];
-                    $firstName = $userAndLocationArray['firstName'];
-                    $lastName = $userAndLocationArray['lastName'];
-                    $locationName = $userAndLocationArray['locationName'];
-                    $cityTown = $userAndLocationArray['cityTown'];
-                    $roomNumber = $userAndLocationArray['roomNumber'];
-                    echo    "       <tr>";
-                    echo    "           <td>$userName</td>";
-                    echo    "           <td>$firstName</td>";
-                    echo    "           <td>$lastName</td>";
-                    echo    "           <td>$locationName</td>";
-                    echo    "           <td>$cityTown</td>";
-                    echo    "           <td>$roomNumber</td>";
-                    echo    "       </tr>";
+                        $userName = $userAndLocationArray['userName'];
+                        $firstName = $userAndLocationArray['firstName'];
+                        $lastName = $userAndLocationArray['lastName'];
+                        $locationName = $userAndLocationArray['locationName'];
+                        $cityTown = $userAndLocationArray['cityTown'];
+                        $roomNumber = $userAndLocationArray['roomNumber'];
+                        echo    "       <tr>";
+                        echo    "           <td>$userName</td>";
+                        echo    "           <td>$firstName</td>";
+                        echo    "           <td>$lastName</td>";
+                        echo    "           <td>$locationName</td>";
+                        echo    "           <td>$cityTown</td>";
+                        echo    "           <td>$roomNumber</td>";
+                        echo    "       </tr>";
                 }
                 function executeDatabaseQuery($conn){
                     $query = "SELECT * FROM `links` 
