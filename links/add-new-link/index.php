@@ -337,6 +337,26 @@
                 echo    "       </div>";
             }
 
+            function shiftDeCipher($string) {
+                $SHIFT_DISTANCE = -2;     
+                $newShiftedString = "";
+                $stringLength = strlen($string);
+                for($i = 0; $i < $stringLength; $i++) {
+                    $singleChar = $string[$i];
+                    $singleCharASCII = ord($singleChar);
+                    $singlecharASCII_Shifted = $singleCharASCII + $SHIFT_DISTANCE;
+                    $singlecharASCII_Shifted = chr($singlecharASCII_Shifted);
+                    $newShiftedString .= $singlecharASCII_Shifted;
+                }
+                return $newShiftedString;
+            }
+
+            function decodePassword($password){
+                $decodedPassword = base64_decode($password);
+                $decodedPassword = shiftDeCipher($decodedPassword);
+                return $decodedPassword;
+            }
+
             function createPasswordsFirstSelectionDropdown($conn) {
                 $result = makePasswordsDatabaseQuery($conn);
                 if (mysqli_num_rows($result) > 0) {  
@@ -348,11 +368,13 @@
                         $i++;                    
                     }
                 }
+                
                 echo    "       <div class='links-passwords-first-selection-dropdown links-selection-dropdown'>";
                 echo    "           <label for='select1-passwords'>Passwords First Selection:</label>";                
                 echo    "           <select class='dropdown select1 passwords-select1-dropdown' id='select1-passwords' name='select1-passwords'>";
                 echo    "               <option value=''>Choose an option...</option>";
                 for($i = 0; $i < mysqli_num_rows($result); $i++) {
+                    $password[$i] = decodePassword($password[$i]);
                     echo "              <option class='password-$id' value'passwords-$id[$i]'>$password[$i] DBID: $id[$i]</option>";
                 }
                 echo    "           </select>";
@@ -375,6 +397,7 @@
                 echo    "           <select class='dropdown select2 passwords-select2-dropdown' id='select2-passwords' name='select2-passwords'>";
                 echo    "               <option value=''>Choose an option...</option>";
                 for($i = 0; $i < mysqli_num_rows($result); $i++) {
+                    $password[$i] = decodePassword($password[$i]);
                     echo "              <option class='password-$id' value'passwords-$id[$i]'>$password[$i] DBID: $id[$i]</option>";
                 }
                 echo    "           </select>";

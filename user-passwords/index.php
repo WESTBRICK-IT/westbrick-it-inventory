@@ -4,26 +4,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Westbrick IT Inventory - User - Equipment</title>
+    <title>Westbrick IT Inventory - User - Passwords</title>
     <link rel="stylesheet" href="../style/style.css">
     <script src="../script/sub-menu-script.js" defer></script>    
     <link rel="icon" href="../favicon.ico" type="image/x-icon">
 </head>
 <body>
     <a href="../"><img class="main-title" src="../images/westbrick-it-inventory.svg" alt="Westbrick IT Inventory"></a>
-    <h1 class="sub-page-title">User - Equipment</h1>
+    <h1 class="sub-page-title">User - Passwords</h1>
     <div class="table-wrapper">
         <table class="sub-menu-table">
             <thead>
                 <tr>
                     <th>Username</th>
                     <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Type</th>
-                    <th>Model Name</th>
-                    <th>Name</th>
-                    <th>Serial Number</th>
-                    <th>Warranty End</th>
+                    <th>Last Name</th>                    
+                    <th>Password</th>
                 </tr>
             </thead>
             <tbody>
@@ -61,19 +57,36 @@
                     $userDataArray = ['userName' => $userName, 'firstName' => $firstName, 'lastName' => $lastName];
                     return $userDataArray;
                 }
-                function getTheEquipment($id, $conn) {
-                    $query = "SELECT * FROM `equipment` WHERE id = $id";
+
+                function shiftDeCipher($string) {
+                    $SHIFT_DISTANCE = -2;     
+                    $newShiftedString = "";
+                    $stringLength = strlen($string);
+                    for($i = 0; $i < $stringLength; $i++) {
+                        $singleChar = $string[$i];
+                        $singleCharASCII = ord($singleChar);
+                        $singlecharASCII_Shifted = $singleCharASCII + $SHIFT_DISTANCE;
+                        $singlecharASCII_Shifted = chr($singlecharASCII_Shifted);
+                        $newShiftedString .= $singlecharASCII_Shifted;
+                    }
+                    return $newShiftedString;
+                }
+    
+                function decodePassword($password){
+                    $decodedPassword = base64_decode($password);
+                    $decodedPassword = shiftDeCipher($decodedPassword);
+                    return $decodedPassword;
+                }
+                function getThePassword($id, $conn) {
+                    $query = "SELECT * FROM `passwords` WHERE id = $id";
                     $result = mysqli_query($conn, $query);
                     if ($row = mysqli_fetch_assoc($result)) {                        
-                        $equipmentType = $row['type'];
-                        $modelName = $row['model_name'];
-                        $name = $row['name'];
-                        $warrantyEnd = $row['warranty_end'];
-                        $serialNumber = $row['serial_number'];
+                        $password = $row['password'];                        
                     } else {
-                        echo "No user found with ID: " . htmlspecialchars($id);
+                        echo "No password found with ID: " . htmlspecialchars($id);
                     }
-                    $equipmentArray = ['equipmentType' => $equipmentType, 'modelName' => $modelName, 'name' => $name, 'warrantyEnd' => $warrantyEnd, 'serialNumber' => $serialNumber];
+                    $password = decodePassword($password);
+                    $equipmentArray = ['password' => $password];
                     return $equipmentArray;
                 }
 
@@ -83,33 +96,25 @@
                     } else {
                         $userDataArray = getTheUser($typeAndID_Array['secondID'], $conn);
                     }
-                    if($typeAndID_Array['secondType'] == 'equipment') {
-                        $equipmentArray = getTheEquipment($typeAndID_Array['secondID'], $conn);
+                    if($typeAndID_Array['secondType'] == 'password') {
+                        $passwordArray = getThePassword($typeAndID_Array['secondID'], $conn);
                     } else {
-                        $equipmentArray = getTheEquipment($typeAndID_Array['firstID'], $conn);
+                        $passwordArray = getThePassword($typeAndID_Array['firstID'], $conn);
                     }
-                    $userAndEquipmentArray = array_merge($userDataArray, $equipmentArray);
-                    return $userAndEquipmentArray;
+                    $userAndPasswordArray = array_merge($userDataArray, $passwordArray);
+                    return $userAndPasswordArray;
                 }
 
-                function displayTableRow($userAndEquipmentArray) {
-                    $userName = $userAndEquipmentArray['userName'];
-                    $firstName = $userAndEquipmentArray['firstName'];
-                    $lastName = $userAndEquipmentArray['lastName'];
-                    $equipmentType = $userAndEquipmentArray['equipmentType'];
-                    $modelName = $userAndEquipmentArray['modelName'];
-                    $name = $userAndEquipmentArray['name'];
-                    $warrantyEnd = $userAndEquipmentArray['warrantyEnd'];
-                    $serialNumber = $userAndEquipmentArray['serialNumber'];
+                function displayTableRow($userAndPasswordArray) {
+                    $userName = $userAndPasswordArray['userName'];
+                    $firstName = $userAndPasswordArray['firstName'];
+                    $lastName = $userAndPasswordArray['lastName'];
+                    $password = $userAndPasswordArray['password'];
                     echo    "       <tr>";
                     echo    "           <td>$userName</td>";
                     echo    "           <td>$firstName</td>";
                     echo    "           <td>$lastName</td>";
-                    echo    "           <td>$equipmentType</td>";
-                    echo    "           <td>$modelName</td>";
-                    echo    "           <td>$name</td>";
-                    echo    "           <td>$serialNumber</td>";
-                    echo    "           <td>$warrantyEnd</td>";
+                    echo    "           <td>$password</td>";
                     echo    "       </tr>";
                 }
                 function getTheTypeAndID($row){
@@ -126,15 +131,15 @@
                     if (mysqli_num_rows($result) > 0) {                                            
                         while($row = mysqli_fetch_assoc($result)){                            
                             $typeAndID_Array = getTheTypeAndID($row);
-                            $userAndEquipmentArray = executeNestedDatabaseQuery($typeAndID_Array, $conn);
-                            displayTableRow($userAndEquipmentArray);
+                            $userAndPasswordArray = executeNestedDatabaseQuery($typeAndID_Array, $conn);
+                            displayTableRow($userAndPasswordArray);
                         }
                     }
                 }
                 function executeDatabaseQuery($conn){
                     $query = "SELECT * FROM `links` 
-                        WHERE (first_type = 'user' AND second_type = 'equipment')
-                        OR (first_type = 'equipment' AND second_type = 'user')
+                        WHERE (first_type = 'user' AND second_type = 'password')
+                        OR (first_type = 'password' AND second_type = 'user')
                         ORDER BY `date` DESC, `time` DESC";                    
                     doTheQuery($conn, $query);
                 }

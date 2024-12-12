@@ -13,29 +13,20 @@
     <?php
         function connectToDatabase() {
             $allowedIPs = array('206.174.198.58', '206.174.198.59', '50.99.132.206'); // Define the list of allowed IP addresses
-
-            $remoteIP = $_SERVER['REMOTE_ADDR']; // Get the remote IP address of the client
-            
+            $remoteIP = $_SERVER['REMOTE_ADDR']; // Get the remote IP address of the client            
             if (!in_array($remoteIP, $allowedIPs)) {
                 // Unauthorized access - display an error message or redirect
                 echo "Access denied. Your IP address is not allowed to submit this item.";
                 exit();
             }
-            
-            // Process the form submission if the IP address is allowed
-            // Your form processing code here...
-
             $servername = "localhost";
             $username = "cbarber";
             $password = "!!!Dr0w554p!!!";
-            $dbname = "IT_Inventory_DB";
-            
-            $conn = new mysqli($servername, $username, $password, $dbname);
-            
+            $dbname = "IT_Inventory_DB";            
+            $conn = new mysqli($servername, $username, $password, $dbname);            
             if ($conn->connect_error) {
                 die("Connection failed: " . $conn->connect_error);
-            }    
-
+            }
             return $conn;
         }      
         function getUserFirstSelect() {
@@ -63,6 +54,10 @@
             $dateAndTimeArray = ['date' => $date, 'time' => $time];
             return $dateAndTimeArray;
         }
+        function convertApostrophe($string) { 
+            $newString = str_replace("'", "`", $string); 
+            return $newString; 
+        }
         function getSelectedData() {
             $userFirstSelect = getUserFirstSelect();
             $userSecondSelect = getUserSecondSelect();
@@ -70,7 +65,8 @@
             $userSecondSelectType = getTheType($userSecondSelect);            
             $userFirstSelectID = getID($userFirstSelect);            
             $userSecondSelectID = getID($userSecondSelect);            
-            $linkRemark = $_POST['remark'];            
+            $linkRemark = $_POST['remark'];
+            $linkRemark = convertApostrophe($linkRemark);
             $dateAndTimeArray = getDateAndTime();
             $userSelectedArray = ['userFirstSelect' => $userFirstSelect, 'userSecondSelect' => $userSecondSelect, 'userFirstSelectType' => $userFirstSelectType, 'userSecondSelectType' => $userSecondSelectType, 'userFirstSelectID' => $userFirstSelectID, 'userSecondSelectID' => $userSecondSelectID, 'linkRemark' => $linkRemark, 'date' => $dateAndTimeArray['date'], 'time' => $dateAndTimeArray['time']];            
             return $userSelectedArray;
