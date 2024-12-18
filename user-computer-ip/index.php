@@ -18,8 +18,7 @@
                 <tr>
                     <th>Username</th>
                     <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Type</th>
+                    <th>Last Name</th>                    
                     <th>Model Name</th>
                     <th>Name</th>
                     <th>IP</th>
@@ -124,27 +123,7 @@
                     $iP_AndEquipmentArray = array_merge($iP_Array, $equipmentArray);                    
                     return $iP_AndEquipmentArray;
                 }
-
-                function displayTableRow($userAndEquipmentArray) {
-                    $userName = $userAndEquipmentArray['userName'];
-                    $firstName = $userAndEquipmentArray['firstName'];
-                    $lastName = $userAndEquipmentArray['lastName'];
-                    $equipmentType = $userAndEquipmentArray['equipmentType'];
-                    $modelName = $userAndEquipmentArray['modelName'];
-                    $name = $userAndEquipmentArray['name'];
-                    $warrantyEnd = $userAndEquipmentArray['warrantyEnd'];
-                    $serialNumber = $userAndEquipmentArray['serialNumber'];
-                    echo    "       <tr>";
-                    echo    "           <td>$userName</td>";
-                    echo    "           <td>$firstName</td>";
-                    echo    "           <td>$lastName</td>";
-                    echo    "           <td>$equipmentType</td>";
-                    echo    "           <td>$modelName</td>";
-                    echo    "           <td>$name</td>";
-                    echo    "           <td>$serialNumber</td>";
-                    echo    "           <td>$warrantyEnd</td>";
-                    echo    "       </tr>";
-                }
+                
                 function getTheTypeAndID($row){
                     $firstType = $row["first_type"];
                     $secondType = $row["second_type"];
@@ -192,26 +171,80 @@
                         OR (first_type = 'equipment' AND second_type = 'ip')
                         ORDER BY `date` DESC, `time` DESC";
                     return $equipmentIP_LinkQueryString;
+                }                                
+
+                function getEachAttributeThenDisplayEach($intersectionIndex_Array, $arrayOfUserAndEquipmentArrays, $arrayOfEquipmentAndIPArrays, $i) {
+                    $matchIndex1 = $intersectionIndex_Array[$i][0];
+                    $matchIndex2 = $intersectionIndex_Array[$i][1];                    
+                    $userName = $arrayOfUserAndEquipmentArrays[$matchIndex1]['userName'];
+                    $firstName = $arrayOfUserAndEquipmentArrays[$matchIndex1]['firstName'];
+                    $lastName = $arrayOfUserAndEquipmentArrays[$matchIndex1]['lastName'];
+                    $modelName = $arrayOfEquipmentAndIPArrays[$matchIndex2]['modelName'];
+                    $name = $arrayOfEquipmentAndIPArrays[$matchIndex2]['name'];
+                    $iP = $arrayOfEquipmentAndIPArrays[$matchIndex2]['iP'];
+                    $portNumber = $arrayOfEquipmentAndIPArrays[$matchIndex2]['port'];                   
+                    echo    "       <tr>";   
+                    echo    "           <td>$userName</td>";
+                    echo    "           <td>$firstName</td>";
+                    echo    "           <td>$lastName</td>";
+                    echo    "           <td>$modelName</td>";
+                    echo    "           <td>$name</td>";
+                    echo    "           <td>$iP</td>";
+                    echo    "           <td>$portNumber</td>";
+                    echo    "       </tr>";
+                }
+
+                function displayTableRows($intersectionIndex_Array, $arrayOfUserAndEquipmentArrays, $arrayOfEquipmentAndIPArrays) {  
+                    //prints out each match one by one                  
+                    for($i=0;$i<count($intersectionIndex_Array);$i++){                    
+                        getEachAtrributeThenDisplayEach($intersectionIndex_Array, $arrayOfUserAndEquipmentArrays, $arrayOfEquipmentAndIPArrays, $i);
+                    }
                 }
                 function findIntersectionOfArrays($arrayOfUserAndEquipmentArrays, $arrayOfEquipmentAndIPArrays){
                     //finding the ones where computer matches
+                    $intersectionIndex_Array = [];
                     for($i = 0; $i < count($arrayOfUserAndEquipmentArrays); $i++) {
                         for($n = 0; $n < count($arrayOfEquipmentAndIPArrays); $n++) {
-                            if($arrayOfUserAndEquipmentArrays[$i]['name'] == $arrayOfEquipmentAndIPArrays[$n]['name']){
-                                echo    "<h1>WE FOUND A MATCH! at $i and $n</h1>";
+                            if($arrayOfUserAndEquipmentArrays[$i]['name'] == $arrayOfEquipmentAndIPArrays[$n]['name']){                                
+                                $userEquipmentMatchIndex = $i;
+                                $equipmentIP_Match_Index = $n;
+                                $matchingIndexPair = [$userEquipmentMatchIndex, $equipmentIP_Match_Index];
+                                array_push($intersectionIndex_Array, $matchingIndexPair);
                             }
                         }
                     }
-                    
+                    displayTableRows($intersectionIndex_Array, $arrayOfUserAndEquipmentArrays, $arrayOfEquipmentAndIPArrays);                    
+                }
+
+                function getTheIntersectionOfTwoqueriesString(){
+                    $intersectionOfTwoTablesQueryString = "SELECT *
+                        FROM (
+                            SELECT *
+                            FROM `links`
+                            WHERE (first_type = 'ip' AND second_type = 'equipment')
+                            OR (first_type = 'equipment' AND second_type = 'ip')
+                            ORDER BY `date` DESC, `time` DESC
+                        ) AS ip_equipment
+                        INNER JOIN (
+                            SELECT *
+                            FROM `links`
+                            WHERE (first_type = 'user' AND second_type = 'equipment')
+                            OR (first_type = 'equipment' AND second_type = 'user')
+                            ORDER BY `date` DESC, `time` DESC
+                        ) AS user_equipment
+                        ON ip_equipment.equipment_id = user_equipment.equipment_id";
+                    return $intersectionOfTwoTablesQueryString;
                 }
                 function executeDatabaseQuery($conn){
-                    $arrayOfUserAndEquipmentArrays = [];
-                    $arrayOfEquipmentAndIPArrays = [];
-                    $userAndEquipmentLinkQueryString = createTheUserAndEquipmentQueryString();
-                    $arrayOfUserAndEquipmentArrays = doTheUserAndEquipmentQuery($conn, $userAndEquipmentLinkQueryString, $arrayOfUserAndEquipmentArrays);
-                    $equipmentIP_LinkQueryString = createTheEquipmentIP_LinkQueryString();
-                    $arrayOfEquipmentAndIPArrays = doTheEquipmentAndIP_Query($conn, $equipmentIP_LinkQueryString, $arrayOfEquipmentAndIPArrays);                    
-                    findIntersectionOfArrays($arrayOfUserAndEquipmentArrays, $arrayOfEquipmentAndIPArrays);                    
+                    //$arrayOfUserAndEquipmentArrays = [];
+                    //$arrayOfEquipmentAndIPArrays = [];
+                    //$userAndEquipmentLinkQueryString = createTheUserAndEquipmentQueryString();
+                    //$arrayOfUserAndEquipmentArrays = doTheUserAndEquipmentQuery($conn, $userAndEquipmentLinkQueryString, $arrayOfUserAndEquipmentArrays);
+                    //$equipmentIP_LinkQueryString = createTheEquipmentIP_LinkQueryString();
+                    //getTheIntersectionOfTwoqueries($userAndEquipmentLinkQueryString, $equipmentIP_LinkQueryString);
+                    //$arrayOfEquipmentAndIPArrays = doTheEquipmentAndIP_Query($conn, $equipmentIP_LinkQueryString, $arrayOfEquipmentAndIPArrays);
+                    //findIntersectionOfArrays($arrayOfUserAndEquipmentArrays, $arrayOfEquipmentAndIPArrays); 
+                    $intersectionOfTwoTablesQueryString = getTheIntersectionOfTwoqueriesString();
                 }
                 function mainFunction(){
                     $conn = connectToDatabase();
