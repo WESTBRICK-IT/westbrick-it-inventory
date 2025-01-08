@@ -232,10 +232,27 @@
                             OR (first_type = 'equipment' AND second_type = 'user')
                             ORDER BY `date` DESC, `time` DESC
                         ) AS user_equipment
-                        ON ip_equipment.equipment_id = user_equipment.equipment_id";
+                        ON ip_equipment.second_id = user_equipment.second_id OR ip_equipment.first_id = user_equipment.first_id";
                     return $intersectionOfTwoTablesQueryString;
                 }
+
+                function doTheUserComputerIPQuery($conn, $intersectionOfTwoTablesQueryString, $arrayOfUserEquipmentIP) {
+                    $result = mysqli_query($conn, $intersectionOfTwoTablesQueryString);
+                    echo    "<h1>Outside works</h1>";
+                    if (mysqli_num_rows($result) > 0) {
+                        while($row = mysqli_fetch_assoc($result)){
+                            echo    "<h1>This works</h1>";                            
+                            $typeAndID_Array = getTheTypeAndID($row);
+                            print_r($typeAndID_Array);
+                            //$userAndEquipmentArray = executeUserEquipmentNestedDatabaseQuery($typeAndID_Array, $conn);
+                            //add array to array of equipment arrays
+                            //$arrayOfUserAndEquipmentArrays[] = $userAndEquipmentArray;
+                        }
+                    }                    
+                    return $arrayOfUserEquipmentIP;
+                }
                 function executeDatabaseQuery($conn){
+                    $arrayOfUserEquipmentIP = [];
                     //$arrayOfUserAndEquipmentArrays = [];
                     //$arrayOfEquipmentAndIPArrays = [];
                     //$userAndEquipmentLinkQueryString = createTheUserAndEquipmentQueryString();
@@ -245,6 +262,8 @@
                     //$arrayOfEquipmentAndIPArrays = doTheEquipmentAndIP_Query($conn, $equipmentIP_LinkQueryString, $arrayOfEquipmentAndIPArrays);
                     //findIntersectionOfArrays($arrayOfUserAndEquipmentArrays, $arrayOfEquipmentAndIPArrays); 
                     $intersectionOfTwoTablesQueryString = getTheIntersectionOfTwoqueriesString();
+                    $arrayOfUserEquipmentIP = doTheUserComputerIPQuery($conn, $intersectionOfTwoTablesQueryString, $arrayOfUserEquipmentIP);
+                    
                 }
                 function mainFunction(){
                     $conn = connectToDatabase();
