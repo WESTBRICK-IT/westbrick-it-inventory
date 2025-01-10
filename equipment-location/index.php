@@ -100,9 +100,9 @@
                     $modelName = $equipmentAndLocationArray['modelName'];
                     $modelNumber = $equipmentAndLocationArray['modelNumber'];
                     $serialNumber = $equipmentAndLocationArray['serialNumber'];
-                    $locationName = $equipmentAndLocationArray['location_name'];
-                    $cityTown = $equipmentAndLocationArray['city_town'];
-                    $roomNumber = $equipmentAndLocationArray['room_number'];
+                    $locationName = $equipmentAndLocationArray['locationName'];
+                    $cityTown = $equipmentAndLocationArray['cityTown'];
+                    $roomNumber = $equipmentAndLocationArray['roomNumber'];
                     echo    "       <tr>";
                     echo    "           <td>$type</td>";
                     echo    "           <td>$name</td>";

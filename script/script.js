@@ -17,6 +17,7 @@ const userIP_Button = document.querySelector(".user-ip-button");
 const equipmentIP_Button = document.querySelector(".equipment-ip-button");
 const serverIP_Button = document.querySelector(".server-ip-button");
 const serverLocationButton = document.querySelector(".server-location-button");
+const equipmentLocationButton = document.querySelector(".equipment-location-button");
 const userButtonClick = function() {
     window.location.href = "./users/";
 }
@@ -74,6 +75,9 @@ const serverIP_ButtonClick = function() {
 const serverLocationButtonClick = function() {
     window.location.href = "./server-location/";
 }
+const equipmentLocationButtonClick = function() {
+    window.location.href = "./equipment-location/";
+}
 userButton.addEventListener("click", userButtonClick);
 equipmentButton.addEventListener("click", equipmentButtonClick);
 locationsButton.addEventListener("click", locationsButtonClick);
@@ -93,3 +97,4 @@ userIP_Button.addEventListener("click", userIP_ButtonClick);
 equipmentIP_Button.addEventListener("click", equipmentIP_ButtonClick);
 serverIP_Button.addEventListener("click", serverIP_ButtonClick);
 serverLocationButton.addEventListener("click", serverLocationButtonClick);
+equipmentLocationButton.addEventListener("click", equipmentLocationButtonClick);

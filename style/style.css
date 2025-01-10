@@ -223,6 +223,9 @@ tr:hover {
 .second-type-dropdown-div{
     display: block;    
 }
+.equipment-location-button {
+    font-size: 20px;
+}
 
 @media screen and (max-width: 1200px) {
     .submission-form {
