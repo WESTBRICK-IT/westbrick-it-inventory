@@ -44,8 +44,7 @@
                     return $conn;
                 }
 
-                function getTheServer($id, $conn){
-                    // echo    "<h1>User ID: $id</h1>";
+                function getTheServer($id, $conn){                    
                     $query = "SELECT * FROM `servers` WHERE id = $id";
                     $result = mysqli_query($conn, $query);
                     if ($row = mysqli_fetch_assoc($result)) {

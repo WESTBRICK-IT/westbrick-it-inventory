@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Westbrick IT Inventory - User - Equipment</title>
+    <title>Westbrick IT Inventory - User - Equipment - IP</title>
     <link rel="stylesheet" href="../style/style.css">
     <script src="../script/sub-menu-script.js" defer></script>    
     <link rel="icon" href="../favicon.ico" type="image/x-icon">
 </head>
 <body>
     <a href="../"><img class="main-title" src="../images/westbrick-it-inventory.svg" alt="Westbrick IT Inventory"></a>
-    <h1 class="sub-page-title">User - Equipment</h1>
+    <h1 class="sub-page-title">User - Equipment - IP</h1>
     <div class="table-wrapper">
         <table class="sub-menu-table">
             <thead>
@@ -24,12 +24,11 @@
                     <th>Name</th>
                     <th>Serial Number</th>
                     <th>Warranty End</th>
-                    <th>IP</th>
-                    <th>Port</th>
                 </tr>
             </thead>
             <tbody>
             <?php
+                include '../common-functions/common-functions.php';
                 function convertApostrophe($string) { 
                     $newString = str_replace("`", "'", $string); 
                     return $newString; 
@@ -122,45 +121,98 @@
                     $typeAndID_Array = ['firstType' => $firstType, 'secondType' => $secondType, 'firstID' => $firstID, 'secondID' => $secondID];
                     return $typeAndID_Array;
                 }
-                function takeOutNotComputers($userAndEquipmentArray) {
-                    print_r($userAndEquipmentArray);
-                    echo "<h1>" . $userAndEquipmentArray[1] . "</h1>";
-                    echo "<h1>" . $userAndEquipmentArray['equipmentType'] . "</h1>";
-                    if($userAndEquipmentArray['equipmentType'] == 'computer'){
-                        echo "<h1>" . "This is a computer" . "</h1>";
-                    }
-                    return $userAndEquipmentArray;
-                }
 
-                function doTheUserEquipmentDatabaseQuery($conn, $query, $userAndEquipmentArray) {
-                    $result = mysqli_query($conn, $query);
+                function doTheUserEquipmentQuery($conn, $userEquipmentQueryString, $userAndEquipmentArrayOfArrays) {
+                    $result = mysqli_query($conn, $userEquipmentQueryString);
                     if (mysqli_num_rows($result) > 0) {                                            
                         while($row = mysqli_fetch_assoc($result)){                            
                             $typeAndID_Array = getTheTypeAndID($row);
                             $userAndEquipmentArray = executeNestedDatabaseQuery($typeAndID_Array, $conn);
-                            // $userAndEquipmentArray = takeOutNotComputers($userAndEquipmentArray);
-                            //displayTableRow($userAndEquipmentArray);
+                            array_push($userAndEquipmentArrayOfArrays, $userAndEquipmentArray);                            
                         }
                     }
-                    return $userAndEquipmentArray;
+                    return $userAndEquipmentArrayOfArrays;
                 }
 
-                function createTheDatabaseQueryString(){
-                    $query = "SELECT * FROM `links` 
+                function createTheUserEquipmentDatabaseQueryString(){
+                    $queryString = "SELECT * FROM `links` 
                         WHERE (first_type = 'user' AND second_type = 'equipment')
                         OR (first_type = 'equipment' AND second_type = 'user')
                         ORDER BY `date` DESC, `time` DESC";
-                    return $query;              
+                    return $queryString;
+                }
+
+                function createTheEquipmentIP_DatabasequeryString() {
+                    $equipmentIP_QueryString = "SELECT * FROM `links` 
+                    WHERE (first_type = 'equipment' AND second_type = 'ip')
+                    OR (first_type = 'ip' AND second_type = 'equipment')
+                    ORDER BY `date` DESC, `time` DESC";
+                    return $equipmentIP_QueryString;
+                }
+
+                function doTheEquipmentIP_Query($conn, $equipmentIP_QueryString, $equipmentIP_ArrayOfArrays){
+                    $result = mysqli_query($conn, $equipmentIP_QueryString);
+                    if (mysqli_num_rows($result) > 0) {                                 
+                        while($row = mysqli_fetch_assoc($result)){
+                            $firstType = $row["first_type"];
+                            $secondType = $row["second_type"];
+                            $firstID = $row["first_id"];
+                            $secondID = $row["second_id"];                            
+                            $typeAndID_Array = ['firstType' => $firstType, 'secondType' => $secondType, 'firstID' => $firstID, 'secondID' => $secondID];
+                            $equipmentAndIP_Array = executeNestedEquipmentIP_DatabaseQuery($typeAndID_Array, $conn);
+                            array_push($equipmentIP_ArrayOfArrays, $equipmentAndIP_Array);                            
+                        }
+                    }
+                    return $equipmentIP_ArrayOfArrays;
+                }
+                function getTheIP($id, $conn) {
+                    $query = "SELECT * FROM `ip_and_ports` WHERE id = $id";
+                    $result = mysqli_query($conn, $query);
+                    if ($row = mysqli_fetch_assoc($result)) {
+                        $iP = $row['ip'];
+                        $port = $row['port'];                        
+                    } else {
+                        echo "No user found with ID: " . htmlspecialchars($id);
+                    }
+                    // echo    "<h1>Location Name: $locationName</h1>";
+                    // echo    "<h1>Room Number: $roomNumber</h1>";
+                    // echo    "<h1>City or Town: $cityTown</h1>";
+                    $iP_Array = ['iP' => $iP, 'port' => $port];
+                    return $iP_Array;
+                }
+                
+                function executeNestedEquipmentIP_DatabaseQuery($typeAndID_Array, $conn) {
+                    if($typeAndID_Array['firstType'] == 'equipment') {
+                        $equipmentDataArray = getTheEquipment($typeAndID_Array['firstID'], $conn);
+                    } else {
+                        $equipmentDataArray = getTheEquipment($typeAndID_Array['secondID'], $conn);
+                    }
+                    if($typeAndID_Array['secondType'] == 'ip') {
+                        $iP_Array = getTheIP($typeAndID_Array['secondID'], $conn);
+                    } else {
+                        $iP_Array = getTheIP($typeAndID_Array['firstID'], $conn);
+                    }
+                    $equipmentAndIP_Array = array_merge($equipmentDataArray, $iP_Array);
+                    return $equipmentAndIP_Array;
+                }
+
+                function findIntersectEquipmentUserIP(){
+                    
                 }
                 function executeDatabaseQuery($conn){
-                    $userEquipmentArray = [];
-                    $query = createTheUserEquipmentDatabaseQueryString();
-                    $userEquipmentArray = doTheUserEquipmentDatabaseQuery($conn, $query, $userEquipmentArray);
+                    $userEquipmentArrayOfArrays = [];
+                    $equipmentIP_ArrayOfArrays = [];
+                    $intersectEquipmentUserIP_Array = [];
+                    $userEquipmentQueryString = createTheUserEquipmentDatabaseQueryString();
+                    $userEquipmentArrayOfArrays = doTheUserEquipmentQuery($conn, $userEquipmentQueryString, $userEquipmentArrayOfArrays);
+                    $equipmentIP_QueryString = createTheEquipmentIP_DatabasequeryString();
+                    $equipmentIP_ArrayOfArrays = doTheEquipmentIP_Query($conn, $equipmentIP_QueryString, $equipmentIP_ArrayOfArrays);
+                    $intersectEquipmentUserIP_Array = findIntersectEquipmentUserIP($intersectEquipmentUserIP_Array, $userEquipmentArrayOfArrays, $equipmentIP_ArrayOfArrays);
                 }
                 function mainFunction(){
                     $conn = connectToDatabase();
                     executeDatabaseQuery($conn);
-                    $conn->close();
+                    $conn->close();                    
                 }
                 mainFunction();                
             ?>
