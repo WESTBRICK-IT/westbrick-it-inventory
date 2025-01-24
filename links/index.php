@@ -17,11 +17,9 @@
         <table class="sub-menu-table">
             <thead>
                 <tr>
-                    <th>Type 1</th>
-                    <th>ID 1</th>
+                    <th>Type 1</th>                    
                     <th>Link Item Name 1</th>
-                    <th>Type 2</th>
-                    <th>ID 2</th>  
+                    <th>Type 2</th>                    
                     <th>Link Item Name 2</th>
                     <th>Remark</th>     
                     <th>Delete</th>
@@ -195,12 +193,10 @@
                         $id = $row['id'];
                         
                         echo    "       <tr>";
-                        echo    "           <td>$type1</td>";
-                        echo    "           <td>$id1</td>";
+                        echo    "           <td>$type1</td>";                        
                         $name1 = getTheNameOfID1($type1, $id1, $conn);
                         echo    "           <td>$name1</td>";
-                        echo    "           <td>$type2</td>";
-                        echo    "           <td>$id2</td>";
+                        echo    "           <td>$type2</td>";                        
                         $name2 = getTheNameOfID2($type2, $id2, $conn);
                         echo    "           <td>$name2</td>";
                         echo    "           <td>$linkRemark</td>";
