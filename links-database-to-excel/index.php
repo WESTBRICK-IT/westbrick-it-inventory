@@ -14,27 +14,27 @@
         return $equipmentDatabaseQueryString;
     }
     function createDatabaseQueryStringIP_AndPortsTable() {
-        $iP_AndPortsDatabaseQueryString = '';
+        $iP_AndPortsDatabaseQueryString = 'SELECT * FROM ip_and_ports';
         return $iP_AndPortsDatabaseQueryString;
     }
     function createDatabaseQueryStringLinksTable() {
-        $linksDatabaseQueryString = '';
+        $linksDatabaseQueryString = 'SELECT * FROM links';
         return $linksDatabaseQueryString;
     }
     function createDatabaseQueryStringLocationsTable() {
-        $locationsDatabaseQueryString = '';
+        $locationsDatabaseQueryString = 'SELECT * FROM locations';
         return $locationsDatabaseQueryString;
     }
     function createDatabaseQueryStringPasswordsTable() {
-        $passwordsDatabaseQueryString = '';
+        $passwordsDatabaseQueryString = 'SELECT * FROM passwords';
         return $passwordsDatabaseQueryString;
     }
     function createDatabaseQueryStringServersTable() {
-        $serversDatabaseQueryString = '';
+        $serversDatabaseQueryString = 'SELECT * FROM servers';
         return $serversDatabaseQueryString;
     }
     function createDatabaseQueryStringUsersTable() {
-        $usersDatabaseQueryString = '';
+        $usersDatabaseQueryString = 'SELECT * FROM users';
         return $usersDatabaseQueryString;
     }
     function executeEquipmentDatabaseQuery($conn, $databaseQueryStringsArray, $equipmentArrayOfArrays) {
@@ -42,8 +42,7 @@
         $equipmentArray = [];        
         $result = mysqli_query($conn, $equipmentDatabaseQueryString);
             if (mysqli_num_rows($result) > 0) {                                 
-                while($row = mysqli_fetch_assoc($result)){
-                    echo "ID: " . $row["id"] . "<br>" . "Name: " . $row["name"] . "<br>" . "Type: " . $row["type"] . "<br>" . "Model Number: " . $row["model_number"] . "<br><br>";
+                while($row = mysqli_fetch_assoc($result)){                    
                     $equipmentArray = ['iD' => $row["id"], 'name' => $row['name'], 'type' => $row["type"], 'modelNumber' => $row['model_number'], 'serialNumber' => $row['serial_number'], 'purchaseDate' => $row['purchase_date'], 'purchasePrice' => $row['purchase_price'], 'warrantyStart' => $row['warranty_start'], 'warrantyEnd' => $row['warranty_end'], 'modelName' => $row['model_name'], 'date' => $row['date'], 'time' => $row['time']];
                     array_push($equipmentArrayofArrays, $equipmentArray);
                 }
@@ -72,12 +71,23 @@
         }
         exit;
     }
+    function outputLinksDatabaseToExcel($linksArrayOfArrays){
+        $fileName = "it_inventory_links_data.xls";
+        header("Content-Disposition: attachment; filename=\"$fileName\"");
+        header("Content-Type: application/vnd.ms-excel");
+        echo implode("\t", array_keys($linksArrayOfArrays[0])) . "\n";
+        foreach ($linksArrayOfArrays as $row) {
+            echo implode("\t", $row) . "\n";
+        }
+        exit;
+    }
     
     function outputArraysToExcel($allArrayOfArraysOfArrays){        
-        outputEquipmentDatabaseToExcel($allArrayOfArraysOfArrays['equipmentArrayOfArrays']);    
-        outputIP_AndPortsDatabaseToExcel($allArrayOfArraysOfArrays['iP_AndPortsArrayOfArrays']);
+        //outputEquipmentDatabaseToExcel($allArrayOfArraysOfArrays['equipmentArrayOfArrays']);    
+        //outputIP_AndPortsDatabaseToExcel($allArrayOfArraysOfArrays['iP_AndPortsArrayOfArrays']);
+        outputLinksDatabaseToExcel($allArrayOfArraysOfArrays['linksArrayOfArrays']);
     }
-    function executeIP_AndPortsArrayOfArrays($conn, $databaseQueryStringsArray, $iP_AndPortsArrayOfArrays){
+    function executeIP_AndPortsDatabaseQuery($conn, $databaseQueryStringsArray, $iP_AndPortsArrayOfArrays){
         $iP_AndPortsQueryString = $databaseQueryStringsArray['iP_AndPortsQueryString'];      
         $iP_AndPortsArray = [];        
         $result = mysqli_query($conn, $iP_AndPortsQueryString);
@@ -89,13 +99,27 @@
             } 
         return $iP_AndPortsArrayOfArrays;
     }
+    function executeLinksDatabaseQuery($conn, $databaseQueryStringsArray, $linksArrayOfArrays){
+        $linksDatabaseQueryString = $databaseQueryStringsArray['linksDatabaseQueryString'];      
+        $linksArray = [];
+        $result = mysqli_query($conn, $linksDatabaseQueryString);
+            if (mysqli_num_rows($result) > 0) {                                 
+                while($row = mysqli_fetch_assoc($result)){                    
+                    $linksArray = ['firstID' => $row['first_id'], 'second_id' => $row['second_id'], 'firstType' => $row['first_type'], 'secondType' => $row['second_type'], 'date' => $row['date'], 'time' => $row['time'], 'linkRemark' => $row['link_remark'], 'iD' => $row['id']];
+                    array_push($linksArrayOfArrays, $linksArray);
+                }
+            } 
+        return $linksArrayOfArrays;
+    }
     function executeDatabaseQueries($conn , $databaseQueryStringsArray) {
         $allArrayOfArraysOfArrays = [];
         $equipmentArrayOfArrays = [];
         $iP_AndPortsArrayOfArrays = [];
+        $linksArrayOfArrays = [];
         $equipmentArrayOfArrays = executeEquipmentDatabaseQuery($conn, $databaseQueryStringsArray, $equipmentArrayOfArrays);
-        $iP_AndPortsArrayOfArrays = executeIP_AndPortsArrayOfArrays($conn, $databaseQueryStringsArray, $iP_AndPortsArrayOfArrays);
-        $allArrayOfArraysOfArrays = ['equipmentArrayOfArrays' => $equipmentArrayOfArrays, 'iP_AndPortsArrayOfArrays' => $iP_AndPortsArrayOfArrays];
+        $iP_AndPortsArrayOfArrays = executeIP_AndPortsDatabaseQuery($conn, $databaseQueryStringsArray, $iP_AndPortsArrayOfArrays);
+        $linksArrayOfArrays = executeLinksDatabaseQuery($conn, $databaseQueryStringsArray, $linksArrayOfArrays);        
+        $allArrayOfArraysOfArrays = ['equipmentArrayOfArrays' => $equipmentArrayOfArrays, 'iP_AndPortsArrayOfArrays' => $iP_AndPortsArrayOfArrays, 'linksArrayOfArrays' => $linksArrayOfArrays];
         outputArraysToExcel($allArrayOfArraysOfArrays);
     }
     function getDatabaseQueryStringsForEachTable($databaseQueryStringsArray){

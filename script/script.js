@@ -19,7 +19,13 @@ const serverIP_Button = document.querySelector(".server-ip-button");
 const serverLocationButton = document.querySelector(".server-location-button");
 const equipmentLocationButton = document.querySelector(".equipment-location-button");
 const userComputerIP_LocationButton = document.querySelector(".user-computer-ip-location-button");
-const dataBaseToExcelButton = document.querySelector(".database-to-excel-button");
+const equipmentDatabaseToExcelButton = document.querySelector(".equipment-database-to-excel-button");
+const iP_AndPortDatabaseToExcelButton = document.querySelector(".ip-database-to-excel-button");
+const linksDatabaseToExcelButton = document.querySelector(".links-database-to-excel-button");
+const locationsDatabaseToExcelButton = document.querySelector(".locations-database-to-excel-button");
+const passwordDatabaseToExcelButton = document.querySelector(".password-database-to-excel-button");
+const serverDatabaseToExcelButton = document.querySelector(".server-database-to-excel-button");
+const userDatabaseToExcelButton = document.querySelector('.user-database-to-excel-button');
 const userButtonClick = function() {
     window.location.href = "./users/";
 }
@@ -81,10 +87,28 @@ const equipmentLocationButtonClick = function() {
     window.location.href = "./equipment-location/";
 }
 const userComputerIP_LocationButtonClick = function() {
-    window.location.href = "./user-computer-ip-location"
+    window.location.href = "./user-computer-ip-location";
 }
-const databaseToExcelButtonClick = function() {
-    window.location.href = "./database-to-excel"
+const equipmentDatabaseToExcelButtonClick = function() {
+    window.location.href = "./equipment-database-to-excel";
+}
+const iP_AndPortDatabaseToExcelButtonClick = function() {
+    window.location.href = "./ip-and-port-database-to-excel";
+}
+const linksDatabaseToExcelButtonClick = function() {
+    window.location.href = "./links-database-to-excel";
+}
+const locationsDatabaseToExcelButtonClick = function() {
+    window.location.href = "./locations-database-to-excel";
+}
+const passwordDatabaseToExcelButtonClick = function() {
+    window.location.href = "./password-database-to-excel";
+}
+const serverDatabaseToExcelButtonClick = function() {
+    window.location.href = "./server-database-to-excel";
+}
+const userDatabaseToExcelButtonClick = function() {
+    window.location.href = "./user-database-to-excel";
 }
 userButton.addEventListener("click", userButtonClick);
 equipmentButton.addEventListener("click", equipmentButtonClick);
@@ -107,4 +131,10 @@ serverIP_Button.addEventListener("click", serverIP_ButtonClick);
 serverLocationButton.addEventListener("click", serverLocationButtonClick);
 equipmentLocationButton.addEventListener("click", equipmentLocationButtonClick);
 userComputerIP_LocationButton.addEventListener("click", userComputerIP_LocationButtonClick);
-dataBaseToExcelButton.addEventListener("click", databaseToExcelButtonClick);
+equipmentDatabaseToExcelButton.addEventListener("click", equipmentDatabaseToExcelButtonClick);
+iP_AndPortDatabaseToExcelButton.addEventListener("click", iP_AndPortDatabaseToExcelButtonClick);
+linksDatabaseToExcelButton.addEventListener("click", linksDatabaseToExcelButtonClick);
+locationsDatabaseToExcelButton.addEventListener("click", locationsDatabaseToExcelButtonClick);
+passwordDatabaseToExcelButton.addEventListener("click", passwordDatabaseToExcelButtonClick);
+serverDatabaseToExcelButton.addEventListener("click", serverDatabaseToExcelButtonClick);
+userDatabaseToExcelButton.addEventListener("click", userDatabaseToExcelButtonClick);
