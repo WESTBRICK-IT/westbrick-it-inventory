@@ -29,7 +29,7 @@
             </thead>
             <tbody>
             <?php
-                include '../common-functions/common-functions.php';
+                //include '../common-functions/common-functions.php';
                 function convertApostrophe($string) { 
                     $newString = str_replace("`", "'", $string); 
                     return $newString; 

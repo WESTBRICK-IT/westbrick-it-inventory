@@ -1,5 +1,5 @@
 <?php
-    include "../common-functions/common-functions.php";    
+    //include "../common-functions/common-functions.php";    
 
     function doTheDatabaseQuery($conn, $databaseQueryString){
         $result = mysqli_query($conn, $databaseQueryString);
@@ -37,16 +37,32 @@
         $usersDatabaseQueryString = 'SELECT * FROM users';
         return $usersDatabaseQueryString;
     }
+
+    function connectToDatabase(){
+        $allowedIPs = array('206.174.198.58', '206.174.198.59', '50.99.132.206'); // Define the list of allowed IP addresses
+        $remoteIP = $_SERVER['REMOTE_ADDR']; // Get the remote IP address of the client        
+        if (!in_array($remoteIP, $allowedIPs)) {
+            // Unauthorized access - display an error message or redirect
+            echo "<h1>Access denied. Your IP address is not allowed to view these items.</h1>";
+            exit();
+        }                    
+        // Connect to the database
+        $conn = mysqli_connect("localhost", "cbarber", "!!!Dr0w554p!!!", "IT_Inventory_DB");
+        if (!$conn) {
+            die("Connection failed: " . mysqli_connect_error());
+        }
+        return $conn;
+    }
     function executeEquipmentDatabaseQuery($conn, $databaseQueryStringsArray, $equipmentArrayOfArrays) {
-        $equipmentDatabaseQueryString = $databaseQueryStringsArray['equipmentQueryString'];      
+        $equipmentDatabaseQueryString = $databaseQueryStringsArray['equipmentQueryString'];           
         $equipmentArray = [];        
         $result = mysqli_query($conn, $equipmentDatabaseQueryString);
             if (mysqli_num_rows($result) > 0) {                                 
                 while($row = mysqli_fetch_assoc($result)){                    
-                    $equipmentArray = ['iD' => $row["id"], 'name' => $row['name'], 'type' => $row["type"], 'modelNumber' => $row['model_number'], 'serialNumber' => $row['serial_number'], 'purchaseDate' => $row['purchase_date'], 'purchasePrice' => $row['purchase_price'], 'warrantyStart' => $row['warranty_start'], 'warrantyEnd' => $row['warranty_end'], 'modelName' => $row['model_name'], 'date' => $row['date'], 'time' => $row['time']];
-                    array_push($equipmentArrayofArrays, $equipmentArray);
+                    $equipmentArray = ['iD' => $row["id"], 'name' => $row['name'], 'type' => $row["type"], 'modelNumber' => $row['model_number'], 'serialNumber' => $row['serial_number'], 'purchaseDate' => $row['purchase_date'], 'purchasePrice' => $row['purchase_price'], 'warrantyStart' => $row['warranty_start'], 'warrantyEnd' => $row['warranty_end'], 'modelName' => $row['model_name'], 'date' => $row['date'], 'time' => $row['time']];                    
+                    array_push($equipmentArrayOfArrays, $equipmentArray);
                 }
-            } 
+            }         
         return $equipmentArrayOfArrays;
     }   
     
@@ -82,7 +98,7 @@
         exit;
     }
     
-    function outputArraysToExcel($allArrayOfArraysOfArrays){        
+    function outputArraysToExcel($allArrayOfArraysOfArrays){             
         outputEquipmentDatabaseToExcel($allArrayOfArraysOfArrays['equipmentArrayOfArrays']);    
         //outputIP_AndPortsDatabaseToExcel($allArrayOfArraysOfArrays['iP_AndPortsArrayOfArrays']);
         //outputLinksDatabaseToExcel($allArrayOfArraysOfArrays['linksArrayOfArrays']);
@@ -116,7 +132,7 @@
         $equipmentArrayOfArrays = [];
         $iP_AndPortsArrayOfArrays = [];
         $linksArrayOfArrays = [];
-        $equipmentArrayOfArrays = executeEquipmentDatabaseQuery($conn, $databaseQueryStringsArray, $equipmentArrayOfArrays);
+        $equipmentArrayOfArrays = executeEquipmentDatabaseQuery($conn, $databaseQueryStringsArray, $equipmentArrayOfArrays);        
         $iP_AndPortsArrayOfArrays = executeIP_AndPortsDatabaseQuery($conn, $databaseQueryStringsArray, $iP_AndPortsArrayOfArrays);
         $linksArrayOfArrays = executeLinksDatabaseQuery($conn, $databaseQueryStringsArray, $linksArrayOfArrays);        
         $allArrayOfArraysOfArrays = ['equipmentArrayOfArrays' => $equipmentArrayOfArrays, 'iP_AndPortsArrayOfArrays' => $iP_AndPortsArrayOfArrays, 'linksArrayOfArrays' => $linksArrayOfArrays];
@@ -140,9 +156,9 @@
         return $databaseQueryStringsArray;
     }
     function databaseToExcelMainFunction() {
-        $databaseQueryStringsArray = [];
+        $databaseQueryStringsArray = [];        
         $conn = connectToDatabase();
-        $databaseQueryStringsArray = getDatabaseQueryStringsForEachTable($databaseQueryStringsArray);
+        $databaseQueryStringsArray = getDatabaseQueryStringsForEachTable($databaseQueryStringsArray);        
         executeDatabaseQueries($conn , $databaseQueryStringsArray);
         //$databaseQueryString = createDatabaseQueryString();
         //doTheDatabaseQuery($conn, $databaseQueryString);
