@@ -25,7 +25,9 @@ const linksDatabaseToExcelButton = document.querySelector(".links-database-to-ex
 const locationsDatabaseToExcelButton = document.querySelector(".locations-database-to-excel-button");
 const passwordDatabaseToExcelButton = document.querySelector(".password-database-to-excel-button");
 const serverDatabaseToExcelButton = document.querySelector(".server-database-to-excel-button");
-const userDatabaseToExcelButton = document.querySelector('.user-database-to-excel-button');
+const userDatabaseToExcelButton = document.querySelector(".user-database-to-excel-button");
+const combinedDatabaseToExcelButton = document.querySelector(".combined-database-to-excel-button");
+const userComputerIP_DatabaseToExcelButton = document.querySelector(".user-computer-ip-database-to-excel-button");
 const userButtonClick = function() {
     window.location.href = "./users/";
 }
@@ -110,6 +112,12 @@ const serverDatabaseToExcelButtonClick = function() {
 const userDatabaseToExcelButtonClick = function() {
     window.location.href = "./user-database-to-excel";
 }
+const combinedDatabaseToExcelButtonClick = function() {
+    window.location.href = "./combined-database-to-excel";
+}
+const userComputerIP_DatabaseToExcelButtonClick = function() {
+    window.location.href = "./user-computer-ip-database-to-excel";
+}
 userButton.addEventListener("click", userButtonClick);
 equipmentButton.addEventListener("click", equipmentButtonClick);
 locationsButton.addEventListener("click", locationsButtonClick);
@@ -138,3 +146,5 @@ locationsDatabaseToExcelButton.addEventListener("click", locationsDatabaseToExce
 passwordDatabaseToExcelButton.addEventListener("click", passwordDatabaseToExcelButtonClick);
 serverDatabaseToExcelButton.addEventListener("click", serverDatabaseToExcelButtonClick);
 userDatabaseToExcelButton.addEventListener("click", userDatabaseToExcelButtonClick);
+combinedDatabaseToExcelButton.addEventListener("click", combinedDatabaseToExcelButtonClick);
+userComputerIP_DatabaseToExcelButton.addEventListener("click", userComputerIP_DatabaseToExcelButtonClick);
