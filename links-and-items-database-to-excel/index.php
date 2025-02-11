@@ -156,14 +156,14 @@
             $email = $row['email'];
             $positionTitle = $row['position_title'];
             $extensionNum = $row['extension_num'];
-            $userName = $row['username'];
+            $username = $row['username'];
             $date = $row['date'];
             $time = $row['time'];
             $userRemark = $row['user_remark'];
         } else {
             echo "No user found with ID: " . htmlspecialchars($id);
         }
-        $userDataArray = ['userName' => $userName, 'firstName' => $firstName, 'lastName' => $lastName, 'cellPhoneNum' => $cellPhoneNum, 'officePhoneNum' => $officePhoneNum, 'email' => $email, $positionTitle => 'positionTitle', 'extensionNum' => $extensionNum, 'username' => $userName, 'date' => $date, 'time' => $time, 'userRemark' => $userRemark];
+        $userDataArray = ['userName' => $userName, 'firstName' => $firstName, 'lastName' => $lastName, 'cellPhoneNum' => $cellPhoneNum, 'officePhoneNum' => $officePhoneNum, 'email' => $email, $positionTitle => 'positionTitle', 'extensionNum' => $extensionNum, 'username' => $userName];
         return $userDataArray;
     }
     function getTheEquipment($id, $conn) {
@@ -189,7 +189,10 @@
             $port = $row['port'];                        
         } else {
             echo "No user found with ID: " . htmlspecialchars($id);
-        }        
+        }
+        // echo    "<h1>Location Name: $locationName</h1>";
+        // echo    "<h1>Room Number: $roomNumber</h1>";
+        // echo    "<h1>City or Town: $cityTown</h1>";
         $iP_Array = ['iP' => $iP, 'port' => $port];
         return $iP_Array;
     }
@@ -339,46 +342,6 @@
         }       
         
     }
-    function getTheUserComputerArray($combinedLinkMatchArray, $userComputerArray){
-        $firstMatchLinkUserArray = [];
-        $firstMatchLinkEquipmentArray = [];
-        $firstMatchLinkIP_Array = [];
-        $secondMatchLinkUserArray = [];
-        $secondMatchLinkEquipmentArray = [];
-        $secondMatchLinkIP_Array = [];
-        $firstLinkMatchArray = $combinedLinkMatchArray[0];
-        $secondLinkMatchArray = $combinedLinkMatchArray[1];
-        if($firstLinkMatchArray['userName'] != null){
-            echo "This is a User Array";
-            array_push($firstMatchLinkUserArray, $firstLinkMatchArray);
-        }elseif($firstLinkMatchArray['modelName'] != null){
-            echo "This is an equipment Array";
-            array_push($firstMatchLinkEquipmentArray, $firstLinkMatchArray);
-        }elseif($firstLinkMatchArray['iP'] != null){
-            echo "This is an IP Array";
-            array_push($firstMatchLinkIP_Array, $firstLinkMatchArray);
-        }
-        if($secondLinkMatchArray['userName'] != null){
-            echo "This is a second User Array";
-            array_push($secondMatchLinkUserArray, $secondLinkMatchArray);
-        }elseif($secondLinkMatchArray['modelName'] != null){
-            echo "This is a second Equipment Array";
-            array_push($secondMatchLinkEquipmentArray, $secondLinkMatchArray);
-        }elseif($secondLinkMatchArray['iP'] != null){
-            echo "This is a second IP Array";
-            array_push($secondMatchLinkIP_Array, $secondLinkMatchArray);
-        }
-
-    }
-    function getTheComputerIPArray($combinedLinkMatchArray, $computerIP_Array){
-
-    }
-    function getTheUserEquipmentIP_MatchingLinks($combinedLinkMatchArray){
-        $userComputerArray = [];
-        $computerIP_Array = [];        
-        $userComputerArray = getTheUserComputerArray($combinedLinkMatchArray, $userComputerArray);
-        $computerIP_Array = getTheComputerIPArray($combinedLinkMatchArray, $computerIP_Array);
-    }
     function getTheArrayOfItemsForExcelOutput($allArrayOfArraysOfArrays, $conn, $arrayOfUserComputerIPToBePrinted){
         $linksArrayOfArrays = $allArrayOfArraysOfArrays['linksArrayOfArrays'];
         //loop through each link
@@ -390,8 +353,7 @@
             $secondType = $linkArray['secondType'];
             //once we have one link we get the first item and the second item that are part of the link
             $combinedLinkMatchArray = getTheMatchedLinks($firstID, $firstType, $secondID, $secondType, $conn, $allArrayOfArraysOfArrays);
-            $userEquipmentIP_MatchArray = getTheUserEquipmentIP_MatchingLinks($combinedLinkMatchArray);
-            //outputToExcelSheet($combinedLinkMatchArray);
+            outputToExcelSheet($combinedLinkMatchArray);
         }
         return $arrayOfUserComputerIPToBePrinted;
     }

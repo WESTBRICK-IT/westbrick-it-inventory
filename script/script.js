@@ -98,7 +98,7 @@ const iP_AndPortDatabaseToExcelButtonClick = function() {
     window.location.href = "./ip-and-port-database-to-excel";
 }
 const linksDatabaseToExcelButtonClick = function() {
-    window.location.href = "./links-database-to-excel";
+    window.location.href = "./links-and-items-database-to-excel";
 }
 const locationsDatabaseToExcelButtonClick = function() {
     window.location.href = "./locations-database-to-excel";
