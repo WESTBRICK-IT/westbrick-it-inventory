@@ -380,28 +380,28 @@
             echo "$thing" . "\t";
         }
     }
-    function matchByEquipmentAndPutInRowOfThreeAndPrint($arrayOfUserEquipmentIPToBePrinted){
+    function matchByEquipmentAndPutInRowOfThreeAndPrint($arrayOfUserEquipmentIP_LocationToBePrinted){
         $fileName = "it_inventory_user_computer_ip_data.xls";
         header("Content-Disposition: attachment; filename=\"$fileName\"");
         header("Content-Type: application/vnd.ms-excel");
-        for($i = 0; $i < count($arrayOfUserEquipmentIPToBePrinted); $i++){
-            for($j = 0; $j < count($arrayOfUserEquipmentIPToBePrinted); $j++){
-                if($arrayOfUserEquipmentIPToBePrinted[$i][0]['modelName'] == $arrayOfUserEquipmentIPToBePrinted[$j][1]['modelName']){
-                    if($arrayOfUserEquipmentIPToBePrinted[$i][0]['modelName'] != null){
-                        //echo    "<h1>" . "MATCH " . $arrayOfUserEquipmentIPToBePrinted[$i][0]['modelName'] . " " . $arrayOfUserEquipmentIPToBePrinted[$j][1]['modelName'] . "</h1>" ;
+        for($i = 0; $i < count($arrayOfUserEquipmentIP_LocationToBePrinted); $i++){
+            for($j = 0; $j < count($arrayOfUserEquipmentIP_LocationToBePrinted); $j++){
+                if($arrayOfUserEquipmentIP_LocationToBePrinted[$i][0]['modelName'] == $arrayOfUserEquipmentIP_LocationToBePrinted[$j][1]['modelName']){
+                    if($arrayOfUserEquipmentIP_LocationToBePrinted[$i][0]['modelName'] != null){
+                        //echo    "<h1>" . "MATCH " . $arrayOfUserEquipmentIP_LocationToBePrinted[$i][0]['modelName'] . " " . $arrayOfUserEquipmentIP_LocationToBePrinted[$j][1]['modelName'] . "</h1>" ;
                         echo    "First One: " . "\t";
-                        printTheMatchingOne($arrayOfUserEquipmentIPToBePrinted[$i][0]);
+                        printTheMatchingOne($arrayOfUserEquipmentIP_LocationToBePrinted[$i][0]);
                         echo   "\t" . "Second One: " . "\t";
-                        printTheMatchingOne($arrayOfUserEquipmentIPToBePrinted[$i][1]);
+                        printTheMatchingOne($arrayOfUserEquipmentIP_LocationToBePrinted[$i][1]);
                         echo   "\t" . "Third One: " . "\t";
-                        printTheMatchingOne($arrayOfUserEquipmentIPToBePrinted[$j][0]);
+                        printTheMatchingOne($arrayOfUserEquipmentIP_LocationToBePrinted[$j][0]);
                         echo "\n";
                     }                    
                 }
             }            
         }
     }
-    function getTheArrayOfItemsForExcelOutput($allArrayOfArraysOfArrays, $conn, $arrayOfUserEquipmentIPToBePrinted){
+    function getTheArrayOfItemsForExcelOutput($allArrayOfArraysOfArrays, $conn, $arrayOfUserEquipmentIP_LocationToBePrinted){
         $linksArrayOfArrays = $allArrayOfArraysOfArrays['linksArrayOfArrays'];
         $combinedLinkMatchArray = [];
         //loop through each link
@@ -415,23 +415,23 @@
             array_push($combinedLinkMatchArray,getTheMatchedLinks($firstID, $firstType, $secondID, $secondType, $conn, $allArrayOfArraysOfArrays));            
             //outputToExcelSheet($combinedLinkMatchArray);
         }
-        $arrayOfUserEquipmentIPToBePrinted = getTheUserEquipmentIP_MatchingLinks($combinedLinkMatchArray);
+        $arrayOfUserEquipmentIP_LocationToBePrinted = getTheUserEquipmentIP_MatchingLinks($combinedLinkMatchArray);
         
-        return $arrayOfUserEquipmentIPToBePrinted;
+        return $arrayOfUserEquipmentIP_LocationToBePrinted;
     }
-    function printTheArrayToExcel($arrayOfUserEquipmentIPToBePrinted){
+    function printTheArrayToExcel($arrayOfUserEquipmentIP_LocationToBePrinted){
         // $fileName = "it_inventory_user_computer_ip_data.xls";
         // header("Content-Disposition: attachment; filename=\"$fileName\"");
         // header("Content-Type: application/vnd.ms-excel");
-        for($i = 0; $i < count($arrayOfUserEquipmentIPToBePrinted); $i++){
-            $firstItemArrayInMatchLink = $arrayOfUserEquipmentIPToBePrinted[$i][0];
+        for($i = 0; $i < count($arrayOfUserEquipmentIP_LocationToBePrinted); $i++){
+            $firstItemArrayInMatchLink = $arrayOfUserEquipmentIP_LocationToBePrinted[$i][0];
             echo    "First Link Item:" . "\t";
             foreach($firstItemArrayInMatchLink as $itemFromFirstLinkArray){
                 echo "$itemFromFirstLinkArray". "\t";
             }         
             echo "\t";   
             echo    "Second Link Item:" . "\t";
-            $secondArrayItemInMatchLink = $arrayOfUserEquipmentIPToBePrinted[$i][1];
+            $secondArrayItemInMatchLink = $arrayOfUserEquipmentIP_LocationToBePrinted[$i][1];
             foreach($secondArrayItemInMatchLink as $itemFromSecondLinkArray){
                 echo "$itemFromSecondLinkArray". "\t";
             }
@@ -446,10 +446,10 @@
         // exit;
     }
     function outputArraysToExcel($allArrayOfArraysOfArrays, $conn){        
-        $arrayOfUserEquipmentIPToBePrinted = [];
-        $arrayOfUserEquipmentIPToBePrinted = getTheArrayOfItemsForExcelOutput($allArrayOfArraysOfArrays, $conn, $arrayOfUserEquipmentIPToBePrinted);    
-        matchByEquipmentAndPutInRowOfThreeAndPrint($arrayOfUserEquipmentIPToBePrinted);    
-        //printTheArrayToExcel($arrayOfUserEquipmentIPToBePrinted);        
+        $arrayOfUserEquipmentIP_LocationToBePrinted = [];
+        $arrayOfUserEquipmentIP_LocationToBePrinted = getTheArrayOfItemsForExcelOutput($allArrayOfArraysOfArrays, $conn, $arrayOfUserEquipmentIP_LocationToBePrinted);
+        matchByEquipmentAndPutInRowOfThreeAndPrint($arrayOfUserEquipmentIP_LocationToBePrinted);    
+        //printTheArrayToExcel($arrayOfUserEquipmentIP_LocationToBePrinted);        
     }
     function executeIP_AndPortsDatabaseQuery($conn, $databaseQueryStringsArray, $iP_AndPortsArrayOfArrays){
         $iP_AndPortsQueryString = $databaseQueryStringsArray['iP_AndPortsQueryString'];      

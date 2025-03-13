@@ -28,6 +28,7 @@ const serverDatabaseToExcelButton = document.querySelector(".server-database-to-
 const userDatabaseToExcelButton = document.querySelector(".user-database-to-excel-button");
 const combinedDatabaseToExcelButton = document.querySelector(".combined-database-to-excel-button");
 const userComputerIP_DatabaseToExcelButton = document.querySelector(".user-computer-ip-database-to-excel-button");
+const userComputerIP_LocationDatabaseToExcelButton = document.querySelector(".user-computer-ip-location-database-to-excel-button");
 const userButtonClick = function() {
     window.location.href = "./users/";
 }
@@ -118,6 +119,9 @@ const combinedDatabaseToExcelButtonClick = function() {
 const userComputerIP_DatabaseToExcelButtonClick = function() {
     window.location.href = "./user-computer-ip-database-to-excel";
 }
+const userComputerIP_LocationDatabaseToExcelButtonClick = function(){
+    window.location.href = "./user-computer-ip-location-database-to-excel";
+}
 userButton.addEventListener("click", userButtonClick);
 equipmentButton.addEventListener("click", equipmentButtonClick);
 locationsButton.addEventListener("click", locationsButtonClick);
@@ -148,3 +152,4 @@ serverDatabaseToExcelButton.addEventListener("click", serverDatabaseToExcelButto
 userDatabaseToExcelButton.addEventListener("click", userDatabaseToExcelButtonClick);
 combinedDatabaseToExcelButton.addEventListener("click", combinedDatabaseToExcelButtonClick);
 userComputerIP_DatabaseToExcelButton.addEventListener("click", userComputerIP_DatabaseToExcelButtonClick);
+userComputerIP_LocationDatabaseToExcelButton.addEventListener("click", userComputerIP_LocationDatabaseToExcelButtonClick);
